@@ -3,3256 +3,930 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lado C - Una mirada distinta sobre la política</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@600;700&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bordo: #9B1C1C;
-            --blanco: #FFFFFF;
-            --azul-claro: #DCE6F2;
-            --gris-oscuro: #333333;
-            --gris-medio: #666666;
-            --gris-claro: #F5F5F5;
-            --verde: #2E7D32;
-            --sombra: rgba(0, 0, 0, 0.08);
-            --sombra-hover: rgba(0, 0, 0, 0.12);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Merriweather', serif;
-            color: var(--gris-oscuro);
-            background-color: var(--blanco);
-            line-height: 1.6;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--blanco);
-            box-shadow: 0 2px 15px var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        @media (min-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
-        
-        .logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--bordo);
-            letter-spacing: -1px;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-        
-        .logo span {
-            color: var(--gris-oscuro);
-        }
-        
-        nav ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            list-style: none;
-        }
-        
-        nav a {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-        
-        nav a:hover {
-            color: var(--bordo);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--bordo);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        /* Main content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-        }
-        
-        @media (min-width: 992px) {
-            .content-wrapper {
-                flex-direction: row;
-            }
-        }
-        
-        /* Main articles */
-        .main-content {
-            flex: 1;
-        }
-        
-        .page-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--gris-oscuro);
-            border-left: 4px solid var(--bordo);
-            padding-left: 1rem;
-        }
-        
-        .articles-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-        }
-        
-        @media (min-width: 768px) {
-            .articles-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .article-card {
-            background-color: var(--blanco);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px var(--sombra);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--sombra-hover);
-        }
-        
-        .article-image {
-            height: 200px;
-            width: 100%;
-            background-color: var(--azul-claro);
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .article-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .article-category {
-            display: inline-block;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--bordo);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
-        }
-        
-        .article-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--gris-oscuro);
-        }
-        
-        .article-excerpt {
-            color: var(--gris-medio);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            flex: 1;
-            line-height: 1.6;
-        }
-        
-        .article-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            font-size: 0.85rem;
-            color: var(--gris-medio);
-        }
-        
-        .read-more {
-            display: inline-block;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            color: var(--bordo);
-            padding: 0.5rem 1.2rem;
-            border: 1.5px solid var(--bordo);
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .read-more:hover {
-            background-color: var(--bordo);
-            color: var(--blanco);
-        }
-        
-        /* Featured section */
-        .featured-section {
-            margin-top: 4rem;
-        }
-        
-        .featured-articles {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-        
-        @media (min-width: 768px) {
-            .featured-articles {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .featured-card {
-            background-color: var(--blanco);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px var(--sombra);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .featured-card:hover {
-            transform: translateY(-3px);
-        }
-        
-        .featured-content {
-            padding: 1.2rem;
-        }
-        
-        .featured-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Sidebar - Columnists */
-        .sidebar {
-            width: 100%;
-        }
-        
-        @media (min-width: 992px) {
-            .sidebar {
-                width: 320px;
-            }
-        }
-        
-        .sidebar-widget {
-            background-color: var(--gris-claro);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px var(--sombra);
-        }
-        
-        .widget-title {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--gris-oscuro);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .widget-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--bordo);
-        }
-        
-        .columnists-container {
-            margin-bottom: 2rem;
-        }
-        
-        .columnist-bio {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        
-        .columnist-bio:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .columnist-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background-color: var(--azul-claro);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 3px solid var(--blanco);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .columnist-photo i {
-            font-size: 3rem;
-            color: var(--bordo);
-        }
-        
-        .columnist-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--gris-oscuro);
-        }
-        
-        .columnist-tagline {
-            font-style: italic;
-            color: var(--bordo);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-        
-        .columnist-description {
-            color: var(--gris-medio);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--blanco);
-            border-radius: 50%;
-            color: var(--bordo);
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px var(--sombra);
-        }
-        
-        .social-link:hover {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            transform: translateY(-3px);
-        }
-        
-        .archive-list {
-            list-style: none;
-        }
-        
-        .archive-item {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        }
-        
-        .archive-item:last-child {
-            border-bottom: none;
-        }
-        
-        .archive-item a {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .archive-item a:hover {
-            color: var(--bordo);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            padding: 3rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        @media (min-width: 768px) {
-            .footer-content {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .footer-logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-        
-        .footer-description {
-            opacity: 0.9;
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-        }
-        
-        .footer-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 1.2rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 2px;
-            background-color: var(--blanco);
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* Article Modal */
-        .article-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: flex-start;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-        
-        .article-modal.active {
-            display: flex;
-        }
-        
-        .article-modal-content {
-            background-color: var(--blanco);
-            max-width: 800px;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            margin: auto;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .article-modal-header {
-            padding: 2.5rem 2.5rem 1.5rem;
-            border-bottom: 1px solid var(--gris-claro);
-        }
-        
-        .article-modal-header .article-category {
-            margin-bottom: 1rem;
-        }
-        
-        .article-modal-header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        .article-modal-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--gris-medio);
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
-        }
-        
-        .article-modal-body {
-            padding: 2rem 2.5rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .article-modal-body p {
-            margin-bottom: 1.5rem;
-        }
-        
-        .article-modal-body h2 {
-            font-size: 1.6rem;
-            margin: 2rem 0 1rem;
-            color: var(--gris-oscuro);
-        }
-        
-        .article-modal-body blockquote {
-            border-left: 4px solid var(--bordo);
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            color: var(--gris-medio);
-            font-size: 1.2rem;
-        }
-        
-        .article-modal-image {
-            width: 100%;
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2001;
-        }
-        
-        /* Comments Section */
-        .comments-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--gris-claro);
-        }
-        
-        .comments-title {
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            color: var(--gris-oscuro);
-        }
-        
-        .comment-form {
-            background-color: var(--gris-claro);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        
-        .comment-form-title {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: var(--gris-oscuro);
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--gris-oscuro);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Merriweather', serif;
-            font-size: 0.95rem;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--bordo);
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .checkbox-group input {
-            width: auto;
-        }
-        
-        .btn {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #7a1616;
-        }
-        
-        .btn-secondary {
-            background-color: var(--gris-medio);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #555;
-        }
-        
-        .comments-list {
-            margin-top: 2rem;
-        }
-        
-        .comment {
-            background-color: var(--gris-claro);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-size: 0.9rem;
-        }
-        
-        .comment-author {
-            font-weight: 600;
-            color: var(--gris-oscuro);
-        }
-        
-        .comment-date {
-            color: var(--gris-medio);
-        }
-        
-        .comment-content {
-            line-height: 1.6;
-        }
-        
-        .anonymous-badge {
-            display: inline-block;
-            background-color: var(--azul-claro);
-            color: var(--gris-oscuro);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-        
-        /* Admin Panel - Panel lateral */
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 450px;
-            height: 100%;
-            background-color: var(--blanco);
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
-            z-index: 3000;
-            transition: right 0.4s ease;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .admin-panel.active {
-            right: 0;
-        }
-        
-        .admin-panel-header {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .admin-panel-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        .close-admin-panel {
-            background: none;
-            border: none;
-            color: var(--blanco);
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .admin-panel-nav {
-            display: flex;
-            border-bottom: 1px solid var(--gris-claro);
-        }
-        
-        .admin-nav-btn {
-            flex: 1;
-            padding: 1rem;
-            background: none;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--gris-medio);
-            transition: all 0.3s ease;
-        }
-        
-        .admin-nav-btn.active {
-            color: var(--bordo);
-            border-bottom: 3px solid var(--bordo);
-        }
-        
-        .admin-panel-content {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-        
-        .admin-section {
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--gris-claro);
-        }
-        
-        .admin-section h3 {
-            margin-bottom: 1.2rem;
-            color: var(--gris-oscuro);
-            font-size: 1.2rem;
-        }
-        
-        .admin-edit-form {
-            background-color: var(--gris-claro);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .admin-form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .admin-form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--gris-oscuro);
-        }
-        
-        .admin-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Merriweather', serif;
-            font-size: 0.95rem;
-        }
-        
-        .admin-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Merriweather', serif;
-            font-size: 0.95rem;
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .admin-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .admin-form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .admin-articles-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--gris-claro);
-            border-radius: 6px;
-        }
-        
-        .admin-article-item {
-            padding: 1rem;
-            border-bottom: 1px solid var(--gris-claro);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            position: relative;
-        }
-        
-        .admin-article-item:hover {
-            background-color: var(--gris-claro);
-        }
-        
-        .admin-article-item.active {
-            background-color: var(--azul-claro);
-            border-left: 3px solid var(--bordo);
-        }
-        
-        .admin-article-item h4 {
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-        
-        .admin-article-meta {
-            font-size: 0.85rem;
-            color: var(--gris-medio);
-        }
-        
-        .admin-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .admin-btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn-primary {
-            background-color: var(--bordo);
-            color: var(--blanco);
-        }
-        
-        .admin-btn-primary:hover {
-            background-color: #7a1616;
-        }
-        
-        .admin-btn-secondary {
-            background-color: var(--gris-medio);
-            color: var(--blanco);
-        }
-        
-        .admin-btn-secondary:hover {
-            background-color: #555;
-        }
-        
-        .admin-btn-success {
-            background-color: var(--verde);
-            color: var(--blanco);
-        }
-        
-        .admin-btn-success:hover {
-            background-color: #1b5e20;
-        }
-        
-        .admin-btn-danger {
-            background-color: #d32f2f;
-            color: var(--blanco);
-        }
-        
-        .admin-btn-danger:hover {
-            background-color: #b71c1c;
-        }
-        
-        .admin-btn-warning {
-            background-color: #ff9800;
-            color: var(--blanco);
-        }
-        
-        .admin-btn-warning:hover {
-            background-color: #ef6c00;
-        }
-        
-        .admin-floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .admin-panel-btn {
-            background: #9B1C1C;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-        
-        .admin-panel-btn:hover {
-            background: #7a1616;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Botones de administrador en vista de administrador */
-        .admin-edit-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(155, 28, 28, 0.9);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            z-index: 10;
-            display: none;
-        }
-        
-        .admin-delete-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(211, 47, 47, 0.9);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            z-index: 10;
-            display: none;
-        }
-        
-        /* Mostrar botones solo en modo admin */
-        body.admin-mode .admin-edit-btn,
-        body.admin-mode .admin-delete-btn {
-            display: block;
-        }
-        
-        body.admin-mode .admin-floating-btn {
-            display: block;
-        }
-        
-        /* Ocultar botones flotantes en modo público */
-        body:not(.admin-mode) .admin-floating-btn {
-            display: none;
-        }
-        
-        /* Login modal */
-        .login-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 10001;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .login-modal.active {
-            display: flex;
-        }
-        
-        .login-modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-        
-        .login-modal h2 {
-            color: #9B1C1C;
-            margin-bottom: 20px;
-        }
-        
-        /* Newsletter success */
-        .newsletter-success {
-            background-color: var(--verde);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            text-align: center;
-            display: none;
-        }
-        
-        /* Overlay cuando panel admin está abierto */
-        .admin-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2999;
-            display: none;
-        }
-        
-        .admin-overlay.active {
-            display: block;
-        }
-        
-        /* Category Filter */
-        .category-filter {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .category-btn {
-            padding: 0.5rem 1.2rem;
-            background-color: var(--gris-claro);
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn:hover {
-            background-color: var(--azul-claro);
-        }
-        
-        .category-btn.active {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            border-color: var(--bordo);
-        }
-        
-        /* Columnist edit */
-        .columnist-form {
-            background-color: var(--gris-claro);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .columnist-item {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
-        }
-        
-        .columnist-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 767px) {
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .header-container {
-                padding: 1rem 1.5rem;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .article-modal-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .article-modal-content {
-                padding: 1rem;
-            }
-            
-            .article-modal-header,
-            .article-modal-body {
-                padding: 1.5rem;
-            }
-            
-            .page-title {
-                font-size: 1.5rem;
-            }
-            
-            .admin-panel {
-                width: 100%;
-                right: -100%;
-            }
-            
-            .category-filter {
-                justify-content: center;
-            }
-        }
-        
-        /* Article count */
-        .article-count {
-            font-size: 0.9rem;
-            color: var(--gris-medio);
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-    </style>
+    <title>LADO C - Panel de Administración</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo" id="goToHome">Lado <span>C</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#inicio" class="category-link" data-category="all">Inicio</a></li>
-                    <li><a href="#catamarca" class="category-link" data-category="Catamarca">Catamarca</a></li>
-                    <li><a href="#opinion" class="category-link" data-category="Opinión">Opinión</a></li>
-                    <li><a href="#sociedad" class="category-link" data-category="Sociedad">Sociedad</a></li>
-                    <li><a href="#internacionales" class="category-link" data-category="Internacionales">Internacionales</a></li>
-                    <li><a href="#politica-nacional" class="category-link" data-category="Política Nacional">Política Nacional</a></li>
-                </ul>
-            </nav>
+    <!-- Contenedor principal -->
+    <div id="app">
+        <!-- Login (se muestra por defecto) -->
+        <div id="loginContainer" class="container">
+            <div class="login-form">
+                <h1>🔐 Panel de Administración</h1>
+                <h2>LADO C - Noticias y Opinión de Catamarca</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Usuario:</label>
+                        <input type="text" id="username" name="username" placeholder="admin" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+                <div id="loginMessage" class="message"></div>
+            </div>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="content-wrapper">
-            <!-- Main Articles -->
-            <main class="main-content" id="inicio">
-                <h1 class="page-title" id="pageTitle">Opinión Política y Social</h1>
-                
-                <!-- Category Filter -->
-                <div class="category-filter">
-                    <button class="category-btn active" data-category="all">Todos</button>
-                    <button class="category-btn" data-category="Catamarca">Catamarca</button>
-                    <button class="category-btn" data-category="Opinión">Opinión</button>
-                    <button class="category-btn" data-category="Sociedad">Sociedad</button>
-                    <button class="category-btn" data-category="Internacionales">Internacionales</button>
-                    <button class="category-btn" data-category="Política Nacional">Política Nacional</button>
+        <!-- Panel de Administración (oculto por defecto) -->
+        <div id="adminPanel" class="container" style="display: none;">
+            <!-- Cabecera con botón de logout -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1>LADO C - Panel de Administración</h1>
+                    <p>Bienvenido, <span id="adminUsername">Administrador</span></p>
                 </div>
-                
-                <div class="article-count" id="articleCount">Mostrando <span id="count">4</span> artículos</div>
-                
-                <div class="articles-grid" id="articlesGrid">
-                    <!-- Article 1 -->
-                    <article class="article-card" data-article-id="1" data-category="Catamarca">
-                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
-                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
-                        <div class="article-content">
-                            <span class="article-category">Catamarca</span>
-                            <h2 class="article-title">El futuro del trabajo en el Noroeste Argentino</h2>
-                            <p class="article-excerpt">La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad? La transición justa implica políticas activas de formación profesional, protección social ampliada para trabajadores digitales y el fomento de cooperativas que compitan en los nuevos mercados. El socialismo democrático debe aspirar a un modelo que combine innovación con justicia social y participación popular.</p>
-                            <div class="article-meta">
-                                <span>15 de mayo, 2023</span>
-                                <a href="#articulo1" class="read-more">Leer más</a>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Article 2 -->
-                    <article class="article-card" data-article-id="2" data-category="Sociedad">
-                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
-                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
-                        <div class="article-content">
-                            <span class="article-category">Sociedad</span>
-                            <h2 class="article-title">Juventud y participación política: más allá del voto</h2>
-                            <p class="article-excerpt">La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca. Los jóvenes catamarqueños están reinventando la participación política a través de asambleas barriales, cooperativas estudiantiles y proyectos culturales que desafían las estructuras tradicionales. Este artículo explora cómo estas nuevas formas de organización pueden transformar la política provincial.</p>
-                            <div class="article-meta">
-                                <span>12 de mayo, 2023</span>
-                                <a href="#articulo2" class="read-more">Leer más</a>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Article 3 -->
-                    <article class="article-card" data-article-id="3" data-category="Internacionales">
-                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
-                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
-                        <div class="article-content">
-                            <span class="article-category">Internacionales</span>
-                            <h2 class="article-title">Nuevas izquierdas en América Latina: aprendizajes y desafíos</h2>
-                            <p class="article-excerpt">De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia? La experiencia de Petro en Colombia, Boric en Chile y Lula en Brasil muestra que el éxito depende de la capacidad para construir coaliciones amplias sin traicionar los principios de justicia social. Analizamos cómo estas experiencias pueden inspirar un socialismo democrático adaptado a Catamarca.</p>
-                            <div class="article-meta">
-                                <span>8 de mayo, 2023</span>
-                                <a href="#articulo3" class="read-more">Leer más</a>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Article 4 -->
-                    <article class="article-card" data-article-id="4" data-category="Opinión">
-                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
-                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
-                        <div class="article-content">
-                            <span class="article-category">Opinión</span>
-                            <h2 class="article-title">Democracia socialista: ¿utopía o horizonte alcanzable?</h2>
-                            <p class="article-excerpt">Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa. Partiendo de las experiencias de autogestión en fábricas recuperadas y las asambleas populares, exploramos cómo una democracia socialista podría funcionar en Catamarca, combinando representación con participación directa y priorizando el bien común sobre el interés privado.</p>
-                            <div class="article-meta">
-                                <span>5 de mayo, 2023</span>
-                                <a href="#articulo4" class="read-more">Leer más</a>
-                            </div>
-                        </div>
-                    </article>
+                <div class="header-right">
+                    <button id="logoutBtn" class="btn btn-secondary">🚪 Cerrar Sesión</button>
                 </div>
-                
-                <!-- Featured Articles Section -->
-                <section class="featured-section">
-                    <h2 class="page-title">Destacados de la semana</h2>
-                    <div class="featured-articles">
-                        <article class="featured-card" data-article-id="5" data-category="Catamarca">
-                            <div class="featured-content">
-                                <span class="article-category">Catamarca</span>
-                                <h3 class="featured-title">La minería y el desarrollo sustentable: ¿son compatibles?</h3>
-                                <div class="article-meta">
-                                    <span>3 de mayo, 2023</span>
-                                </div>
+            </header>
+
+            <!-- Menú de navegación -->
+            <nav class="admin-nav">
+                <button class="nav-btn active" data-section="editoriales">📰 Editoriales</button>
+                <button class="nav-btn" data-section="columnistas">✍️ Columnistas</button>
+                <button class="nav-btn" data-section="suscriptores">👥 Suscriptores</button>
+                <button class="nav-btn" data-section="comentarios">💬 Comentarios</button>
+            </nav>
+
+            <!-- Contenido de las secciones -->
+            <main class="admin-content">
+                <!-- Sección Editoriales -->
+                <section id="editorialesSection" class="content-section active">
+                    <div class="section-header">
+                        <h2>📰 Editoriales Actuales</h2>
+                        <button id="newEditorialBtn" class="btn btn-primary">+ Crear Nuevo Editorial</button>
+                    </div>
+                    
+                    <div class="editorials-list">
+                        <div class="editorial-item">
+                            <h3>El futuro del trabajo en el Noroeste Argentino</h3>
+                            <div class="editorial-meta">
+                                <span class="category">Catamarca</span>
+                                <span class="date">15 de mayo, 2023</span>
                             </div>
-                        </article>
+                            <div class="editorial-actions">
+                                <button class="btn btn-small btn-edit">✏️ Editar</button>
+                                <button class="btn btn-small btn-delete">🗑️ Borrar</button>
+                            </div>
+                        </div>
                         
-                        <article class="featured-card" data-article-id="6" data-category="Sociedad">
-                            <div class="featured-content">
-                                <span class="article-category">Sociedad</span>
-                                <h3 class="featured-title">Feminismo popular en el interior: las mujeres que transforman</h3>
-                                <div class="article-meta">
-                                    <span>30 de abril, 2023</span>
-                                </div>
+                        <div class="editorial-item">
+                            <h3>Juventud y participación política: más allá del voto</h3>
+                            <div class="editorial-meta">
+                                <span class="category">Sociedad</span>
+                                <span class="date">12 de mayo, 2023</span>
                             </div>
-                        </article>
-                        
-                        <article class="featured-card" data-article-id="7" data-category="Política Nacional">
-                            <div class="featured-content">
-                                <span class="article-category">Política Nacional</span>
-                                <h3 class="featured-title">Crisis climática y justicia social: la deuda ecológica del Norte</h3>
-                                <div class="article-meta">
-                                    <span>28 de abril, 2023</span>
-                                </div>
+                            <div class="editorial-actions">
+                                <button class="btn btn-small btn-edit">✏️ Editar</button>
+                                <button class="btn btn-small btn-delete">🗑️ Borrar</button>
                             </div>
-                        </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Columnistas -->
+                <section id="columnistasSection" class="content-section">
+                    <div class="section-header">
+                        <h2>✍️ Gestión de Columnistas</h2>
+                        <button class="btn btn-primary">+ Agregar Columnista</button>
+                    </div>
+                    <p>Aquí puedes gestionar los columnistas del periódico.</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Especialidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Juan Pérez</td>
+                                <td>Política</td>
+                                <td><span class="status active">Activo</span></td>
+                                <td>
+                                    <button class="btn btn-small">Editar</button>
+                                    <button class="btn btn-small btn-delete">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sección Suscriptores -->
+                <section id="suscriptoresSection" class="content-section">
+                    <div class="section-header">
+                        <h2>👥 Lista de Suscriptores</h2>
+                        <button class="btn btn-primary">Exportar CSV</button>
+                    </div>
+                    <p>Gestión de suscriptores y newsletters.</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Fecha Suscripción</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ejemplo@email.com</td>
+                                <td>10/05/2023</td>
+                                <td><span class="status active">Activo</span></td>
+                                <td>
+                                    <button class="btn btn-small">Enviar Email</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sección Comentarios -->
+                <section id="comentariosSection" class="content-section">
+                    <div class="section-header">
+                        <h2>💬 Moderación de Comentarios</h2>
+                    </div>
+                    <p>Comentarios pendientes de moderación:</p>
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <strong>Carlos Gómez</strong> - <span class="date">Hoy, 10:30</span>
+                        </div>
+                        <div class="comment-content">
+                            Excelente artículo sobre la participación juvenil.
+                        </div>
+                        <div class="comment-actions">
+                            <button class="btn btn-small btn-success">✅ Aprobar</button>
+                            <button class="btn btn-small btn-delete">❌ Rechazar</button>
+                        </div>
                     </div>
                 </section>
             </main>
-            
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <!-- Columnists -->
-                <div class="sidebar-widget" id="columnistsWidget">
-                    <h3 class="widget-title">Columnistas</h3>
-                    <div class="columnists-container" id="columnistsContainer">
-                        <!-- Columnist 1 -->
-                        <div class="columnist-bio" data-columnist-id="1">
-                            <div class="columnist-photo">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <h3 class="columnist-name">Santiago Galíndez</h3>
-                            <p class="columnist-tagline">"Pensar distinto también es un acto de compromiso."</p>
-                            <p class="columnist-description">Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.</p>
-                            
-                            <div class="social-links">
-                                <a href="#" class="social-link" aria-label="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="social-link" aria-label="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="social-link" aria-label="Correo">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Columnist 2 -->
-                        <div class="columnist-bio" data-columnist-id="2">
-                            <div class="columnist-photo">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <h3 class="columnist-name">Anónimo</h3>
-                            <p class="columnist-tagline">"La verdad a veces necesita el anonimato para ser dicha."</p>
-                            <p class="columnist-description">Columnista ocasional que prefiere mantener su identidad en reserva para poder expresar análisis políticos y sociales con total franqueza, sin las ataduras que a veces impone la exposición pública.</p>
-                            
-                            <div class="social-links">
-                                <a href="#" class="social-link" aria-label="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Newsletter Subscription -->
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Suscríbete con Gmail</h3>
-                    <p style="margin-bottom: 1rem; color: var(--gris-medio); font-size: 0.95rem;">Recibe las nuevas columnas directamente en tu correo. Podrás comentar los artículos con tu nombre.</p>
-                    <form id="newsletter-form" style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <input type="email" id="subscriber-email" placeholder="tucorreo@gmail.com" required style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; font-family: 'Merriweather', serif;">
-                        <input type="text" id="subscriber-name" placeholder="Tu nombre (opcional)" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; font-family: 'Merriweather', serif;">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="accept-terms">
-                            <label for="accept-terms" style="font-size: 0.9rem;">Acepto recibir actualizaciones y noticias</label>
-                        </div>
-                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
-                    </form>
-                    <div id="newsletter-success" class="newsletter-success">
-                        ¡Gracias por suscribirte! Ahora puedes comentar los artículos.
-                    </div>
-                </div>
-                
-                <!-- Archive -->
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Archivo</h3>
-                    <ul class="archive-list">
-                        <li class="archive-item">
-                            <a href="#">Mayo 2023 <span>(4)</span></a>
-                        </li>
-                        <li class="archive-item">
-                            <a href="#">Abril 2023 <span>(6)</span></a>
-                        </li>
-                        <li class="archive-item">
-                            <a href="#">Marzo 2023 <span>(5)</span></a>
-                        </li>
-                        <li class="archive-item">
-                            <a href="#">Febrero 2023 <span>(3)</span></a>
-                        </li>
-                        <li class="archive-item">
-                            <a href="#">Enero 2023 <span>(4)</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer id="contacto">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">Lado C</div>
-                    <p class="footer-description">Medio digital de opinión política y social desde Catamarca. Analizamos la realidad con mirada crítica y perspectiva socialista democrática.</p>
+        <!-- Modal para nuevo editorial -->
+        <div id="editorialModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📝 Nuevo Editorial</h3>
+                    <button id="closeModal" class="modal-close">&times;</button>
                 </div>
-                
-                <div>
-                    <h4 class="footer-title">Secciones</h4>
-                    <ul class="footer-links">
-                        <li><a href="#inicio" class="category-link" data-category="all">Inicio</a></li>
-                        <li><a href="#catamarca" class="category-link" data-category="Catamarca">Catamarca</a></li>
-                        <li><a href="#opinion" class="category-link" data-category="Opinión">Opinión</a></li>
-                        <li><a href="#sociedad" class="category-link" data-category="Sociedad">Sociedad</a></li>
-                        <li><a href="#internacionales" class="category-link" data-category="Internacionales">Internacionales</a></li>
-                        <li><a href="#politica-nacional" class="category-link" data-category="Política Nacional">Política Nacional</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="footer-title">Contacto</h4>
-                    <ul class="footer-links">
-                        <li><a href="mailto:contacto@ladoc.com.ar">contacto@ladoc.com.ar</a></li>
-                        <li><a href="#">Twitter: @LadoC_Opinion</a></li>
-                        <li><a href="#">Instagram: @LadoC_Opinion</a></li>
-                        <li><a href="#">Facebook: /LadoCOpinion</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>Lado C – Una mirada distinta sobre la política.</p>
-                <p style="margin-top: 0.5rem;">© 2023 Lado C. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Article Modal -->
-    <div id="articleModal" class="article-modal">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <div class="article-modal-content" id="articleModalContent">
-            <!-- El contenido se llena con JavaScript -->
-        </div>
-    </div>
-
-    <!-- Admin Panel Overlay -->
-    <div class="admin-overlay" id="adminOverlay"></div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-panel-header">
-            <h2>Panel de Administración</h2>
-            <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
-        </div>
-        
-        <div class="admin-panel-nav">
-            <button class="admin-nav-btn active" data-tab="editorial">Editoriales</button>
-            <button class="admin-nav-btn" data-tab="columnists">Columnistas</button>
-            <button class="admin-nav-btn" data-tab="subscribers">Suscriptores</button>
-            <button class="admin-nav-btn" data-tab="comments">Comentarios</button>
-        </div>
-        
-        <div class="admin-panel-content">
-            <!-- Pestaña Editoriales -->
-            <div class="admin-tab-content active" id="tab-editorial">
-                <div class="admin-section">
-                    <h3>Editoriales Actuales</h3>
-                    <div class="admin-articles-list" id="adminArticlesList">
-                        <!-- Lista de artículos se llena con JavaScript -->
+                <form id="editorialForm">
+                    <div class="input-group">
+                        <label for="editorialTitle">Título:</label>
+                        <input type="text" id="editorialTitle" required>
                     </div>
-                </div>
-                
-                <div class="admin-section">
-                    <h3 id="editorFormTitle">Nuevo Editorial</h3>
-                    <div class="admin-edit-form">
-                        <form id="adminArticleForm">
-                            <div class="admin-form-grid">
-                                <div class="admin-form-group">
-                                    <label for="articleTitle">Título</label>
-                                    <input type="text" id="articleTitle" class="admin-input" placeholder="Título del editorial" required>
-                                </div>
-                                
-                                <div class="admin-form-group">
-                                    <label for="articleCategory">Categoría</label>
-                                    <select id="articleCategory" class="admin-input" required>
-                                        <option value="Opinión">Opinión</option>
-                                        <option value="Catamarca">Catamarca</option>
-                                        <option value="Sociedad">Sociedad</option>
-                                        <option value="Internacionales">Internacionales</option>
-                                        <option value="Política Nacional">Política Nacional</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="admin-form-grid">
-                                <div class="admin-form-group">
-                                    <label for="articleDate">Fecha</label>
-                                    <input type="text" id="articleDate" class="admin-input" placeholder="Ej: 15 de mayo, 2023" required>
-                                </div>
-                                
-                                <div class="admin-form-group">
-                                    <label for="articleImage">URL de la imagen de portada</label>
-                                    <input type="text" id="articleImage" class="admin-input" placeholder="https://..." required>
-                                    <small style="color: var(--gris-medio); font-size: 0.85rem;">Recomendado: imágenes de Unsplash (ej: https://images.unsplash.com/photo-...)</small>
-                                </div>
-                            </div>
-                            
-                            <div class="admin-form-group">
-                                <label for="articleExcerpt">Resumen (aparece en la tarjeta)</label>
-                                <textarea id="articleExcerpt" class="admin-textarea" placeholder="Escribe un resumen atractivo..." rows="4" required></textarea>
-                            </div>
-                            
-                            <div class="admin-form-group">
-                                <label for="articleContent">Contenido completo</label>
-                                <textarea id="articleContent" class="admin-textarea" placeholder="Escribe el artículo completo aquí..." rows="10" required></textarea>
-                            </div>
-                            
-                            <div class="admin-buttons">
-                                <button type="button" class="admin-btn admin-btn-secondary" id="cancelEdit">Cancelar</button>
-                                <button type="button" class="admin-btn admin-btn-success" id="previewArticle">Vista previa</button>
-                                <button type="submit" class="admin-btn admin-btn-primary" id="saveArticle">Guardar Editorial</button>
-                            </div>
-                        </form>
+                    
+                    <div class="input-group">
+                        <label for="editorialCategory">Categoría:</label>
+                        <select id="editorialCategory">
+                            <option value="Catamarca">Catamarca</option>
+                            <option value="Sociedad">Sociedad</option>
+                            <option value="Internacionales">Internacionales</option>
+                            <option value="Opinión">Opinión</option>
+                            <option value="Política Nacional">Política Nacional</option>
+                        </select>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Pestaña Columnistas -->
-            <div class="admin-tab-content" id="tab-columnists">
-                <div class="admin-section">
-                    <h3>Columnistas Actuales</h3>
-                    <div class="admin-articles-list" id="columnistsList">
-                        <!-- Lista de columnistas se llena con JavaScript -->
+                    
+                    <div class="input-group">
+                        <label for="editorialContent">Contenido:</label>
+                        <textarea id="editorialContent" rows="10" required></textarea>
                     </div>
-                </div>
-                
-                <div class="admin-section">
-                    <h3 id="columnistFormTitle">Nuevo Columnista</h3>
-                    <div class="admin-edit-form">
-                        <form id="adminColumnistForm">
-                            <div class="admin-form-grid">
-                                <div class="admin-form-group">
-                                    <label for="columnistName">Nombre</label>
-                                    <input type="text" id="columnistName" class="admin-input" placeholder="Nombre del columnista" required>
-                                </div>
-                                
-                                <div class="admin-form-group">
-                                    <label for="columnistTagline">Frase inspiradora</label>
-                                    <input type="text" id="columnistTagline" class="admin-input" placeholder="Ej: 'Pensar distinto también es un acto de compromiso.'" required>
-                                </div>
-                            </div>
-                            
-                            <div class="admin-form-group">
-                                <label for="columnistDescription">Descripción/Biografía</label>
-                                <textarea id="columnistDescription" class="admin-textarea" placeholder="Describe al columnista, su trayectoria, especialidades..." rows="4" required></textarea>
-                            </div>
-                            
-                            <div class="admin-form-group">
-                                <label for="columnistAnonymous">
-                                    <input type="checkbox" id="columnistAnonymous"> ¿Es anónimo?
-                                </label>
-                                <small style="color: var(--gris-medio); font-size: 0.85rem; display: block; margin-top: 0.5rem;">Si se marca, se mostrará como "Anónimo" en lugar del nombre real.</small>
-                            </div>
-                            
-                            <div class="admin-buttons">
-                                <button type="button" class="admin-btn admin-btn-secondary" id="cancelColumnistEdit">Cancelar</button>
-                                <button type="submit" class="admin-btn admin-btn-primary" id="saveColumnist">Guardar Columnista</button>
-                            </div>
-                        </form>
+                    
+                    <div class="input-group">
+                        <label for="editorialDate">Fecha de publicación:</label>
+                        <input type="date" id="editorialDate" required>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Pestaña Suscriptores -->
-            <div class="admin-tab-content" id="tab-subscribers">
-                <div class="admin-section">
-                    <h3>Lista de Suscriptores</h3>
-                    <div class="admin-articles-list" id="subscribersList">
-                        <!-- Lista de suscriptores se llena con JavaScript -->
+                    
+                    <div class="modal-actions">
+                        <button type="button" id="cancelModal" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Publicar Editorial</button>
                     </div>
-                </div>
-                
-                <div class="admin-section">
-                    <h3>Exportar Datos</h3>
-                    <p>Exporta la lista de suscriptores en formato CSV.</p>
-                    <button class="admin-btn admin-btn-primary" id="exportSubscribers">Exportar Suscriptores</button>
-                </div>
-            </div>
-            
-            <!-- Pestaña Comentarios -->
-            <div class="admin-tab-content" id="tab-comments">
-                <div class="admin-section">
-                    <h3>Comentarios Recientes</h3>
-                    <div class="admin-articles-list" id="commentsList">
-                        <!-- Lista de comentarios se llena con JavaScript -->
-                    </div>
-                </div>
-                
-                <div class="admin-section">
-                    <h3>Moderación</h3>
-                    <div class="admin-buttons">
-                        <button class="admin-btn admin-btn-secondary" id="loadAllComments">Cargar todos los comentarios</button>
-                        <button class="admin-btn admin-btn-primary" id="exportComments">Exportar Comentarios</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="login-modal">
-        <div class="login-modal-content">
-            <h2>Acceso de Administrador</h2>
-            <p>Ingresa la contraseña para acceder al panel de administración.</p>
-            <input type="password" id="adminPassword" class="admin-input" placeholder="Contraseña">
-            <button id="loginBtn" class="admin-btn" style="width: 100%; margin-top: 15px;">Ingresar</button>
-            <button id="cancelLoginBtn" class="admin-btn danger" style="width: 100%; margin-top: 10px;">Cancelar</button>
-        </div>
-    </div>
-
-    <!-- Sistema de Administración y Funcionalidades -->
-    <script>
-        // Configuración del sistema
-        const ADMIN_CONFIG = {
-            password: "LadoC2024",
-            localStorageKey: "ladoc_content",
-            columnistsKey: "ladoc_columnists",
-            isAdmin: false,
-            currentEditArticleId: null,
-            currentEditColumnistId: null
-        };
-
-        // Datos de ejemplo para artículos completos
-        const articlesFullContent = {
-            1: {
-                title: "El futuro del trabajo en el Noroeste Argentino",
-                category: "Catamarca",
-                date: "15 de mayo, 2023",
-                image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad? La transición justa implica políticas activas de formación profesional, protección social ampliada para trabajadores digitales y el fomento de cooperativas que compitan en los nuevos mercados. El socialismo democrático debe aspirar a un modelo que combine innovación con justicia social y participación popular.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La revolución tecnológica y la transformación digital están reconfigurando los mercados laborales en todo el mundo. En el Noroeste Argentino, esta transformación plantea desafíos particulares que requieren respuestas desde una perspectiva socialista democrática, centrada en la dignidad humana y la justicia social.</p>
-                    
-                    <p>Durante décadas, Catamarca ha dependido de una matriz productiva basada en la agricultura familiar, la minería y, más recientemente, el turismo. Sin embargo, la automatización y la globalización están alterando estas industrias tradicionales, mientras que nuevas oportunidades emergen en áreas como la economía del conocimiento, las energías renovables y la economía circular.</p>
-                    
-                    <h2>El desafío de la transición justa</h2>
-                    
-                    <p>El concepto de "transición justa", desarrollado por el movimiento sindical internacional, adquiere especial relevancia en nuestro contexto. No se trata simplemente de adaptarse a las nuevas tecnologías, sino de garantizar que esta adaptación no profundice las desigualdades existentes.</p>
-                    
-                    <blockquote>
-                        "El socialismo democrático del siglo XXI debe proponer un nuevo pacto social del trabajo que garantice derechos en la era digital y distribuya los beneficios del progreso tecnológico de manera equitativa."
-                    </blockquote>
-                    
-                    <p>En Catamarca, esto implica políticas activas de formación profesional vinculadas a los sectores estratégicos de la provincia, protección social ampliada para trabajadores de plataformas digitales, y el fomento de cooperativas y empresas de la economía social que puedan competir en los nuevos mercados.</p>
-                    
-                    <h2>Hacia una soberanía productiva regional</h2>
-                    
-                    <p>La dependencia tecnológica es una nueva forma de colonialismo. Por ello, es crucial desarrollar capacidades locales en áreas como software, biotecnología y energías limpias. Las universidades públicas, como la UNCa, tienen un rol fundamental en este proceso, pero requieren mayor financiamiento y vinculación con las necesidades productivas regionales.</p>
-                    
-                    <p>El socialismo democrático en Catamarca debe aspirar a construir un modelo de desarrollo que combine innovación tecnológica con justicia social, sostenibilidad ambiental y participación popular en las decisiones económicas. Solo así podremos garantizar que el futuro del trabajo sea un futuro de libertad, dignidad y prosperidad compartida.</p>
-                `,
-                comments: []
-            },
-            2: {
-                title: "Juventud y participación política: más allá del voto",
-                category: "Sociedad",
-                date: "12 de mayo, 2023",
-                image: "https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca. Los jóvenes catamarqueños están reinventando la participación política a través de asambleas barriales, cooperativas estudiantiles y proyectos culturales que desafían las estructuras tradicionales. Este artículo explora cómo estas nuevas formas de organización pueden transformar la política provincial.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La participación política de los jóvenes en Catamarca está experimentando una transformación radical. Frente al desencanto con las instituciones tradicionales, una nueva generación está inventando formas de intervención política que combinan lo digital con lo territorial, lo cultural con lo económico.</p>
-                    
-                    <p>En los barrios populares de San Fernando del Valle, en las escuelas técnicas de Valle Viejo, en las comunidades rurales de Antofagasta de la Sierra, los jóvenes están organizándose de maneras que desafían los esquemas tradicionales de la política partidaria.</p>
-                    
-                    <h2>Nuevas formas de organización</h2>
-                    
-                    <p>Las asambleas barriales juveniles, las cooperativas estudiantiles de producción, los colectivos culturales que recuperan espacios públicos, los grupos de WhatsApp que organizan acciones solidarias: todas estas son expresiones de un nuevo tipo de militancia que prioriza la acción directa sobre la representación.</p>
-                    
-                    <blockquote>
-                        "No queremos ser la juventud de ningún partido, queremos ser los constructores de un movimiento social que transforme Catamarca desde las bases."
-                    </blockquote>
-                    
-                    <p>Estas experiencias plantean preguntas fundamentales para el socialismo democrático: ¿cómo articular estas nuevas formas de organización con los instrumentos políticos existentes? ¿Cómo garantizar que estas iniciativas no sean cooptadas por intereses partidarios cortoplacistas?</p>
-                    
-                    <h2>El desafío de la institucionalización</h2>
-                    
-                    <p>El gran reto para el movimiento popular catamarqueño es encontrar formas de institucionalizar estas energías transformadoras sin burocratizarlas. Las experiencias de presupuesto participativo juvenil en algunos municipios, los consejos consultivos de jóvenes en áreas de cultura y deporte, y las ferias de economía social gestionadas por cooperativas juveniles son ejemplos prometedores.</p>
-                    
-                    <p>Para el socialismo democrático, la tarea es clara: debemos crear canales permanentes para que estas nuevas formas de participación influyan en las decisiones políticas, económicas y culturales de nuestra provincia, construyendo un poder popular que sea tan innovador como la juventud que lo impulsa.</p>
-                `,
-                comments: []
-            },
-            3: {
-                title: "Nuevas izquierdas en América Latina: aprendizajes y desafíos",
-                category: "Internacionales",
-                date: "8 de mayo, 2023",
-                image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia? La experiencia de Petro en Colombia, Boric en Chile y Lula en Brasil muestra que el éxito depende de la capacidad para construir coaliciones amplias sin traicionar los principios de justicia social. Analizamos cómo estas experiencias pueden inspirar un socialismo democrático adaptado a Catamarca.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>América Latina vive un nuevo ciclo político progresista. Tras la elección de Gustavo Petro en Colombia, Gabriel Boric en Chile y la reelección de Lula da Silva en Brasil, la región parece inclinarse nuevamente hacia proyectos que prometen combatir la desigualdad y fortalecer la democracia. Pero este nuevo ciclo se desarrolla en un contexto marcado por crisis múltiples: económica, climática, sanitaria y geopolítica.</p>
-                    
-                    <p>Para el socialismo democrático en Catamarca, estas experiencias ofrecen lecciones valiosas sobre los desafíos de gobernar en tiempos de restricción, sobre la construcción de coaliciones amplias sin traicionar principios fundamentales, y sobre la necesidad de reinventar el Estado para que sirva a los intereses populares.</p>
-                    
-                    <h2>Los dilemas del gobierno progresista</h2>
-                    
-                    <p>Las nuevas izquierdas latinoamericanas enfrentan un dilema fundamental: cómo implementar transformaciones estructurales en economías dependientes y en contextos de alta fragmentación política. La experiencia chilena es particularmente ilustrativa: el gobierno de Boric llegó al poder con un programa transformador, pero se ha visto obligado a negociar y moderar sus propuestas en un Congreso fragmentado.</p>
-                    
-                    <blockquote>
-                        "Gobernar desde la izquierda hoy significa navegar entre la urgencia de los cambios estructurales y la realidad de las restricciones institucionales y económicas."
-                    </blockquote>
-                    
-                    <p>En Colombia, Petro ha intentado avanzar en una agenda de paz total y transición ecológica, pero enfrenta la resistencia de sectores poderosos y la persistencia de la violencia en los territorios. En Brasil, Lula debe reconstruir las políticas sociales desmanteladas por Bolsonaro mientras gestiona un Congreso dominado por fuerzas conservadoras.</p>
-                    
-                    <h2>Lecciones para Catamarca</h2>
-                    
-                    <p>¿Qué podemos aprender en Catamarca de estas experiencias? Primero, la importancia de construir bases sociales organizadas y movilizadas que respalden los procesos de cambio. Segundo, la necesidad de desarrollar capacidades técnicas y de gestión para implementar políticas públicas transformadoras. Tercero, la urgencia de crear nuevas narrativas que conecten las luchas locales con los desafíos globales.</p>
-                    
-                    <p>El socialismo democrático catamarqueño debe dialogar críticamente con estas experiencias, aprendiendo tanto de sus aciertos como de sus errores, para construir un proyecto transformador arraigado en nuestra realidad provincial pero conectado con las luchas continentales por la justicia social y la democracia radical.</p>
-                `,
-                comments: []
-            },
-            4: {
-                title: "Democracia socialista: ¿utopía o horizonte alcanzable?",
-                category: "Opinión",
-                date: "5 de mayo, 2023",
-                image: "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa. Partiendo de las experiencias de autogestión en fábricas recuperadas y las asambleas populares, exploramos cómo una democracia socialista podría funcionar en Catamarca, combinando representación con participación directa y priorizando el bien común sobre el interés privado.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La democracia liberal representativa muestra signos de agotamiento en todo el mundo. En Catamarca, como en el resto de Argentina, la desconfianza en las instituciones políticas, la baja participación electoral y la sensación de que los gobiernos no responden a las necesidades populares son síntomas de una crisis más profunda. Frente a esta situación, el socialismo democrático propone radicalizar la democracia, expandiéndola más allá de lo electoral hacia lo económico, lo social y lo cultural.</p>
-                    
-                    <p>Una democracia socialista no se limita a elegir representantes cada cierto tiempo, sino que implica la participación directa de la ciudadanía en las decisiones que afectan sus vidas: en el trabajo, en el barrio, en la escuela, en el manejo de los recursos naturales. Implica democratizar la economía a través de formas de propiedad social y cooperativa, y democratizar el conocimiento a través de una educación pública, popular y científica.</p>
-                    
-                    <h2>Experiencias concretas de democratización</h2>
-                    
-                    <p>En Catamarca existen ya experiencias que apuntan en esta dirección. Las asambleas de vecinos que gestionan problemas ambientales en localidades afectadas por la minería, las cooperativas de trabajadores que han recuperado empresas quebradas, los espacios de presupuesto participativo en algunos municipios, las radios comunitarias y los medios populares: todas estas son formas embrionarias de una democracia más profunda.</p>
-                    
-                    <blockquote>
-                        "La verdadera democracia no es solo el derecho a votar, sino el derecho a decidir sobre todo lo que afecta nuestra vida cotidiana."
-                    </blockquote>
-                    
-                    <p>Estas experiencias, aunque limitadas y fragmentadas, muestran que es posible organizar la vida social de manera más participativa y equitativa. El desafío para el socialismo democrático es conectar estas experiencias dispersas, dotarlas de un marco político común y escalarlas para que transformen la estructura de poder en nuestra provincia.</p>
-                    
-                    <h2>Hacia una constituyente socialista en Catamarca</h2>
-                    
-                    <p>Una de las propuestas más audaces del socialismo democrático catamarqueño es la convocatoria a una Asamblea Constituyente Popular que elabore una nueva Constitución para la provincia. Esta constituyente no estaría compuesta solo por profesionales de la política, sino por delegados de los movimientos sociales, de las organizaciones territoriales, de las cooperativas, de los pueblos originarios, de las juventudes organizadas.</p>
-                    
-                    <p>El proceso constituyente en sí mismo sería una escuela de democracia radical, donde se debatirían y decidirían colectivamente los principios fundamentales que deben regir nuestra convivencia social: el derecho a la tierra y la vivienda, los derechos de la naturaleza, la economía al servicio del bien común, la participación popular en todas las instancias de decisión.</p>
-                    
-                    <p>Esta perspectiva puede parecer utópica en el presente, pero como horizonte estratégico da sentido y dirección a las luchas cotidianas. La democracia socialista no es un modelo acabado que deba importarse de algún libro, sino un proceso de construcción colectiva que debe inventarse desde la realidad concreta de nuestro pueblo.</p>
-                `,
-                comments: []
-            }
-        };
-
-        // Datos de columnistas
-        let columnists = [
-            {
-                id: 1,
-                name: "Santiago Galíndez",
-                tagline: "Pensar distinto también es un acto de compromiso.",
-                description: "Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.",
-                isAnonymous: false,
-                socialLinks: [
-                    { platform: "twitter", url: "#" },
-                    { platform: "instagram", url: "#" },
-                    { platform: "email", url: "#" }
-                ]
-            },
-            {
-                id: 2,
-                name: "Anónimo",
-                tagline: "La verdad a veces necesita el anonimato para ser dicha.",
-                description: "Columnista ocasional que prefiere mantener su identidad en reserva para poder expresar análisis políticos y sociales con total franqueza, sin las ataduras que a veces impone la exposición pública.",
-                isAnonymous: true,
-                socialLinks: [
-                    { platform: "twitter", url: "#" }
-                ]
-            }
-        ];
-
-        // Lista de suscriptores
-        let subscribers = JSON.parse(localStorage.getItem('ladoc_subscribers') || '[]');
-        
-        // Comentarios
-        let allComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
-
-        // Categorías disponibles
-        const categories = [
-            "Todos",
-            "Catamarca", 
-            "Opinión", 
-            "Sociedad", 
-            "Internacionales", 
-            "Política Nacional"
-        ];
-
-        // Inicializar cuando la página cargue
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAdminStatus();
-            setupEventListeners();
-            loadCommentsFromStorage();
-            loadColumnistsFromStorage();
-            
-            // Cargar datos guardados si existen
-            loadSavedContent();
-            
-            // Inicializar filtro de categorías
-            initCategoryFilter();
-            
-            // Configurar logo para ir al inicio
-            document.getElementById('goToHome').addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                filterArticlesByCategory('all');
-            });
-        });
-
-        // Verificar estado de administrador
-        function checkAdminStatus() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const isAdminParam = urlParams.has('admin');
-            const isAdminLocal = localStorage.getItem('ladoc_admin') === 'true';
-            
-            if (isAdminParam && !isAdminLocal) {
-                document.getElementById('loginModal').classList.add('active');
-            } else if (isAdminLocal) {
-                ADMIN_CONFIG.isAdmin = true;
-                enableAdminMode();
-            }
-        }
-
-        // Configurar event listeners
-        function setupEventListeners() {
-            // Login
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                const password = document.getElementById('adminPassword').value;
-                if (password === ADMIN_CONFIG.password) {
-                    localStorage.setItem('ladoc_admin', 'true');
-                    ADMIN_CONFIG.isAdmin = true;
-                    document.getElementById('loginModal').classList.remove('active');
-                    enableAdminMode();
-                    showNotification('Acceso concedido. Modo administrador activado.');
-                } else {
-                    showNotification('Contraseña incorrecta.', 'error');
-                }
-            });
-            
-            document.getElementById('cancelLoginBtn').addEventListener('click', function() {
-                document.getElementById('loginModal').classList.remove('active');
-                const url = new URL(window.location);
-                url.searchParams.delete('admin');
-                window.history.replaceState({}, '', url);
-            });
-            
-            // Newsletter subscription
-            const newsletterForm = document.getElementById('newsletter-form');
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('subscriber-email').value;
-                const name = document.getElementById('subscriber-name').value || 'Anónimo';
-                
-                if (!email) {
-                    showNotification('Por favor ingresa tu correo electrónico.', 'error');
-                    return;
-                }
-                
-                // Validar formato de email
-                if (!validateEmail(email)) {
-                    showNotification('Por favor ingresa un correo electrónico válido.', 'error');
-                    return;
-                }
-                
-                // Guardar suscriptor
-                const subscriber = {
-                    id: Date.now(),
-                    email: email,
-                    name: name,
-                    subscribedAt: new Date().toLocaleString('es-ES'),
-                    isGmail: email.toLowerCase().includes('@gmail.')
-                };
-                
-                saveSubscriber(subscriber);
-                
-                // Mostrar mensaje de éxito
-                document.getElementById('newsletter-success').style.display = 'block';
-                newsletterForm.reset();
-                
-                // Ocultar mensaje después de 5 segundos
-                setTimeout(() => {
-                    document.getElementById('newsletter-success').style.display = 'none';
-                }, 5000);
-            });
-            
-            // Cerrar modal de artículo
-            document.getElementById('closeModal').addEventListener('click', closeArticleModal);
-            
-            // Cerrar modal al hacer clic fuera
-            document.getElementById('articleModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeArticleModal();
-                }
-            });
-            
-            // Smooth scrolling para navegación
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Hacer clic en tarjetas de artículo para abrir modal
-            document.querySelectorAll('.article-card, .featured-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // No abrir modal si se hace clic en el botón "Leer más" o botones de admin
-                    if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
-                        return;
-                    }
-                    
-                    const articleId = this.getAttribute('data-article-id');
-                    if (articleId) {
-                        openArticleModal(articleId);
-                    }
-                });
-            });
-            
-            // Hacer clic en "Leer más"
-            document.querySelectorAll('.read-more').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    if (articleCard) {
-                        const articleId = articleCard.getAttribute('data-article-id');
-                        if (articleId) {
-                            openArticleModal(articleId);
-                        }
-                    }
-                });
-            });
-        }
-
-        // Inicializar filtro de categorías
-        function initCategoryFilter() {
-            // Configurar botones de categoría
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterArticlesByCategory(category);
-                    
-                    // Actualizar botones activos
-                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Actualizar título de página
-                    updatePageTitle(category);
-                });
-            });
-            
-            // Configurar enlaces de categoría en el menú
-            document.querySelectorAll('.category-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const category = this.getAttribute('data-category');
-                    filterArticlesByCategory(category);
-                    
-                    // Actualizar botones activos
-                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
-                    
-                    // Actualizar título de página
-                    updatePageTitle(category);
-                    
-                    // Scroll suave
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Filtrar artículos por categoría
-        function filterArticlesByCategory(category) {
-            const articlesGrid = document.getElementById('articlesGrid');
-            const featuredSection = document.querySelector('.featured-articles');
-            const articles = document.querySelectorAll('.article-card');
-            const featuredArticles = document.querySelectorAll('.featured-card');
-            
-            let visibleCount = 0;
-            
-            // Filtrar artículos principales
-            articles.forEach(article => {
-                const articleCategory = article.getAttribute('data-category');
-                
-                if (category === 'all' || articleCategory === category) {
-                    article.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    article.style.display = 'none';
-                }
-            });
-            
-            // Filtrar artículos destacados
-            featuredArticles.forEach(article => {
-                const articleCategory = article.getAttribute('data-category');
-                
-                if (category === 'all' || articleCategory === category) {
-                    article.style.display = 'block';
-                } else {
-                    article.style.display = 'none';
-                }
-            });
-            
-            // Actualizar contador
-            document.getElementById('count').textContent = visibleCount;
-            
-            // Mostrar u ocultar sección de destacados si no hay artículos
-            if (category !== 'all') {
-                const featuredSectionElement = document.querySelector('.featured-section');
-                const hasFeaturedInCategory = Array.from(featuredArticles).some(article => {
-                    return article.getAttribute('data-category') === category && article.style.display !== 'none';
-                });
-                
-                if (hasFeaturedInCategory) {
-                    featuredSectionElement.style.display = 'block';
-                } else {
-                    featuredSectionElement.style.display = 'none';
-                }
-            } else {
-                document.querySelector('.featured-section').style.display = 'block';
-            }
-        }
-
-        // Actualizar título de página según categoría
-        function updatePageTitle(category) {
-            const pageTitle = document.getElementById('pageTitle');
-            
-            switch(category) {
-                case 'all':
-                    pageTitle.textContent = 'Opinión Política y Social';
-                    break;
-                case 'Catamarca':
-                    pageTitle.textContent = 'Noticias y Opinión de Catamarca';
-                    break;
-                case 'Opinión':
-                    pageTitle.textContent = 'Columnas de Opinión';
-                    break;
-                case 'Sociedad':
-                    pageTitle.textContent = 'Análisis Social y Cultural';
-                    break;
-                case 'Internacionales':
-                    pageTitle.textContent = 'Análisis Internacional';
-                    break;
-                case 'Política Nacional':
-                    pageTitle.textContent = 'Política Nacional Argentina';
-                    break;
-                default:
-                    pageTitle.textContent = 'Opinión Política y Social';
-            }
-        }
-
-        // Activar modo administrador
-        function enableAdminMode() {
-            // Activar clase admin-mode en body
-            document.body.classList.add('admin-mode');
-            
-            // Agregar botón flotante
-            addAdminFloatingButton();
-            
-            // Configurar botones de edición y eliminación
-            setupAdminButtons();
-        }
-
-        // Configurar botones de administración en artículos
-        function setupAdminButtons() {
-            // Configurar botones de edición
-            document.querySelectorAll('.admin-edit-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    const articleId = articleCard.getAttribute('data-article-id');
-                    openAdminPanel();
-                    setTimeout(() => {
-                        loadArticleForEditing(articleId);
-                    }, 300);
-                });
-            });
-            
-            // Configurar botones de eliminación
-            document.querySelectorAll('.admin-delete-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    const articleId = articleCard.getAttribute('data-article-id');
-                    deleteArticle(articleId);
-                });
-            });
-        }
-
-        // Agregar botón flotante de administración
-        function addAdminFloatingButton() {
-            // Verificar si ya existe
-            if (document.querySelector('.admin-floating-btn')) return;
-            
-            const floatingBtn = document.createElement('div');
-            floatingBtn.className = 'admin-floating-btn';
-            floatingBtn.innerHTML = `
-                <button class="admin-panel-btn" id="openAdminPanel">
-                    <i class="fas fa-cog"></i> Panel Admin
-                </button>
-            `;
-            document.body.appendChild(floatingBtn);
-            
-            // Configurar evento para abrir panel
-            document.getElementById('openAdminPanel').addEventListener('click', openAdminPanel);
-        }
-
-        // Abrir panel de administración
-        function openAdminPanel() {
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('adminOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Cargar datos en el panel
-            loadAdminArticlesList();
-            loadColumnistsAdminList();
-            loadSubscribersList();
-            loadCommentsList();
-            
-            // Configurar eventos del panel
-            setupAdminPanelEvents();
-        }
-
-        // Cerrar panel de administración
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('adminOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Resetear formularios
-            resetArticleForm();
-            resetColumnistForm();
-        }
-
-        // Configurar eventos del panel de administración
-        function setupAdminPanelEvents() {
-            // Cerrar panel
-            document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
-            document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
-            
-            // Navegación entre pestañas
-            document.querySelectorAll('.admin-nav-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remover clase active de todas las pestañas
-                    document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    // Activar pestaña actual
-                    this.classList.add('active');
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(`tab-${tabId}`).classList.add('active');
-                });
-            });
-            
-            // Formulario de artículo
-            const articleForm = document.getElementById('adminArticleForm');
-            articleForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveArticle();
-            });
-            
-            // Botón cancelar edición de artículo
-            document.getElementById('cancelEdit').addEventListener('click', function() {
-                resetArticleForm();
-                document.querySelectorAll('.admin-article-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-            });
-            
-            // Botón vista previa de artículo
-            document.getElementById('previewArticle').addEventListener('click', previewArticleFromAdmin);
-            
-            // Formulario de columnista
-            const columnistForm = document.getElementById('adminColumnistForm');
-            columnistForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveColumnist();
-            });
-            
-            // Botón cancelar edición de columnista
-            document.getElementById('cancelColumnistEdit').addEventListener('click', function() {
-                resetColumnistForm();
-                document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-            });
-            
-            // Botón exportar suscriptores
-            document.getElementById('exportSubscribers').addEventListener('click', exportSubscribers);
-            
-            // Botón exportar comentarios
-            document.getElementById('exportComments').addEventListener('click', exportComments);
-            
-            // Botón cargar todos los comentarios
-            document.getElementById('loadAllComments').addEventListener('click', loadAllComments);
-        }
-
-        // Cargar lista de artículos en el panel
-        function loadAdminArticlesList() {
-            const articlesList = document.getElementById('adminArticlesList');
-            articlesList.innerHTML = '';
-            
-            // Crear botón para nuevo artículo
-            const newArticleBtn = document.createElement('div');
-            newArticleBtn.className = 'admin-article-item';
-            newArticleBtn.style.textAlign = 'center';
-            newArticleBtn.style.cursor = 'pointer';
-            newArticleBtn.innerHTML = `
-                <button class="admin-btn admin-btn-primary" style="width: 100%;">
-                    <i class="fas fa-plus"></i> Crear Nuevo Editorial
-                </button>
-            `;
-            newArticleBtn.addEventListener('click', function() {
-                resetArticleForm();
-                document.querySelectorAll('.admin-article-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-            });
-            articlesList.appendChild(newArticleBtn);
-            
-            // Agregar artículos existentes
-            Object.keys(articlesFullContent).forEach(articleId => {
-                const article = articlesFullContent[articleId];
-                const articleItem = document.createElement('div');
-                articleItem.className = 'admin-article-item';
-                articleItem.innerHTML = `
-                    <h4>${article.title}</h4>
-                    <div class="admin-article-meta">
-                        <span>${article.category} • ${article.date}</span>
-                    </div>
-                    <div style="margin-top: 0.5rem;">
-                        <button class="admin-btn admin-btn-danger admin-delete-small" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-article-id="${articleId}">
-                            <i class="fas fa-trash"></i> Borrar
-                        </button>
-                    </div>
-                `;
-                articleItem.addEventListener('click', function(e) {
-                    // No activar si se hace clic en el botón de borrar
-                    if (e.target.closest('.admin-delete-small')) return;
-                    
-                    // Remover clase active de todos los items
-                    document.querySelectorAll('.admin-article-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Activar item actual
-                    this.classList.add('active');
-                    
-                    // Cargar artículo para edición
-                    loadArticleForEditing(articleId);
-                });
-                
-                // Configurar botón de borrar
-                articleItem.querySelector('.admin-delete-small').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const articleId = this.getAttribute('data-article-id');
-                    deleteArticle(articleId);
-                });
-                
-                articlesList.appendChild(articleItem);
-            });
-        }
-
-        // Cargar artículo para edición
-        function loadArticleForEditing(articleId) {
-            const article = articlesFullContent[articleId];
-            if (!article) {
-                // Es un artículo nuevo
-                document.getElementById('editorFormTitle').textContent = 'Nuevo Editorial';
-                document.getElementById('articleTitle').value = '';
-                document.getElementById('articleCategory').value = 'Opinión';
-                document.getElementById('articleDate').value = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-                document.getElementById('articleImage').value = 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-                document.getElementById('articleExcerpt').value = '';
-                document.getElementById('articleContent').value = '';
-                document.getElementById('saveArticle').textContent = 'Crear Editorial';
-                ADMIN_CONFIG.currentEditArticleId = null;
-            } else {
-                // Es un artículo existente
-                document.getElementById('editorFormTitle').textContent = 'Editar Editorial';
-                document.getElementById('articleTitle').value = article.title;
-                document.getElementById('articleCategory').value = article.category;
-                document.getElementById('articleDate').value = article.date;
-                document.getElementById('articleImage').value = article.image;
-                document.getElementById('articleExcerpt').value = article.excerpt;
-                document.getElementById('articleContent').value = article.fullContent;
-                document.getElementById('saveArticle').textContent = 'Actualizar Editorial';
-                ADMIN_CONFIG.currentEditArticleId = articleId;
-            }
-        }
-
-        // Resetear formulario de artículo
-        function resetArticleForm() {
-            document.getElementById('editorFormTitle').textContent = 'Nuevo Editorial';
-            document.getElementById('articleTitle').value = '';
-            document.getElementById('articleCategory').value = 'Opinión';
-            document.getElementById('articleDate').value = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('articleImage').value = 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-            document.getElementById('articleExcerpt').value = '';
-            document.getElementById('articleContent').value = '';
-            document.getElementById('saveArticle').textContent = 'Crear Editorial';
-            ADMIN_CONFIG.currentEditArticleId = null;
-        }
-
-        // Guardar artículo desde el panel
-        function saveArticle() {
-            const title = document.getElementById('articleTitle').value;
-            const category = document.getElementById('articleCategory').value;
-            const date = document.getElementById('articleDate').value;
-            const image = document.getElementById('articleImage').value;
-            const excerpt = document.getElementById('articleExcerpt').value;
-            const content = document.getElementById('articleContent').value;
-            
-            if (!title || !excerpt || !content) {
-                showNotification('Por favor completa todos los campos obligatorios.', 'error');
-                return;
-            }
-            
-            const articleId = ADMIN_CONFIG.currentEditArticleId || Date.now().toString();
-            
-            // Actualizar datos del artículo
-            articlesFullContent[articleId] = {
-                title: title,
-                category: category,
-                date: date,
-                image: image,
-                excerpt: excerpt,
-                fullContent: content,
-                comments: articlesFullContent[articleId]?.comments || []
-            };
-            
-            // Actualizar o crear tarjeta en la página principal
-            updateOrCreateArticleCard(articleId, title, category, date, image, excerpt);
-            
-            // Guardar en localStorage
-            saveContentToStorage();
-            
-            // Recargar lista de artículos en el panel
-            loadAdminArticlesList();
-            
-            // Resetear formulario
-            resetArticleForm();
-            
-            showNotification('Editorial guardado correctamente.', 'success');
-        }
-
-        // Actualizar o crear tarjeta de artículo
-        function updateOrCreateArticleCard(articleId, title, category, date, image, excerpt) {
-            let articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
-            
-            if (articleCard) {
-                // Actualizar tarjeta existente
-                articleCard.setAttribute('data-category', category);
-                articleCard.querySelector('.article-title').textContent = title;
-                articleCard.querySelector('.article-category').textContent = category;
-                articleCard.querySelector('.article-excerpt').textContent = excerpt;
-                articleCard.querySelector('.article-meta span').textContent = date;
-                articleCard.querySelector('.article-image').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')`;
-            } else {
-                // Crear nueva tarjeta
-                const articlesGrid = document.getElementById('articlesGrid');
-                articleCard = document.createElement('article');
-                articleCard.className = 'article-card';
-                articleCard.setAttribute('data-article-id', articleId);
-                articleCard.setAttribute('data-category', category);
-                articleCard.innerHTML = `
-                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')"></div>
-                    <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
-                    <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
-                    <div class="article-content">
-                        <span class="article-category">${category}</span>
-                        <h2 class="article-title">${title}</h2>
-                        <p class="article-excerpt">${excerpt}</p>
-                        <div class="article-meta">
-                            <span>${date}</span>
-                            <a href="#articulo-${articleId}" class="read-more">Leer más</a>
-                        </div>
-                    </div>
-                `;
-                articlesGrid.appendChild(articleCard);
-                
-                // Configurar eventos
-                setupArticleCardEvents(articleCard, articleId);
-            }
-        }
-
-        // Configurar eventos de tarjeta de artículo
-        function setupArticleCardEvents(articleCard, articleId) {
-            // Click en tarjeta para abrir modal
-            articleCard.addEventListener('click', function(e) {
-                if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
-                    return;
-                }
-                openArticleModal(articleId);
-            });
-            
-            // Click en "Leer más"
-            articleCard.querySelector('.read-more').addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                openArticleModal(articleId);
-            });
-            
-            // Configurar botones de admin si estamos en modo admin
-            if (ADMIN_CONFIG.isAdmin) {
-                articleCard.querySelector('.admin-edit-btn').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    openAdminPanel();
-                    setTimeout(() => {
-                        loadArticleForEditing(articleId);
-                    }, 300);
-                });
-                
-                articleCard.querySelector('.admin-delete-btn').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    deleteArticle(articleId);
-                });
-            }
-        }
-
-        // Borrar artículo
-        function deleteArticle(articleId) {
-            if (!confirm('¿Estás seguro de que quieres borrar este artículo? Esta acción no se puede deshacer.')) {
-                return;
-            }
-            
-            // Eliminar del objeto de artículos
-            delete articlesFullContent[articleId];
-            
-            // Eliminar del DOM
-            const articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
-            if (articleCard) {
-                articleCard.remove();
-            }
-            
-            // Eliminar de los destacados si existe
-            const featuredCard = document.querySelector(`.featured-card[data-article-id="${articleId}"]`);
-            if (featuredCard) {
-                featuredCard.remove();
-            }
-            
-            // Guardar cambios
-            saveContentToStorage();
-            
-            // Recargar lista en panel admin
-            loadAdminArticlesList();
-            
-            // Actualizar contador
-            updateArticleCount();
-            
-            showNotification('Artículo eliminado correctamente.', 'success');
-        }
-
-        // Actualizar contador de artículos
-        function updateArticleCount() {
-            const visibleArticles = document.querySelectorAll('.article-card[style*="display: flex"], .article-card:not([style*="display: none"])');
-            document.getElementById('count').textContent = visibleArticles.length;
-        }
-
-        // Vista previa desde el panel
-        function previewArticleFromAdmin() {
-            const title = document.getElementById('articleTitle').value;
-            const category = document.getElementById('articleCategory').value;
-            const date = document.getElementById('articleDate').value;
-            const image = document.getElementById('articleImage').value;
-            const excerpt = document.getElementById('articleExcerpt').value;
-            const content = document.getElementById('articleContent').value;
-            
-            if (!title || !excerpt || !content) {
-                showNotification('Por favor completa todos los campos para ver la vista previa.', 'error');
-                return;
-            }
-            
-            // Crear un ID temporal para la vista previa
-            const tempId = 'preview-' + Date.now();
-            articlesFullContent[tempId] = {
-                title: title,
-                category: category,
-                date: date,
-                image: image,
-                excerpt: excerpt,
-                fullContent: content
-            };
-            
-            // Cerrar panel de admin
-            closeAdminPanel();
-            
-            // Abrir modal con vista previa
-            setTimeout(() => {
-                openArticleModal(tempId);
-            }, 400);
-        }
-
-        // Cargar columnistas desde localStorage
-        function loadColumnistsFromStorage() {
-            const savedColumnists = localStorage.getItem(ADMIN_CONFIG.columnistsKey);
-            if (savedColumnists) {
-                try {
-                    columnists = JSON.parse(savedColumnists);
-                    renderColumnists();
-                } catch (e) {
-                    console.error('Error al cargar columnistas:', e);
-                }
-            } else {
-                // Guardar columnistas por defecto
-                saveColumnistsToStorage();
-                renderColumnists();
-            }
-        }
-
-        // Renderizar columnistas en el sidebar
-        function renderColumnists() {
-            const columnistsContainer = document.getElementById('columnistsContainer');
-            columnistsContainer.innerHTML = '';
-            
-            columnists.forEach(columnist => {
-                const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
-                const bioElement = document.createElement('div');
-                bioElement.className = 'columnist-bio';
-                bioElement.setAttribute('data-columnist-id', columnist.id);
-                bioElement.innerHTML = `
-                    <div class="columnist-photo">
-                        <i class="fas ${columnist.isAnonymous ? 'fa-user-secret' : 'fa-user'}"></i>
-                    </div>
-                    <h3 class="columnist-name">${displayName}</h3>
-                    <p class="columnist-tagline">"${columnist.tagline}"</p>
-                    <p class="columnist-description">${columnist.description}</p>
-                    
-                    <div class="social-links">
-                        ${columnist.socialLinks.map(link => `
-                            <a href="${link.url}" class="social-link" aria-label="${link.platform}">
-                                <i class="fab fa-${link.platform}"></i>
-                            </a>
-                        `).join('')}
-                    </div>
-                `;
-                columnistsContainer.appendChild(bioElement);
-            });
-        }
-
-        // Cargar lista de columnistas en el panel admin
-        function loadColumnistsAdminList() {
-            const columnistsList = document.getElementById('columnistsList');
-            columnistsList.innerHTML = '';
-            
-            // Crear botón para nuevo columnista
-            const newColumnistBtn = document.createElement('div');
-            newColumnistBtn.className = 'admin-article-item';
-            newColumnistBtn.style.textAlign = 'center';
-            newColumnistBtn.style.cursor = 'pointer';
-            newColumnistBtn.innerHTML = `
-                <button class="admin-btn admin-btn-primary" style="width: 100%;">
-                    <i class="fas fa-plus"></i> Agregar Columnista
-                </button>
-            `;
-            newColumnistBtn.addEventListener('click', function() {
-                resetColumnistForm();
-                document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-            });
-            columnistsList.appendChild(newColumnistBtn);
-            
-            // Agregar columnistas existentes
-            columnists.forEach(columnist => {
-                const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
-                const columnistItem = document.createElement('div');
-                columnistItem.className = 'columnist-admin-item admin-article-item';
-                columnistItem.innerHTML = `
-                    <h4>${displayName} ${columnist.isAnonymous ? '(Anónimo)' : ''}</h4>
-                    <div class="admin-article-meta">
-                        <span>"${columnist.tagline}"</span>
-                    </div>
-                    <div style="margin-top: 0.5rem;">
-                        <button class="admin-btn admin-btn-danger admin-delete-columnist-small" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-columnist-id="${columnist.id}">
-                            <i class="fas fa-trash"></i> Borrar
-                        </button>
-                    </div>
-                `;
-                columnistItem.addEventListener('click', function(e) {
-                    // No activar si se hace clic en el botón de borrar
-                    if (e.target.closest('.admin-delete-columnist-small')) return;
-                    
-                    // Remover clase active de todos los items
-                    document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Activar item actual
-                    this.classList.add('active');
-                    
-                    // Cargar columnista para edición
-                    loadColumnistForEditing(columnist.id);
-                });
-                
-                // Configurar botón de borrar
-                columnistItem.querySelector('.admin-delete-columnist-small').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const columnistId = parseInt(this.getAttribute('data-columnist-id'));
-                    deleteColumnist(columnistId);
-                });
-                
-                columnistsList.appendChild(columnistItem);
-            });
-        }
-
-        // Cargar columnista para edición
-        function loadColumnistForEditing(columnistId) {
-            const columnist = columnists.find(c => c.id === columnistId);
-            if (!columnist) {
-                // Es un columnista nuevo
-                document.getElementById('columnistFormTitle').textContent = 'Nuevo Columnista';
-                document.getElementById('columnistName').value = '';
-                document.getElementById('columnistTagline').value = '';
-                document.getElementById('columnistDescription').value = '';
-                document.getElementById('columnistAnonymous').checked = false;
-                ADMIN_CONFIG.currentEditColumnistId = null;
-            } else {
-                // Es un columnista existente
-                document.getElementById('columnistFormTitle').textContent = 'Editar Columnista';
-                document.getElementById('columnistName').value = columnist.isAnonymous ? '' : columnist.name;
-                document.getElementById('columnistTagline').value = columnist.tagline;
-                document.getElementById('columnistDescription').value = columnist.description;
-                document.getElementById('columnistAnonymous').checked = columnist.isAnonymous;
-                ADMIN_CONFIG.currentEditColumnistId = columnistId;
-            }
-        }
-
-        // Resetear formulario de columnista
-        function resetColumnistForm() {
-            document.getElementById('columnistFormTitle').textContent = 'Nuevo Columnista';
-            document.getElementById('columnistName').value = '';
-            document.getElementById('columnistTagline').value = '';
-            document.getElementById('columnistDescription').value = '';
-            document.getElementById('columnistAnonymous').checked = false;
-            ADMIN_CONFIG.currentEditColumnistId = null;
-        }
-
-        // Guardar columnista
-        function saveColumnist() {
-            const name = document.getElementById('columnistName').value;
-            const tagline = document.getElementById('columnistTagline').value;
-            const description = document.getElementById('columnistDescription').value;
-            const isAnonymous = document.getElementById('columnistAnonymous').checked;
-            
-            if ((!name && !isAnonymous) || !tagline || !description) {
-                showNotification('Por favor completa todos los campos obligatorios.', 'error');
-                return;
-            }
-            
-            const columnistId = ADMIN_CONFIG.currentEditColumnistId || Date.now();
-            
-            // Crear o actualizar columnista
-            const columnistData = {
-                id: columnistId,
-                name: isAnonymous ? 'Anónimo' : name,
-                tagline: tagline,
-                description: description,
-                isAnonymous: isAnonymous,
-                socialLinks: [
-                    { platform: "twitter", url: "#" },
-                    { platform: "instagram", url: "#" },
-                    { platform: "email", url: "#" }
-                ]
-            };
-            
-            if (ADMIN_CONFIG.currentEditColumnistId) {
-                // Actualizar columnista existente
-                const index = columnists.findIndex(c => c.id === columnistId);
-                if (index !== -1) {
-                    columnists[index] = columnistData;
-                }
-            } else {
-                // Agregar nuevo columnista
-                columnists.push(columnistData);
-            }
-            
-            // Guardar en localStorage
-            saveColumnistsToStorage();
-            
-            // Actualizar vista
-            renderColumnists();
-            loadColumnistsAdminList();
-            
-            // Resetear formulario
-            resetColumnistForm();
-            
-            showNotification('Columnista guardado correctamente.', 'success');
-        }
-
-        // Borrar columnista
-        function deleteColumnist(columnistId) {
-            if (!confirm('¿Estás seguro de que quieres borrar este columnista? Esta acción no se puede deshacer.')) {
-                return;
-            }
-            
-            // No permitir borrar todos los columnistas
-            if (columnists.length <= 1) {
-                showNotification('Debe haber al menos un columnista.', 'error');
-                return;
-            }
-            
-            // Eliminar columnista
-            const index = columnists.findIndex(c => c.id === columnistId);
-            if (index !== -1) {
-                columnists.splice(index, 1);
-            }
-            
-            // Guardar cambios
-            saveColumnistsToStorage();
-            
-            // Actualizar vista
-            renderColumnists();
-            loadColumnistsAdminList();
-            
-            showNotification('Columnista eliminado correctamente.', 'success');
-        }
-
-        // Guardar columnistas en localStorage
-        function saveColumnistsToStorage() {
-            localStorage.setItem(ADMIN_CONFIG.columnistsKey, JSON.stringify(columnists));
-        }
-
-        // Abrir modal de artículo
-        function openArticleModal(articleId) {
-            const articleData = articlesFullContent[articleId];
-            
-            if (!articleData) {
-                showNotification('Artículo no encontrado.', 'error');
-                return;
-            }
-            
-            // Cargar comentarios
-            loadArticleComments(articleId);
-            
-            const modalContent = document.getElementById('articleModalContent');
-            modalContent.innerHTML = `
-                <div class="article-modal-header">
-                    <span class="article-category">${articleData.category}</span>
-                    <h1>${articleData.title}</h1>
-                    <div class="article-modal-meta">
-                        <span>${articleData.date}</span>
-                        <span>Por ${articleData.author || 'Santiago Galíndez'}</span>
-                    </div>
-                </div>
-                <div class="article-modal-body">
-                    ${articleData.fullContent}
-                    
-                    <div class="comments-section">
-                        <h3 class="comments-title">Comentarios</h3>
-                        
-                        <div class="comment-form">
-                            <h4 class="comment-form-title">Deja tu comentario</h4>
-                            <form id="commentForm-${articleId}">
-                                <div class="form-group">
-                                    <label for="comment-name-${articleId}">Nombre</label>
-                                    <input type="text" id="comment-name-${articleId}" class="form-control" placeholder="Tu nombre (opcional)">
-                                </div>
-                                <div class="form-group">
-                                    <label for="comment-content-${articleId}">Comentario *</label>
-                                    <textarea id="comment-content-${articleId}" class="form-control" rows="3" placeholder="Escribe tu comentario aquí..." required></textarea>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="comment-anonymous-${articleId}">
-                                    <label for="comment-anonymous-${articleId}">Publicar como anónimo</label>
-                                </div>
-                                <button type="submit" class="btn">Publicar comentario</button>
-                            </form>
-                        </div>
-                        
-                        <div class="comments-list" id="comments-list-${articleId}">
-                            <!-- Los comentarios se cargan aquí -->
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Mostrar modal
-            document.getElementById('articleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Configurar formulario de comentarios
-            const commentForm = document.getElementById(`commentForm-${articleId}`);
-            commentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitComment(articleId);
-            });
-            
-            // Mostrar comentarios existentes
-            displayComments(articleId);
-        }
-
-        // Cerrar modal de artículo
-        function closeArticleModal() {
-            document.getElementById('articleModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Guardar suscriptor
-        function saveSubscriber(subscriber) {
-            // Verificar si ya existe
-            const exists = subscribers.some(s => s.email.toLowerCase() === subscriber.email.toLowerCase());
-            
-            if (!exists) {
-                subscribers.push(subscriber);
-                localStorage.setItem('ladoc_subscribers', JSON.stringify(subscribers));
-                showNotification('¡Gracias por suscribirte! Ahora puedes comentar los artículos.', 'success');
-                
-                // Actualizar lista en panel admin si está abierto
-                if (ADMIN_CONFIG.isAdmin) {
-                    loadSubscribersList();
-                }
-            } else {
-                showNotification('Ya estás suscrito con este correo.', 'info');
-            }
-        }
-
-        // Cargar lista de suscriptores en el panel
-        function loadSubscribersList() {
-            const subscribersList = document.getElementById('subscribersList');
-            subscribersList.innerHTML = '';
-            
-            if (subscribers.length === 0) {
-                subscribersList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay suscriptores aún.</p>';
-                return;
-            }
-            
-            subscribers.forEach(subscriber => {
-                const subscriberItem = document.createElement('div');
-                subscriberItem.className = 'admin-article-item';
-                subscriberItem.innerHTML = `
-                    <h4>${subscriber.name}</h4>
-                    <div class="admin-article-meta">
-                        <span>${subscriber.email}</span>
-                        <span>${subscriber.subscribedAt}</span>
-                    </div>
-                `;
-                subscribersList.appendChild(subscriberItem);
-            });
-        }
-
-        // Exportar suscriptores
-        function exportSubscribers() {
-            if (subscribers.length === 0) {
-                showNotification('No hay suscriptores para exportar.', 'info');
-                return;
-            }
-            
-            // Convertir a CSV
-            let csv = 'Nombre,Email,Fecha de suscripción,Tipo\n';
-            subscribers.forEach(subscriber => {
-                csv += `"${subscriber.name}","${subscriber.email}","${subscriber.subscribedAt}","${subscriber.isGmail ? 'Gmail' : 'Otro'}"\n`;
-            });
-            
-            // Crear y descargar archivo
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `suscriptores_ladoc_${new Date().toISOString().slice(0,10)}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('Suscriptores exportados correctamente.', 'success');
-        }
-
-        // Enviar comentario
-        function submitComment(articleId) {
-            const nameInput = document.getElementById(`comment-name-${articleId}`);
-            const contentInput = document.getElementById(`comment-content-${articleId}`);
-            const anonymousCheck = document.getElementById(`comment-anonymous-${articleId}`);
-            
-            const name = anonymousCheck.checked ? 'Anónimo' : (nameInput.value || 'Anónimo');
-            const content = contentInput.value;
-            
-            if (!content.trim()) {
-                showNotification('Por favor escribe un comentario.', 'error');
-                return;
-            }
-            
-            const comment = {
-                id: Date.now(),
-                articleId: articleId,
-                articleTitle: articlesFullContent[articleId]?.title || 'Artículo',
-                author: name,
-                content: content,
-                date: new Date().toLocaleString('es-ES'),
-                isAnonymous: anonymousCheck.checked
-            };
-            
-            // Guardar comentario
-            saveComment(comment);
-            
-            // Limpiar formulario
-            contentInput.value = '';
-            nameInput.value = '';
-            anonymousCheck.checked = false;
-            
-            // Mostrar comentario
-            displayComment(comment);
-            
-            showNotification('Comentario publicado.', 'success');
-        }
-
-        // Guardar comentario
-        function saveComment(comment) {
-            // Agregar a los datos del artículo
-            if (!articlesFullContent[comment.articleId]) {
-                articlesFullContent[comment.articleId] = { comments: [] };
-            }
-            if (!articlesFullContent[comment.articleId].comments) {
-                articlesFullContent[comment.articleId].comments = [];
-            }
-            articlesFullContent[comment.articleId].comments.push(comment);
-            
-            // Agregar a lista general
-            allComments.push(comment);
-            localStorage.setItem('ladoc_comments', JSON.stringify(allComments));
-        }
-
-        // Cargar comentarios desde localStorage
-        function loadCommentsFromStorage() {
-            const savedComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
-            allComments = savedComments;
-            
-            // Organizar comentarios por artículo
-            savedComments.forEach(comment => {
-                if (articlesFullContent[comment.articleId]) {
-                    if (!articlesFullContent[comment.articleId].comments) {
-                        articlesFullContent[comment.articleId].comments = [];
-                    }
-                    articlesFullContent[comment.articleId].comments.push(comment);
-                }
-            });
-        }
-
-        // Cargar comentarios de un artículo
-        function loadArticleComments(articleId) {
-            if (!articlesFullContent[articleId]) {
-                articlesFullContent[articleId] = { comments: [] };
-            }
-            if (!articlesFullContent[articleId].comments) {
-                articlesFullContent[articleId].comments = [];
-            }
-        }
-
-        // Mostrar comentarios
-        function displayComments(articleId) {
-            const commentsList = document.getElementById(`comments-list-${articleId}`);
-            if (!commentsList) return;
-            
-            const comments = articlesFullContent[articleId]?.comments || [];
-            
-            if (comments.length === 0) {
-                commentsList.innerHTML = '<p style="color: var(--gris-medio); text-align: center; padding: 2rem;">No hay comentarios aún. ¡Sé el primero en comentar!</p>';
-                return;
-            }
-            
-            commentsList.innerHTML = '';
-            comments.sort((a, b) => b.id - a.id).forEach(comment => {
-                displayComment(comment);
-            });
-        }
-
-        // Mostrar un comentario individual
-        function displayComment(comment) {
-            const commentsList = document.getElementById(`comments-list-${comment.articleId}`);
-            if (!commentsList) return;
-            
-            const commentElement = document.createElement('div');
-            commentElement.className = 'comment';
-            commentElement.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-author">
-                        ${comment.author}
-                        ${comment.isAnonymous ? '<span class="anonymous-badge">Anónimo</span>' : ''}
-                    </span>
-                    <span class="comment-date">${comment.date}</span>
-                </div>
-                <div class="comment-content">${comment.content}</div>
-            `;
-            
-            // Insertar al principio
-            if (commentsList.firstChild && commentsList.firstChild.tagName === 'P') {
-                commentsList.innerHTML = '';
-            }
-            commentsList.prepend(commentElement);
-        }
-
-        // Cargar lista de comentarios en el panel
-        function loadCommentsList() {
-            const commentsList = document.getElementById('commentsList');
-            commentsList.innerHTML = '';
-            
-            if (allComments.length === 0) {
-                commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
-                return;
-            }
-            
-            // Mostrar últimos 20 comentarios
-            const recentComments = [...allComments].sort((a, b) => b.id - a.id).slice(0, 20);
-            
-            recentComments.forEach(comment => {
-                const commentItem = document.createElement('div');
-                commentItem.className = 'admin-article-item';
-                commentItem.innerHTML = `
-                    <h4>${comment.author} ${comment.isAnonymous ? '(Anónimo)' : ''}</h4>
-                    <div class="admin-article-meta">
-                        <span>Artículo: ${comment.articleTitle}</span>
-                        <span>${comment.date}</span>
-                    </div>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gris-medio);">${comment.content.length > 100 ? comment.content.substring(0, 100) + '...' : comment.content}</p>
-                `;
-                commentsList.appendChild(commentItem);
-            });
-        }
-
-        // Cargar todos los comentarios
-        function loadAllComments() {
-            const commentsList = document.getElementById('commentsList');
-            commentsList.innerHTML = '';
-            
-            if (allComments.length === 0) {
-                commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
-                return;
-            }
-            
-            // Mostrar todos los comentarios ordenados por fecha
-            const sortedComments = [...allComments].sort((a, b) => b.id - a.id);
-            
-            sortedComments.forEach(comment => {
-                const commentItem = document.createElement('div');
-                commentItem.className = 'admin-article-item';
-                commentItem.innerHTML = `
-                    <h4>${comment.author} ${comment.isAnonymous ? '(Anónimo)' : ''}</h4>
-                    <div class="admin-article-meta">
-                        <span>Artículo: ${comment.articleTitle}</span>
-                        <span>${comment.date}</span>
-                    </div>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gris-medio);">${comment.content.length > 100 ? comment.content.substring(0, 100) + '...' : comment.content}</p>
-                `;
-                commentsList.appendChild(commentItem);
-            });
-            
-            showNotification(`Mostrando todos los ${allComments.length} comentarios.`, 'info');
-        }
-
-        // Exportar comentarios
-        function exportComments() {
-            if (allComments.length === 0) {
-                showNotification('No hay comentarios para exportar.', 'info');
-                return;
-            }
-            
-            // Convertir a CSV
-            let csv = 'Artículo,Autor,Fecha,Comentario,Anónimo\n';
-            allComments.forEach(comment => {
-                csv += `"${comment.articleTitle}","${comment.author}","${comment.date}","${comment.content.replace(/"/g, '""')}","${comment.isAnonymous ? 'Sí' : 'No'}"\n`;
-            });
-            
-            // Crear y descargar archivo
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `comentarios_ladoc_${new Date().toISOString().slice(0,10)}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('Comentarios exportados correctamente.', 'success');
-        }
-
-        // Guardar contenido en localStorage
-        function saveContentToStorage() {
-            const content = {
-                articles: articlesFullContent,
-                savedAt: new Date().toISOString()
-            };
-            localStorage.setItem(ADMIN_CONFIG.localStorageKey, JSON.stringify(content));
-        }
-
-        // Cargar contenido guardado
-        function loadSavedContent() {
-            const saved = localStorage.getItem(ADMIN_CONFIG.localStorageKey);
-            if (saved) {
-                try {
-                    const content = JSON.parse(saved);
-                    // Actualizar articlesFullContent con los datos guardados
-                    Object.assign(articlesFullContent, content.articles || {});
-                } catch (e) {
-                    console.error('Error al cargar contenido guardado:', e);
-                }
-            }
-        }
-
-        // Mostrar notificación
-        function showNotification(message, type = 'info') {
-            // Crear elemento de notificación
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                color: white;
-                font-family: 'Montserrat', sans-serif;
-                font-weight: 600;
-                z-index: 4000;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                animation: slideIn 0.3s ease;
-            `;
-            
-            // Color según tipo
-            if (type === 'success') {
-                notification.style.backgroundColor = 'var(--verde)';
-            } else if (type === 'error') {
-                notification.style.backgroundColor = '#d32f2f';
-            } else if (type === 'warning') {
-                notification.style.backgroundColor = '#ff9800';
-            } else {
-                notification.style.backgroundColor = 'var(--bordo)';
-            }
-            
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            // Remover después de 3 segundos
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-            
-            // Agregar estilos de animación si no existen
-            if (!document.querySelector('#notification-styles')) {
-                const style = document.createElement('style');
-                style.id = 'notification-styles';
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                    @keyframes slideOut {
-                        from { transform: translateX(0); opacity: 1; }
-                        to { transform: translateX(100%); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-
-        // Validar email
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        // Para uso global
-        window.enableAdminMode = enableAdminMode;
-        window.closeArticleModal = closeArticleModal;
-        window.openAdminPanel = openAdminPanel;
-        window.closeAdminPanel = closeAdminPanel;
-        window.filterArticlesByCategory = filterArticlesByCategory;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px;
+}
+
+/* Estilos del login */
+.login-form {
+    padding: 50px;
+    text-align: center;
+}
+
+.login-form h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+.login-form h2 {
+    color: #666;
+    margin-bottom: 30px;
+    font-weight: normal;
+    font-size: 1.2em;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Botones */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #333;
+    border: 2px solid #dee2e6;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+/* Panel de administración */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.header-left h1 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.header-left p {
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+.admin-nav {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.nav-btn:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.nav-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    background: white;
+}
+
+.admin-content {
+    padding: 30px;
+    min-height: 500px;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h2 {
+    color: #333;
+    font-size: 1.8em;
+}
+
+/* Lista de editoriales */
+.editorials-list {
+    display: grid;
+    gap: 20px;
+}
+
+.editorial-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.editorial-item h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.editorial-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.category {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+}
+
+.editorial-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Tablas */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+}
+
+.data-table tr:hover {
+    background: #f8f9fa;
+}
+
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.status.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Comentarios */
+.comment-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.comment-content {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+#editorialForm {
+    padding: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Mensajes */
+.message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .admin-nav {
+        flex-direction: column;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .editorial-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+// Credenciales de ejemplo (en producción usar backend)
+const ADMIN_CREDENTIALS = {
+    username: 'admin',
+    password: 'admin123'
+};
+
+// Estado de la aplicación
+let currentUser = null;
+let isAuthenticated = false;
+
+// Elementos DOM
+const loginContainer = document.getElementById('loginContainer');
+const adminPanel = document.getElementById('adminPanel');
+const loginForm = document.getElementById('loginForm');
+const logoutBtn = document.getElementById('logoutBtn');
+const adminUsername = document.getElementById('adminUsername');
+const newEditorialBtn = document.getElementById('newEditorialBtn');
+const editorialModal = document.getElementById('editorialModal');
+const closeModal = document.getElementById('closeModal');
+const cancelModal = document.getElementById('cancelModal');
+const editorialForm = document.getElementById('editorialForm');
+const navButtons = document.querySelectorAll('.nav-btn');
+const contentSections = document.querySelectorAll('.content-section');
+
+// Inicialización
+document.addEventListener('DOMContentLoaded', () => {
+    // Verificar si ya hay sesión activa
+    checkExistingSession();
+    
+    // Configurar eventos
+    setupEventListeners();
+    
+    // Establecer fecha actual en el formulario
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('editorialDate').value = today;
+});
+
+// Verificar sesión existente
+function checkExistingSession() {
+    const savedUser = localStorage.getItem('adminUser');
+    const savedToken = localStorage.getItem('adminToken');
+    
+    if (savedUser && savedToken) {
+        // En producción, aquí verificarías el token con el backend
+        currentUser = savedUser;
+        isAuthenticated = true;
+        showAdminPanel();
+    }
+}
+
+// Configurar todos los event listeners
+function setupEventListeners() {
+    // Login
+    loginForm.addEventListener('submit', handleLogin);
+    
+    // Logout
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // Navegación entre secciones
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sectionId = btn.dataset.section;
+            showSection(sectionId);
+            
+            // Actualizar botones activos
+            navButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+    
+    // Modal de editorial
+    newEditorialBtn.addEventListener('click', () => {
+        editorialModal.style.display = 'flex';
+    });
+    
+    closeModal.addEventListener('click', closeEditorialModal);
+    cancelModal.addEventListener('click', closeEditorialModal);
+    
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', (e) => {
+        if (e.target === editorialModal) {
+            closeEditorialModal();
+        }
+    });
+    
+    // Enviar formulario de editorial
+    editorialForm.addEventListener('submit', handleNewEditorial);
+}
+
+// Manejar login
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    // Validación simple (en producción usar backend)
+    if (username === ADMIN_CREDENTIALS.username && 
+        password === ADMIN_CREDENTIALS.password) {
+        
+        // Simular autenticación exitosa
+        currentUser = username;
+        isAuthenticated = true;
+        
+        // Guardar en localStorage (en producción usar tokens JWT)
+        localStorage.setItem('adminUser', username);
+        localStorage.setItem('adminToken', 'simulated-token-' + Date.now());
+        
+        showAdminPanel();
+        showMessage('¡Inicio de sesión exitoso!', 'success');
+        
+        // Limpiar formulario
+        loginForm.reset();
+    } else {
+        showMessage('Usuario o contraseña incorrectos', 'error');
+    }
+}
+
+// Manejar logout
+function handleLogout() {
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        // Limpiar datos de sesión
+        localStorage.removeItem('adminUser');
+        localStorage.removeItem('adminToken');
+        
+        currentUser = null;
+        isAuthenticated = false;
+        
+        // Mostrar login
+        loginContainer.style.display = 'flex';
+        adminPanel.style.display = 'none';
+        
+        showMessage('Sesión cerrada correctamente', 'success');
+    }
+}
+
+// Mostrar panel de administración
+function showAdminPanel() {
+    adminUsername.textContent = currentUser;
+    loginContainer.style.display = 'none';
+    adminPanel.style.display = 'block';
+    
+    // Mostrar primera sección por defecto
+    showSection('editoriales');
+}
+
+// Mostrar sección específica
+function showSection(sectionId) {
+    // Ocultar todas las secciones
+    contentSections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Mostrar sección seleccionada
+    const targetSection = document.getElementById(`${sectionId}Section`);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+}
+
+// Cerrar modal de editorial
+function closeEditorialModal() {
+    editorialModal.style.display = 'none';
+    editorialForm.reset();
+    
+    // Restaurar fecha actual
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('editorialDate').value = today;
+}
+
+// Manejar nuevo editorial
+function handleNewEditorial(e) {
+    e.preventDefault();
+    
+    const title = document.getElementById('editorialTitle').value;
+    const category = document.getElementById('editorialCategory').value;
+    const content = document.getElementById('editorialContent').value;
+    const date = document.getElementById('editorialDate').value;
+    
+    // Formatear fecha
+    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+    
+    // Crear nuevo elemento de editorial
+    const editorialItem = document.createElement('div');
+    editorialItem.className = 'editorial-item';
+    editorialItem.innerHTML = `
+        <h3>${title}</h3>
+        <div class="editorial-meta">
+            <span class="category">${category}</span>
+            <span class="date">${formattedDate}</span>
+        </div>
+        <div class="editorial-actions">
+            <button class="btn btn-small btn-edit">✏️ Editar</button>
+            <button class="btn btn-small btn-delete">🗑️ Borrar</button>
+        </div>
+    `;
+    
+    // Agregar al inicio de la lista
+    const editorialsList = document.querySelector('.editorials-list');
+    editorialsList.insertBefore(editorialItem, editorialsList.firstChild);
+    
+    // Agregar eventos a los botones
+    addEditorialEvents(editorialItem);
+    
+    // Cerrar modal y mostrar mensaje
+    closeEditorialModal();
+    showMessage('¡Editorial creado exitosamente!', 'success');
+    
+    // Simular guardado en backend
+    saveEditorialToBackend({ title, category, content, date });
+}
+
+// Agregar eventos a los botones de editorial
+function addEditorialEvents(editorialElement) {
+    const editBtn = editorialElement.querySelector('.btn-edit');
+    const deleteBtn = editorialElement.querySelector('.btn-delete');
+    
+    editBtn.addEventListener('click', () => {
+        alert('Funcionalidad de edición en desarrollo...');
+    });
+    
+    deleteBtn.addEventListener('click', () => {
+        if (confirm('¿Estás seguro de eliminar este editorial?')) {
+            editorialElement.remove();
+            showMessage('Editorial eliminado', 'success');
+        }
+    });
+}
+
+// Simular guardado en backend
+function saveEditorialToBackend(data) {
+    console.log('Guardando editorial en backend:', data);
+    // Aquí iría la llamada real al backend
+    // fetch('/api/editoriales', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(data)
+    // });
+}
+
+// Mostrar mensajes
+function showMessage(text, type) {
+    // Limpiar mensajes anteriores
+    const existingMessages = document.querySelectorAll('.message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Crear nuevo mensaje
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type}`;
+    messageDiv.textContent = text;
+    
+    // Agregar al contenedor apropiado
+    if (isAuthenticated) {
+        document.querySelector('.admin-content').prepend(messageDiv);
+    } else {
+        loginForm.parentNode.appendChild(messageDiv);
+    }
+    
+    // Auto-eliminar después de 5 segundos
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 5000);
+}
+
+// Agregar eventos a los editoriales existentes
+document.querySelectorAll('.editorial-item').forEach(addEditorialEvents);
+
+// Agregar funcionalidad a los botones de la tabla
+document.querySelectorAll('.data-table .btn-small').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const action = this.textContent.trim();
+        const row = this.closest('tr');
+        
+        if (action === 'Eliminar' || this.classList.contains('btn-delete')) {
+            if (confirm('¿Estás seguro de realizar esta acción?')) {
+                row.remove();
+                showMessage('Registro eliminado', 'success');
+            }
+        } else if (action === 'Enviar Email') {
+            alert('Funcionalidad de envío de email en desarrollo...');
+        } else {
+            alert(`Acción: ${action} - En desarrollo...`);
+        }
+    });
+});
+
+// Manejar comentarios
+document.querySelectorAll('.comment-actions .btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const comment = this.closest('.comment-item');
+        
+        if (this.classList.contains('btn-success')) {
+            comment.style.opacity = '0.5';
+            setTimeout(() => comment.remove(), 300);
+            showMessage('Comentario aprobado', 'success');
+        } else if (this.classList.contains('btn-delete')) {
+            comment.style.opacity = '0.5';
+            setTimeout(() => comment.remove(), 300);
+            showMessage('Comentario rechazado', 'success');
+        }
+    });
+});
