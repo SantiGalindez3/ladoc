@@ -79,6 +79,7 @@
             color: var(--bordo);
             letter-spacing: -1px;
             text-transform: uppercase;
+            cursor: pointer;
         }
         
         .logo span {
@@ -174,6 +175,7 @@
             flex-direction: column;
             height: 100%;
             cursor: pointer;
+            position: relative;
         }
         
         .article-card:hover {
@@ -271,6 +273,7 @@
             box-shadow: 0 3px 10px var(--sombra);
             transition: transform 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
         
         .featured-card:hover {
@@ -286,7 +289,7 @@
             margin-bottom: 0.5rem;
         }
         
-        /* Sidebar */
+        /* Sidebar - Columnists */
         .sidebar {
             width: 100%;
         }
@@ -323,11 +326,24 @@
             background-color: var(--bordo);
         }
         
-        .author-bio {
-            text-align: center;
+        .columnists-container {
+            margin-bottom: 2rem;
         }
         
-        .author-photo {
+        .columnist-bio {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .columnist-bio:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .columnist-photo {
             width: 120px;
             height: 120px;
             border-radius: 50%;
@@ -341,29 +357,30 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .author-photo i {
+        .columnist-photo i {
             font-size: 3rem;
             color: var(--bordo);
         }
         
-        .author-name {
+        .columnist-name {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--gris-oscuro);
         }
         
-        .author-tagline {
+        .columnist-tagline {
             font-style: italic;
             color: var(--bordo);
             margin-bottom: 1.5rem;
             font-weight: 500;
         }
         
-        .author-description {
+        .columnist-description {
             color: var(--gris-medio);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
         
         .social-links {
@@ -733,19 +750,237 @@
             margin-left: 0.5rem;
         }
         
-        /* Admin Panel */
-        .admin-edit-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(155, 28, 28, 0.9);
-            color: white;
+        /* Admin Panel - Panel lateral */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100%;
+            background-color: var(--blanco);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            z-index: 3000;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .admin-panel.active {
+            right: 0;
+        }
+        
+        .admin-panel-header {
+            background-color: var(--bordo);
+            color: var(--blanco);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-panel-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .close-admin-panel {
+            background: none;
             border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
+            color: var(--blanco);
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 12px;
-            z-index: 10;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-panel-nav {
+            display: flex;
+            border-bottom: 1px solid var(--gris-claro);
+        }
+        
+        .admin-nav-btn {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--gris-medio);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-nav-btn.active {
+            color: var(--bordo);
+            border-bottom: 3px solid var(--bordo);
+        }
+        
+        .admin-panel-content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .admin-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gris-claro);
+        }
+        
+        .admin-section h3 {
+            margin-bottom: 1.2rem;
+            color: var(--gris-oscuro);
+            font-size: 1.2rem;
+        }
+        
+        .admin-edit-form {
+            background-color: var(--gris-claro);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .admin-form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gris-oscuro);
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Merriweather', serif;
+            font-size: 0.95rem;
+        }
+        
+        .admin-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Merriweather', serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .admin-articles-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--gris-claro);
+            border-radius: 6px;
+        }
+        
+        .admin-article-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gris-claro);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+        
+        .admin-article-item:hover {
+            background-color: var(--gris-claro);
+        }
+        
+        .admin-article-item.active {
+            background-color: var(--azul-claro);
+            border-left: 3px solid var(--bordo);
+        }
+        
+        .admin-article-item h4 {
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .admin-article-meta {
+            font-size: 0.85rem;
+            color: var(--gris-medio);
+        }
+        
+        .admin-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn-primary {
+            background-color: var(--bordo);
+            color: var(--blanco);
+        }
+        
+        .admin-btn-primary:hover {
+            background-color: #7a1616;
+        }
+        
+        .admin-btn-secondary {
+            background-color: var(--gris-medio);
+            color: var(--blanco);
+        }
+        
+        .admin-btn-secondary:hover {
+            background-color: #555;
+        }
+        
+        .admin-btn-success {
+            background-color: var(--verde);
+            color: var(--blanco);
+        }
+        
+        .admin-btn-success:hover {
+            background-color: #1b5e20;
+        }
+        
+        .admin-btn-danger {
+            background-color: #d32f2f;
+            color: var(--blanco);
+        }
+        
+        .admin-btn-danger:hover {
+            background-color: #b71c1c;
+        }
+        
+        .admin-btn-warning {
+            background-color: #ff9800;
+            color: var(--blanco);
+        }
+        
+        .admin-btn-warning:hover {
+            background-color: #ef6c00;
         }
         
         .admin-floating-btn {
@@ -774,130 +1009,50 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
         
-        .new-article-btn {
-            background: #9B1C1C;
+        /* Botones de administrador en vista de administrador */
+        .admin-edit-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(155, 28, 28, 0.9);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 20px;
+            padding: 5px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-            margin: 20px auto;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        .new-article-btn:hover {
-            background: #7a1616;
-            transform: translateY(-2px);
-        }
-        
-        /* Admin Edit Modal */
-        .admin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 10000;
+            font-size: 12px;
+            z-index: 10;
             display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
         
-        .admin-modal.active {
-            display: flex;
-        }
-        
-        .admin-modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .admin-modal h2 {
-            color: #9B1C1C;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .admin-section {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .admin-section h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .admin-btn {
-            background: #4CAF50;
+        .admin-delete-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(211, 47, 47, 0.9);
             color: white;
             border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            border-radius: 5px;
+            padding: 5px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            transition: background 0.3s ease;
+            font-size: 12px;
+            z-index: 10;
+            display: none;
         }
         
-        .admin-btn.secondary {
-            background: #2196F3;
+        /* Mostrar botones solo en modo admin */
+        body.admin-mode .admin-edit-btn,
+        body.admin-mode .admin-delete-btn {
+            display: block;
         }
         
-        .admin-btn.danger {
-            background: #f44336;
+        body.admin-mode .admin-floating-btn {
+            display: block;
         }
         
-        .admin-btn:hover {
-            opacity: 0.9;
-        }
-        
-        .admin-textarea {
-            width: 100%;
-            height: 120px;
-            margin-bottom: 10px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Merriweather', serif;
-            resize: vertical;
-        }
-        
-        .admin-textarea.full {
-            height: 300px;
-        }
-        
-        .admin-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Merriweather', serif;
-        }
-        
-        .admin-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            .admin-form-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Ocultar botones flotantes en modo público */
+        body:not(.admin-mode) .admin-floating-btn {
+            display: none;
         }
         
         /* Login modal */
@@ -943,6 +1098,71 @@
             display: none;
         }
         
+        /* Overlay cuando panel admin está abierto */
+        .admin-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2999;
+            display: none;
+        }
+        
+        .admin-overlay.active {
+            display: block;
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1.2rem;
+            background-color: var(--gris-claro);
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover {
+            background-color: var(--azul-claro);
+        }
+        
+        .category-btn.active {
+            background-color: var(--bordo);
+            color: var(--blanco);
+            border-color: var(--bordo);
+        }
+        
+        /* Columnist edit */
+        .columnist-form {
+            background-color: var(--gris-claro);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .columnist-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .columnist-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 767px) {
             .container {
@@ -978,9 +1198,22 @@
                 font-size: 1.5rem;
             }
             
-            .admin-modal-content {
-                padding: 20px;
+            .admin-panel {
+                width: 100%;
+                right: -100%;
             }
+            
+            .category-filter {
+                justify-content: center;
+            }
+        }
+        
+        /* Article count */
+        .article-count {
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+            margin-bottom: 2rem;
+            font-style: italic;
         }
     </style>
 </head>
@@ -988,14 +1221,15 @@
     <!-- Header -->
     <header>
         <div class="header-container">
-            <div class="logo">Lado <span>C</span></div>
+            <div class="logo" id="goToHome">Lado <span>C</span></div>
             <nav>
                 <ul>
-                    <li><a href="#inicio">Opinión</a></li>
-                    <li><a href="#catamarca">Catamarca</a></li>
-                    <li><a href="#sociedad">Sociedad</a></li>
-                    <li><a href="#internacionales">Internacionales</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#inicio" class="category-link" data-category="all">Inicio</a></li>
+                    <li><a href="#catamarca" class="category-link" data-category="Catamarca">Catamarca</a></li>
+                    <li><a href="#opinion" class="category-link" data-category="Opinión">Opinión</a></li>
+                    <li><a href="#sociedad" class="category-link" data-category="Sociedad">Sociedad</a></li>
+                    <li><a href="#internacionales" class="category-link" data-category="Internacionales">Internacionales</a></li>
+                    <li><a href="#politica-nacional" class="category-link" data-category="Política Nacional">Política Nacional</a></li>
                 </ul>
             </nav>
         </div>
@@ -1006,12 +1240,26 @@
         <div class="content-wrapper">
             <!-- Main Articles -->
             <main class="main-content" id="inicio">
-                <h1 class="page-title">Opinión Política y Social</h1>
+                <h1 class="page-title" id="pageTitle">Opinión Política y Social</h1>
                 
-                <div class="articles-grid">
+                <!-- Category Filter -->
+                <div class="category-filter">
+                    <button class="category-btn active" data-category="all">Todos</button>
+                    <button class="category-btn" data-category="Catamarca">Catamarca</button>
+                    <button class="category-btn" data-category="Opinión">Opinión</button>
+                    <button class="category-btn" data-category="Sociedad">Sociedad</button>
+                    <button class="category-btn" data-category="Internacionales">Internacionales</button>
+                    <button class="category-btn" data-category="Política Nacional">Política Nacional</button>
+                </div>
+                
+                <div class="article-count" id="articleCount">Mostrando <span id="count">4</span> artículos</div>
+                
+                <div class="articles-grid" id="articlesGrid">
                     <!-- Article 1 -->
-                    <article class="article-card" data-article-id="1">
+                    <article class="article-card" data-article-id="1" data-category="Catamarca">
                         <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
                         <div class="article-content">
                             <span class="article-category">Catamarca</span>
                             <h2 class="article-title">El futuro del trabajo en el Noroeste Argentino</h2>
@@ -1024,8 +1272,10 @@
                     </article>
                     
                     <!-- Article 2 -->
-                    <article class="article-card" data-article-id="2">
+                    <article class="article-card" data-article-id="2" data-category="Sociedad">
                         <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
                         <div class="article-content">
                             <span class="article-category">Sociedad</span>
                             <h2 class="article-title">Juventud y participación política: más allá del voto</h2>
@@ -1038,8 +1288,10 @@
                     </article>
                     
                     <!-- Article 3 -->
-                    <article class="article-card" data-article-id="3">
+                    <article class="article-card" data-article-id="3" data-category="Internacionales">
                         <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
                         <div class="article-content">
                             <span class="article-category">Internacionales</span>
                             <h2 class="article-title">Nuevas izquierdas en América Latina: aprendizajes y desafíos</h2>
@@ -1052,8 +1304,10 @@
                     </article>
                     
                     <!-- Article 4 -->
-                    <article class="article-card" data-article-id="4">
+                    <article class="article-card" data-article-id="4" data-category="Opinión">
                         <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                        <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
                         <div class="article-content">
                             <span class="article-category">Opinión</span>
                             <h2 class="article-title">Democracia socialista: ¿utopía o horizonte alcanzable?</h2>
@@ -1070,7 +1324,7 @@
                 <section class="featured-section">
                     <h2 class="page-title">Destacados de la semana</h2>
                     <div class="featured-articles">
-                        <article class="featured-card" data-article-id="5">
+                        <article class="featured-card" data-article-id="5" data-category="Catamarca">
                             <div class="featured-content">
                                 <span class="article-category">Catamarca</span>
                                 <h3 class="featured-title">La minería y el desarrollo sustentable: ¿son compatibles?</h3>
@@ -1080,7 +1334,7 @@
                             </div>
                         </article>
                         
-                        <article class="featured-card" data-article-id="6">
+                        <article class="featured-card" data-article-id="6" data-category="Sociedad">
                             <div class="featured-content">
                                 <span class="article-category">Sociedad</span>
                                 <h3 class="featured-title">Feminismo popular en el interior: las mujeres que transforman</h3>
@@ -1090,9 +1344,9 @@
                             </div>
                         </article>
                         
-                        <article class="featured-card" data-article-id="7">
+                        <article class="featured-card" data-article-id="7" data-category="Política Nacional">
                             <div class="featured-content">
-                                <span class="article-category">Internacionales</span>
+                                <span class="article-category">Política Nacional</span>
                                 <h3 class="featured-title">Crisis climática y justicia social: la deuda ecológica del Norte</h3>
                                 <div class="article-meta">
                                     <span>28 de abril, 2023</span>
@@ -1105,25 +1359,47 @@
             
             <!-- Sidebar -->
             <aside class="sidebar">
-                <!-- Author Bio -->
-                <div class="sidebar-widget author-bio">
-                    <div class="author-photo">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3 class="author-name">Santiago Galíndez</h3>
-                    <p class="author-tagline">"Pensar distinto también es un acto de compromiso."</p>
-                    <p class="author-description">Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.</p>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Correo">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                <!-- Columnists -->
+                <div class="sidebar-widget" id="columnistsWidget">
+                    <h3 class="widget-title">Columnistas</h3>
+                    <div class="columnists-container" id="columnistsContainer">
+                        <!-- Columnist 1 -->
+                        <div class="columnist-bio" data-columnist-id="1">
+                            <div class="columnist-photo">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3 class="columnist-name">Santiago Galíndez</h3>
+                            <p class="columnist-tagline">"Pensar distinto también es un acto de compromiso."</p>
+                            <p class="columnist-description">Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.</p>
+                            
+                            <div class="social-links">
+                                <a href="#" class="social-link" aria-label="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link" aria-label="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link" aria-label="Correo">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Columnist 2 -->
+                        <div class="columnist-bio" data-columnist-id="2">
+                            <div class="columnist-photo">
+                                <i class="fas fa-user-secret"></i>
+                            </div>
+                            <h3 class="columnist-name">Anónimo</h3>
+                            <p class="columnist-tagline">"La verdad a veces necesita el anonimato para ser dicha."</p>
+                            <p class="columnist-description">Columnista ocasional que prefiere mantener su identidad en reserva para poder expresar análisis políticos y sociales con total franqueza, sin las ataduras que a veces impone la exposición pública.</p>
+                            
+                            <div class="social-links">
+                                <a href="#" class="social-link" aria-label="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -1182,11 +1458,12 @@
                 <div>
                     <h4 class="footer-title">Secciones</h4>
                     <ul class="footer-links">
-                        <li><a href="#inicio">Opinión</a></li>
-                        <li><a href="#catamarca">Catamarca</a></li>
-                        <li><a href="#sociedad">Sociedad</a></li>
-                        <li><a href="#internacionales">Internacionales</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#inicio" class="category-link" data-category="all">Inicio</a></li>
+                        <li><a href="#catamarca" class="category-link" data-category="Catamarca">Catamarca</a></li>
+                        <li><a href="#opinion" class="category-link" data-category="Opinión">Opinión</a></li>
+                        <li><a href="#sociedad" class="category-link" data-category="Sociedad">Sociedad</a></li>
+                        <li><a href="#internacionales" class="category-link" data-category="Internacionales">Internacionales</a></li>
+                        <li><a href="#politica-nacional" class="category-link" data-category="Política Nacional">Política Nacional</a></li>
                     </ul>
                 </div>
                 
@@ -1216,55 +1493,165 @@
         </div>
     </div>
 
-    <!-- Admin Edit Modal -->
-    <div id="adminEditModal" class="admin-modal">
-        <div class="admin-modal-content">
-            <h2>Editor de Artículo</h2>
-            
-            <div class="admin-section">
-                <h3>Información Básica</h3>
-                <div class="admin-form-grid">
-                    <div>
-                        <label for="edit-title">Título</label>
-                        <input type="text" id="edit-title" class="admin-input" placeholder="Título del artículo">
-                    </div>
-                    <div>
-                        <label for="edit-category">Categoría</label>
-                        <select id="edit-category" class="admin-input">
-                            <option value="Opinión">Opinión</option>
-                            <option value="Catamarca">Catamarca</option>
-                            <option value="Sociedad">Sociedad</option>
-                            <option value="Internacionales">Internacionales</option>
-                        </select>
+    <!-- Admin Panel Overlay -->
+    <div class="admin-overlay" id="adminOverlay"></div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-panel-header">
+            <h2>Panel de Administración</h2>
+            <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
+        </div>
+        
+        <div class="admin-panel-nav">
+            <button class="admin-nav-btn active" data-tab="editorial">Editoriales</button>
+            <button class="admin-nav-btn" data-tab="columnists">Columnistas</button>
+            <button class="admin-nav-btn" data-tab="subscribers">Suscriptores</button>
+            <button class="admin-nav-btn" data-tab="comments">Comentarios</button>
+        </div>
+        
+        <div class="admin-panel-content">
+            <!-- Pestaña Editoriales -->
+            <div class="admin-tab-content active" id="tab-editorial">
+                <div class="admin-section">
+                    <h3>Editoriales Actuales</h3>
+                    <div class="admin-articles-list" id="adminArticlesList">
+                        <!-- Lista de artículos se llena con JavaScript -->
                     </div>
                 </div>
                 
-                <div class="admin-form-grid">
-                    <div>
-                        <label for="edit-date">Fecha</label>
-                        <input type="text" id="edit-date" class="admin-input" placeholder="DD de mes, AAAA">
-                    </div>
-                    <div>
-                        <label for="edit-image">URL de Imagen</label>
-                        <input type="text" id="edit-image" class="admin-input" placeholder="https://...">
+                <div class="admin-section">
+                    <h3 id="editorFormTitle">Nuevo Editorial</h3>
+                    <div class="admin-edit-form">
+                        <form id="adminArticleForm">
+                            <div class="admin-form-grid">
+                                <div class="admin-form-group">
+                                    <label for="articleTitle">Título</label>
+                                    <input type="text" id="articleTitle" class="admin-input" placeholder="Título del editorial" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="articleCategory">Categoría</label>
+                                    <select id="articleCategory" class="admin-input" required>
+                                        <option value="Opinión">Opinión</option>
+                                        <option value="Catamarca">Catamarca</option>
+                                        <option value="Sociedad">Sociedad</option>
+                                        <option value="Internacionales">Internacionales</option>
+                                        <option value="Política Nacional">Política Nacional</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="admin-form-grid">
+                                <div class="admin-form-group">
+                                    <label for="articleDate">Fecha</label>
+                                    <input type="text" id="articleDate" class="admin-input" placeholder="Ej: 15 de mayo, 2023" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="articleImage">URL de la imagen de portada</label>
+                                    <input type="text" id="articleImage" class="admin-input" placeholder="https://..." required>
+                                    <small style="color: var(--gris-medio); font-size: 0.85rem;">Recomendado: imágenes de Unsplash (ej: https://images.unsplash.com/photo-...)</small>
+                                </div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="articleExcerpt">Resumen (aparece en la tarjeta)</label>
+                                <textarea id="articleExcerpt" class="admin-textarea" placeholder="Escribe un resumen atractivo..." rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="articleContent">Contenido completo</label>
+                                <textarea id="articleContent" class="admin-textarea" placeholder="Escribe el artículo completo aquí..." rows="10" required></textarea>
+                            </div>
+                            
+                            <div class="admin-buttons">
+                                <button type="button" class="admin-btn admin-btn-secondary" id="cancelEdit">Cancelar</button>
+                                <button type="button" class="admin-btn admin-btn-success" id="previewArticle">Vista previa</button>
+                                <button type="submit" class="admin-btn admin-btn-primary" id="saveArticle">Guardar Editorial</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             
-            <div class="admin-section">
-                <h3>Contenido</h3>
-                <label for="edit-excerpt">Resumen (aparece en la tarjeta)</label>
-                <textarea id="edit-excerpt" class="admin-textarea" placeholder="Escribe un resumen atractivo..."></textarea>
+            <!-- Pestaña Columnistas -->
+            <div class="admin-tab-content" id="tab-columnists">
+                <div class="admin-section">
+                    <h3>Columnistas Actuales</h3>
+                    <div class="admin-articles-list" id="columnistsList">
+                        <!-- Lista de columnistas se llena con JavaScript -->
+                    </div>
+                </div>
                 
-                <label for="edit-full-content">Contenido Completo</label>
-                <textarea id="edit-full-content" class="admin-textarea full" placeholder="Escribe el artículo completo aquí..."></textarea>
+                <div class="admin-section">
+                    <h3 id="columnistFormTitle">Nuevo Columnista</h3>
+                    <div class="admin-edit-form">
+                        <form id="adminColumnistForm">
+                            <div class="admin-form-grid">
+                                <div class="admin-form-group">
+                                    <label for="columnistName">Nombre</label>
+                                    <input type="text" id="columnistName" class="admin-input" placeholder="Nombre del columnista" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="columnistTagline">Frase inspiradora</label>
+                                    <input type="text" id="columnistTagline" class="admin-input" placeholder="Ej: 'Pensar distinto también es un acto de compromiso.'" required>
+                                </div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="columnistDescription">Descripción/Biografía</label>
+                                <textarea id="columnistDescription" class="admin-textarea" placeholder="Describe al columnista, su trayectoria, especialidades..." rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="columnistAnonymous">
+                                    <input type="checkbox" id="columnistAnonymous"> ¿Es anónimo?
+                                </label>
+                                <small style="color: var(--gris-medio); font-size: 0.85rem; display: block; margin-top: 0.5rem;">Si se marca, se mostrará como "Anónimo" en lugar del nombre real.</small>
+                            </div>
+                            
+                            <div class="admin-buttons">
+                                <button type="button" class="admin-btn admin-btn-secondary" id="cancelColumnistEdit">Cancelar</button>
+                                <button type="submit" class="admin-btn admin-btn-primary" id="saveColumnist">Guardar Columnista</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             
-            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                <button class="admin-btn danger" id="cancelEdit">Cancelar</button>
-                <div>
-                    <button class="admin-btn secondary" id="previewEdit">Vista Previa</button>
-                    <button class="admin-btn" id="saveEdit">Guardar Cambios</button>
+            <!-- Pestaña Suscriptores -->
+            <div class="admin-tab-content" id="tab-subscribers">
+                <div class="admin-section">
+                    <h3>Lista de Suscriptores</h3>
+                    <div class="admin-articles-list" id="subscribersList">
+                        <!-- Lista de suscriptores se llena con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Exportar Datos</h3>
+                    <p>Exporta la lista de suscriptores en formato CSV.</p>
+                    <button class="admin-btn admin-btn-primary" id="exportSubscribers">Exportar Suscriptores</button>
+                </div>
+            </div>
+            
+            <!-- Pestaña Comentarios -->
+            <div class="admin-tab-content" id="tab-comments">
+                <div class="admin-section">
+                    <h3>Comentarios Recientes</h3>
+                    <div class="admin-articles-list" id="commentsList">
+                        <!-- Lista de comentarios se llena con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Moderación</h3>
+                    <div class="admin-buttons">
+                        <button class="admin-btn admin-btn-secondary" id="loadAllComments">Cargar todos los comentarios</button>
+                        <button class="admin-btn admin-btn-primary" id="exportComments">Exportar Comentarios</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1287,8 +1674,10 @@
         const ADMIN_CONFIG = {
             password: "LadoC2024",
             localStorageKey: "ladoc_content",
+            columnistsKey: "ladoc_columnists",
             isAdmin: false,
-            currentEditArticleId: null
+            currentEditArticleId: null,
+            currentEditColumnistId: null
         };
 
         // Datos de ejemplo para artículos completos
@@ -1298,7 +1687,7 @@
                 category: "Catamarca",
                 date: "15 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad?",
+                excerpt: "La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad? La transición justa implica políticas activas de formación profesional, protección social ampliada para trabajadores digitales y el fomento de cooperativas que compitan en los nuevos mercados. El socialismo democrático debe aspirar a un modelo que combine innovación con justicia social y participación popular.",
                 fullContent: `
                     <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
                     
@@ -1329,7 +1718,7 @@
                 category: "Sociedad",
                 date: "12 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca.",
+                excerpt: "La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca. Los jóvenes catamarqueños están reinventando la participación política a través de asambleas barriales, cooperativas estudiantiles y proyectos culturales que desafían las estructuras tradicionales. Este artículo explora cómo estas nuevas formas de organización pueden transformar la política provincial.",
                 fullContent: `
                     <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
                     
@@ -1360,7 +1749,7 @@
                 category: "Internacionales",
                 date: "8 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia?",
+                excerpt: "De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia? La experiencia de Petro en Colombia, Boric en Chile y Lula en Brasil muestra que el éxito depende de la capacidad para construir coaliciones amplias sin traicionar los principios de justicia social. Analizamos cómo estas experiencias pueden inspirar un socialismo democrático adaptado a Catamarca.",
                 fullContent: `
                     <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
                     
@@ -1391,7 +1780,7 @@
                 category: "Opinión",
                 date: "5 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                excerpt: "Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa.",
+                excerpt: "Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa. Partiendo de las experiencias de autogestión en fábricas recuperadas y las asambleas populares, exploramos cómo una democracia socialista podría funcionar en Catamarca, combinando representación con participación directa y priorizando el bien común sobre el interés privado.",
                 fullContent: `
                     <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
                     
@@ -1421,14 +1810,66 @@
             }
         };
 
+        // Datos de columnistas
+        let columnists = [
+            {
+                id: 1,
+                name: "Santiago Galíndez",
+                tagline: "Pensar distinto también es un acto de compromiso.",
+                description: "Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.",
+                isAnonymous: false,
+                socialLinks: [
+                    { platform: "twitter", url: "#" },
+                    { platform: "instagram", url: "#" },
+                    { platform: "email", url: "#" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Anónimo",
+                tagline: "La verdad a veces necesita el anonimato para ser dicha.",
+                description: "Columnista ocasional que prefiere mantener su identidad en reserva para poder expresar análisis políticos y sociales con total franqueza, sin las ataduras que a veces impone la exposición pública.",
+                isAnonymous: true,
+                socialLinks: [
+                    { platform: "twitter", url: "#" }
+                ]
+            }
+        ];
+
+        // Lista de suscriptores
+        let subscribers = JSON.parse(localStorage.getItem('ladoc_subscribers') || '[]');
+        
+        // Comentarios
+        let allComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
+
+        // Categorías disponibles
+        const categories = [
+            "Todos",
+            "Catamarca", 
+            "Opinión", 
+            "Sociedad", 
+            "Internacionales", 
+            "Política Nacional"
+        ];
+
         // Inicializar cuando la página cargue
         document.addEventListener('DOMContentLoaded', function() {
             checkAdminStatus();
             setupEventListeners();
             loadCommentsFromStorage();
+            loadColumnistsFromStorage();
             
             // Cargar datos guardados si existen
             loadSavedContent();
+            
+            // Inicializar filtro de categorías
+            initCategoryFilter();
+            
+            // Configurar logo para ir al inicio
+            document.getElementById('goToHome').addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                filterArticlesByCategory('all');
+            });
         });
 
         // Verificar estado de administrador
@@ -1455,9 +1896,9 @@
                     ADMIN_CONFIG.isAdmin = true;
                     document.getElementById('loginModal').classList.remove('active');
                     enableAdminMode();
-                    alert('Acceso concedido. Modo administrador activado.');
+                    showNotification('Acceso concedido. Modo administrador activado.');
                 } else {
-                    alert('Contraseña incorrecta.');
+                    showNotification('Contraseña incorrecta.', 'error');
                 }
             });
             
@@ -1476,15 +1917,23 @@
                 const name = document.getElementById('subscriber-name').value || 'Anónimo';
                 
                 if (!email) {
-                    alert('Por favor ingresa tu correo electrónico.');
+                    showNotification('Por favor ingresa tu correo electrónico.', 'error');
+                    return;
+                }
+                
+                // Validar formato de email
+                if (!validateEmail(email)) {
+                    showNotification('Por favor ingresa un correo electrónico válido.', 'error');
                     return;
                 }
                 
                 // Guardar suscriptor
                 const subscriber = {
+                    id: Date.now(),
                     email: email,
                     name: name,
-                    subscribedAt: new Date().toISOString()
+                    subscribedAt: new Date().toLocaleString('es-ES'),
+                    isGmail: email.toLowerCase().includes('@gmail.')
                 };
                 
                 saveSubscriber(subscriber);
@@ -1509,9 +1958,6 @@
                 }
             });
             
-            // Modal de edición admin
-            document.getElementById('cancelEdit').addEventListener('click', closeAdminEditModal);
-            
             // Smooth scrolling para navegación
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -1532,7 +1978,7 @@
             document.querySelectorAll('.article-card, .featured-card').forEach(card => {
                 card.addEventListener('click', function(e) {
                     // No abrir modal si se hace clic en el botón "Leer más" o botones de admin
-                    if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn')) {
+                    if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
                         return;
                     }
                     
@@ -1559,12 +2005,812 @@
             });
         }
 
+        // Inicializar filtro de categorías
+        function initCategoryFilter() {
+            // Configurar botones de categoría
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterArticlesByCategory(category);
+                    
+                    // Actualizar botones activos
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Actualizar título de página
+                    updatePageTitle(category);
+                });
+            });
+            
+            // Configurar enlaces de categoría en el menú
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    filterArticlesByCategory(category);
+                    
+                    // Actualizar botones activos
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
+                    
+                    // Actualizar título de página
+                    updatePageTitle(category);
+                    
+                    // Scroll suave
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Filtrar artículos por categoría
+        function filterArticlesByCategory(category) {
+            const articlesGrid = document.getElementById('articlesGrid');
+            const featuredSection = document.querySelector('.featured-articles');
+            const articles = document.querySelectorAll('.article-card');
+            const featuredArticles = document.querySelectorAll('.featured-card');
+            
+            let visibleCount = 0;
+            
+            // Filtrar artículos principales
+            articles.forEach(article => {
+                const articleCategory = article.getAttribute('data-category');
+                
+                if (category === 'all' || articleCategory === category) {
+                    article.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+            
+            // Filtrar artículos destacados
+            featuredArticles.forEach(article => {
+                const articleCategory = article.getAttribute('data-category');
+                
+                if (category === 'all' || articleCategory === category) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+            
+            // Actualizar contador
+            document.getElementById('count').textContent = visibleCount;
+            
+            // Mostrar u ocultar sección de destacados si no hay artículos
+            if (category !== 'all') {
+                const featuredSectionElement = document.querySelector('.featured-section');
+                const hasFeaturedInCategory = Array.from(featuredArticles).some(article => {
+                    return article.getAttribute('data-category') === category && article.style.display !== 'none';
+                });
+                
+                if (hasFeaturedInCategory) {
+                    featuredSectionElement.style.display = 'block';
+                } else {
+                    featuredSectionElement.style.display = 'none';
+                }
+            } else {
+                document.querySelector('.featured-section').style.display = 'block';
+            }
+        }
+
+        // Actualizar título de página según categoría
+        function updatePageTitle(category) {
+            const pageTitle = document.getElementById('pageTitle');
+            
+            switch(category) {
+                case 'all':
+                    pageTitle.textContent = 'Opinión Política y Social';
+                    break;
+                case 'Catamarca':
+                    pageTitle.textContent = 'Noticias y Opinión de Catamarca';
+                    break;
+                case 'Opinión':
+                    pageTitle.textContent = 'Columnas de Opinión';
+                    break;
+                case 'Sociedad':
+                    pageTitle.textContent = 'Análisis Social y Cultural';
+                    break;
+                case 'Internacionales':
+                    pageTitle.textContent = 'Análisis Internacional';
+                    break;
+                case 'Política Nacional':
+                    pageTitle.textContent = 'Política Nacional Argentina';
+                    break;
+                default:
+                    pageTitle.textContent = 'Opinión Política y Social';
+            }
+        }
+
+        // Activar modo administrador
+        function enableAdminMode() {
+            // Activar clase admin-mode en body
+            document.body.classList.add('admin-mode');
+            
+            // Agregar botón flotante
+            addAdminFloatingButton();
+            
+            // Configurar botones de edición y eliminación
+            setupAdminButtons();
+        }
+
+        // Configurar botones de administración en artículos
+        function setupAdminButtons() {
+            // Configurar botones de edición
+            document.querySelectorAll('.admin-edit-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const articleCard = this.closest('.article-card, .featured-card');
+                    const articleId = articleCard.getAttribute('data-article-id');
+                    openAdminPanel();
+                    setTimeout(() => {
+                        loadArticleForEditing(articleId);
+                    }, 300);
+                });
+            });
+            
+            // Configurar botones de eliminación
+            document.querySelectorAll('.admin-delete-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const articleCard = this.closest('.article-card, .featured-card');
+                    const articleId = articleCard.getAttribute('data-article-id');
+                    deleteArticle(articleId);
+                });
+            });
+        }
+
+        // Agregar botón flotante de administración
+        function addAdminFloatingButton() {
+            // Verificar si ya existe
+            if (document.querySelector('.admin-floating-btn')) return;
+            
+            const floatingBtn = document.createElement('div');
+            floatingBtn.className = 'admin-floating-btn';
+            floatingBtn.innerHTML = `
+                <button class="admin-panel-btn" id="openAdminPanel">
+                    <i class="fas fa-cog"></i> Panel Admin
+                </button>
+            `;
+            document.body.appendChild(floatingBtn);
+            
+            // Configurar evento para abrir panel
+            document.getElementById('openAdminPanel').addEventListener('click', openAdminPanel);
+        }
+
+        // Abrir panel de administración
+        function openAdminPanel() {
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Cargar datos en el panel
+            loadAdminArticlesList();
+            loadColumnistsAdminList();
+            loadSubscribersList();
+            loadCommentsList();
+            
+            // Configurar eventos del panel
+            setupAdminPanelEvents();
+        }
+
+        // Cerrar panel de administración
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Resetear formularios
+            resetArticleForm();
+            resetColumnistForm();
+        }
+
+        // Configurar eventos del panel de administración
+        function setupAdminPanelEvents() {
+            // Cerrar panel
+            document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
+            document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+            
+            // Navegación entre pestañas
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remover clase active de todas las pestañas
+                    document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Activar pestaña actual
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                });
+            });
+            
+            // Formulario de artículo
+            const articleForm = document.getElementById('adminArticleForm');
+            articleForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveArticle();
+            });
+            
+            // Botón cancelar edición de artículo
+            document.getElementById('cancelEdit').addEventListener('click', function() {
+                resetArticleForm();
+                document.querySelectorAll('.admin-article-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            });
+            
+            // Botón vista previa de artículo
+            document.getElementById('previewArticle').addEventListener('click', previewArticleFromAdmin);
+            
+            // Formulario de columnista
+            const columnistForm = document.getElementById('adminColumnistForm');
+            columnistForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveColumnist();
+            });
+            
+            // Botón cancelar edición de columnista
+            document.getElementById('cancelColumnistEdit').addEventListener('click', function() {
+                resetColumnistForm();
+                document.querySelectorAll('.columnist-admin-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            });
+            
+            // Botón exportar suscriptores
+            document.getElementById('exportSubscribers').addEventListener('click', exportSubscribers);
+            
+            // Botón exportar comentarios
+            document.getElementById('exportComments').addEventListener('click', exportComments);
+            
+            // Botón cargar todos los comentarios
+            document.getElementById('loadAllComments').addEventListener('click', loadAllComments);
+        }
+
+        // Cargar lista de artículos en el panel
+        function loadAdminArticlesList() {
+            const articlesList = document.getElementById('adminArticlesList');
+            articlesList.innerHTML = '';
+            
+            // Crear botón para nuevo artículo
+            const newArticleBtn = document.createElement('div');
+            newArticleBtn.className = 'admin-article-item';
+            newArticleBtn.style.textAlign = 'center';
+            newArticleBtn.style.cursor = 'pointer';
+            newArticleBtn.innerHTML = `
+                <button class="admin-btn admin-btn-primary" style="width: 100%;">
+                    <i class="fas fa-plus"></i> Crear Nuevo Editorial
+                </button>
+            `;
+            newArticleBtn.addEventListener('click', function() {
+                resetArticleForm();
+                document.querySelectorAll('.admin-article-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            });
+            articlesList.appendChild(newArticleBtn);
+            
+            // Agregar artículos existentes
+            Object.keys(articlesFullContent).forEach(articleId => {
+                const article = articlesFullContent[articleId];
+                const articleItem = document.createElement('div');
+                articleItem.className = 'admin-article-item';
+                articleItem.innerHTML = `
+                    <h4>${article.title}</h4>
+                    <div class="admin-article-meta">
+                        <span>${article.category} • ${article.date}</span>
+                    </div>
+                    <div style="margin-top: 0.5rem;">
+                        <button class="admin-btn admin-btn-danger admin-delete-small" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-article-id="${articleId}">
+                            <i class="fas fa-trash"></i> Borrar
+                        </button>
+                    </div>
+                `;
+                articleItem.addEventListener('click', function(e) {
+                    // No activar si se hace clic en el botón de borrar
+                    if (e.target.closest('.admin-delete-small')) return;
+                    
+                    // Remover clase active de todos los items
+                    document.querySelectorAll('.admin-article-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Activar item actual
+                    this.classList.add('active');
+                    
+                    // Cargar artículo para edición
+                    loadArticleForEditing(articleId);
+                });
+                
+                // Configurar botón de borrar
+                articleItem.querySelector('.admin-delete-small').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const articleId = this.getAttribute('data-article-id');
+                    deleteArticle(articleId);
+                });
+                
+                articlesList.appendChild(articleItem);
+            });
+        }
+
+        // Cargar artículo para edición
+        function loadArticleForEditing(articleId) {
+            const article = articlesFullContent[articleId];
+            if (!article) {
+                // Es un artículo nuevo
+                document.getElementById('editorFormTitle').textContent = 'Nuevo Editorial';
+                document.getElementById('articleTitle').value = '';
+                document.getElementById('articleCategory').value = 'Opinión';
+                document.getElementById('articleDate').value = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+                document.getElementById('articleImage').value = 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                document.getElementById('articleExcerpt').value = '';
+                document.getElementById('articleContent').value = '';
+                document.getElementById('saveArticle').textContent = 'Crear Editorial';
+                ADMIN_CONFIG.currentEditArticleId = null;
+            } else {
+                // Es un artículo existente
+                document.getElementById('editorFormTitle').textContent = 'Editar Editorial';
+                document.getElementById('articleTitle').value = article.title;
+                document.getElementById('articleCategory').value = article.category;
+                document.getElementById('articleDate').value = article.date;
+                document.getElementById('articleImage').value = article.image;
+                document.getElementById('articleExcerpt').value = article.excerpt;
+                document.getElementById('articleContent').value = article.fullContent;
+                document.getElementById('saveArticle').textContent = 'Actualizar Editorial';
+                ADMIN_CONFIG.currentEditArticleId = articleId;
+            }
+        }
+
+        // Resetear formulario de artículo
+        function resetArticleForm() {
+            document.getElementById('editorFormTitle').textContent = 'Nuevo Editorial';
+            document.getElementById('articleTitle').value = '';
+            document.getElementById('articleCategory').value = 'Opinión';
+            document.getElementById('articleDate').value = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('articleImage').value = 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            document.getElementById('articleExcerpt').value = '';
+            document.getElementById('articleContent').value = '';
+            document.getElementById('saveArticle').textContent = 'Crear Editorial';
+            ADMIN_CONFIG.currentEditArticleId = null;
+        }
+
+        // Guardar artículo desde el panel
+        function saveArticle() {
+            const title = document.getElementById('articleTitle').value;
+            const category = document.getElementById('articleCategory').value;
+            const date = document.getElementById('articleDate').value;
+            const image = document.getElementById('articleImage').value;
+            const excerpt = document.getElementById('articleExcerpt').value;
+            const content = document.getElementById('articleContent').value;
+            
+            if (!title || !excerpt || !content) {
+                showNotification('Por favor completa todos los campos obligatorios.', 'error');
+                return;
+            }
+            
+            const articleId = ADMIN_CONFIG.currentEditArticleId || Date.now().toString();
+            
+            // Actualizar datos del artículo
+            articlesFullContent[articleId] = {
+                title: title,
+                category: category,
+                date: date,
+                image: image,
+                excerpt: excerpt,
+                fullContent: content,
+                comments: articlesFullContent[articleId]?.comments || []
+            };
+            
+            // Actualizar o crear tarjeta en la página principal
+            updateOrCreateArticleCard(articleId, title, category, date, image, excerpt);
+            
+            // Guardar en localStorage
+            saveContentToStorage();
+            
+            // Recargar lista de artículos en el panel
+            loadAdminArticlesList();
+            
+            // Resetear formulario
+            resetArticleForm();
+            
+            showNotification('Editorial guardado correctamente.', 'success');
+        }
+
+        // Actualizar o crear tarjeta de artículo
+        function updateOrCreateArticleCard(articleId, title, category, date, image, excerpt) {
+            let articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
+            
+            if (articleCard) {
+                // Actualizar tarjeta existente
+                articleCard.setAttribute('data-category', category);
+                articleCard.querySelector('.article-title').textContent = title;
+                articleCard.querySelector('.article-category').textContent = category;
+                articleCard.querySelector('.article-excerpt').textContent = excerpt;
+                articleCard.querySelector('.article-meta span').textContent = date;
+                articleCard.querySelector('.article-image').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')`;
+            } else {
+                // Crear nueva tarjeta
+                const articlesGrid = document.getElementById('articlesGrid');
+                articleCard = document.createElement('article');
+                articleCard.className = 'article-card';
+                articleCard.setAttribute('data-article-id', articleId);
+                articleCard.setAttribute('data-category', category);
+                articleCard.innerHTML = `
+                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')"></div>
+                    <button class="admin-edit-btn"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="admin-delete-btn"><i class="fas fa-trash"></i> Borrar</button>
+                    <div class="article-content">
+                        <span class="article-category">${category}</span>
+                        <h2 class="article-title">${title}</h2>
+                        <p class="article-excerpt">${excerpt}</p>
+                        <div class="article-meta">
+                            <span>${date}</span>
+                            <a href="#articulo-${articleId}" class="read-more">Leer más</a>
+                        </div>
+                    </div>
+                `;
+                articlesGrid.appendChild(articleCard);
+                
+                // Configurar eventos
+                setupArticleCardEvents(articleCard, articleId);
+            }
+        }
+
+        // Configurar eventos de tarjeta de artículo
+        function setupArticleCardEvents(articleCard, articleId) {
+            // Click en tarjeta para abrir modal
+            articleCard.addEventListener('click', function(e) {
+                if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
+                    return;
+                }
+                openArticleModal(articleId);
+            });
+            
+            // Click en "Leer más"
+            articleCard.querySelector('.read-more').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openArticleModal(articleId);
+            });
+            
+            // Configurar botones de admin si estamos en modo admin
+            if (ADMIN_CONFIG.isAdmin) {
+                articleCard.querySelector('.admin-edit-btn').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openAdminPanel();
+                    setTimeout(() => {
+                        loadArticleForEditing(articleId);
+                    }, 300);
+                });
+                
+                articleCard.querySelector('.admin-delete-btn').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    deleteArticle(articleId);
+                });
+            }
+        }
+
+        // Borrar artículo
+        function deleteArticle(articleId) {
+            if (!confirm('¿Estás seguro de que quieres borrar este artículo? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            // Eliminar del objeto de artículos
+            delete articlesFullContent[articleId];
+            
+            // Eliminar del DOM
+            const articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
+            if (articleCard) {
+                articleCard.remove();
+            }
+            
+            // Eliminar de los destacados si existe
+            const featuredCard = document.querySelector(`.featured-card[data-article-id="${articleId}"]`);
+            if (featuredCard) {
+                featuredCard.remove();
+            }
+            
+            // Guardar cambios
+            saveContentToStorage();
+            
+            // Recargar lista en panel admin
+            loadAdminArticlesList();
+            
+            // Actualizar contador
+            updateArticleCount();
+            
+            showNotification('Artículo eliminado correctamente.', 'success');
+        }
+
+        // Actualizar contador de artículos
+        function updateArticleCount() {
+            const visibleArticles = document.querySelectorAll('.article-card[style*="display: flex"], .article-card:not([style*="display: none"])');
+            document.getElementById('count').textContent = visibleArticles.length;
+        }
+
+        // Vista previa desde el panel
+        function previewArticleFromAdmin() {
+            const title = document.getElementById('articleTitle').value;
+            const category = document.getElementById('articleCategory').value;
+            const date = document.getElementById('articleDate').value;
+            const image = document.getElementById('articleImage').value;
+            const excerpt = document.getElementById('articleExcerpt').value;
+            const content = document.getElementById('articleContent').value;
+            
+            if (!title || !excerpt || !content) {
+                showNotification('Por favor completa todos los campos para ver la vista previa.', 'error');
+                return;
+            }
+            
+            // Crear un ID temporal para la vista previa
+            const tempId = 'preview-' + Date.now();
+            articlesFullContent[tempId] = {
+                title: title,
+                category: category,
+                date: date,
+                image: image,
+                excerpt: excerpt,
+                fullContent: content
+            };
+            
+            // Cerrar panel de admin
+            closeAdminPanel();
+            
+            // Abrir modal con vista previa
+            setTimeout(() => {
+                openArticleModal(tempId);
+            }, 400);
+        }
+
+        // Cargar columnistas desde localStorage
+        function loadColumnistsFromStorage() {
+            const savedColumnists = localStorage.getItem(ADMIN_CONFIG.columnistsKey);
+            if (savedColumnists) {
+                try {
+                    columnists = JSON.parse(savedColumnists);
+                    renderColumnists();
+                } catch (e) {
+                    console.error('Error al cargar columnistas:', e);
+                }
+            } else {
+                // Guardar columnistas por defecto
+                saveColumnistsToStorage();
+                renderColumnists();
+            }
+        }
+
+        // Renderizar columnistas en el sidebar
+        function renderColumnists() {
+            const columnistsContainer = document.getElementById('columnistsContainer');
+            columnistsContainer.innerHTML = '';
+            
+            columnists.forEach(columnist => {
+                const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
+                const bioElement = document.createElement('div');
+                bioElement.className = 'columnist-bio';
+                bioElement.setAttribute('data-columnist-id', columnist.id);
+                bioElement.innerHTML = `
+                    <div class="columnist-photo">
+                        <i class="fas ${columnist.isAnonymous ? 'fa-user-secret' : 'fa-user'}"></i>
+                    </div>
+                    <h3 class="columnist-name">${displayName}</h3>
+                    <p class="columnist-tagline">"${columnist.tagline}"</p>
+                    <p class="columnist-description">${columnist.description}</p>
+                    
+                    <div class="social-links">
+                        ${columnist.socialLinks.map(link => `
+                            <a href="${link.url}" class="social-link" aria-label="${link.platform}">
+                                <i class="fab fa-${link.platform}"></i>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+                columnistsContainer.appendChild(bioElement);
+            });
+        }
+
+        // Cargar lista de columnistas en el panel admin
+        function loadColumnistsAdminList() {
+            const columnistsList = document.getElementById('columnistsList');
+            columnistsList.innerHTML = '';
+            
+            // Crear botón para nuevo columnista
+            const newColumnistBtn = document.createElement('div');
+            newColumnistBtn.className = 'admin-article-item';
+            newColumnistBtn.style.textAlign = 'center';
+            newColumnistBtn.style.cursor = 'pointer';
+            newColumnistBtn.innerHTML = `
+                <button class="admin-btn admin-btn-primary" style="width: 100%;">
+                    <i class="fas fa-plus"></i> Agregar Columnista
+                </button>
+            `;
+            newColumnistBtn.addEventListener('click', function() {
+                resetColumnistForm();
+                document.querySelectorAll('.columnist-admin-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            });
+            columnistsList.appendChild(newColumnistBtn);
+            
+            // Agregar columnistas existentes
+            columnists.forEach(columnist => {
+                const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
+                const columnistItem = document.createElement('div');
+                columnistItem.className = 'columnist-admin-item admin-article-item';
+                columnistItem.innerHTML = `
+                    <h4>${displayName} ${columnist.isAnonymous ? '(Anónimo)' : ''}</h4>
+                    <div class="admin-article-meta">
+                        <span>"${columnist.tagline}"</span>
+                    </div>
+                    <div style="margin-top: 0.5rem;">
+                        <button class="admin-btn admin-btn-danger admin-delete-columnist-small" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-columnist-id="${columnist.id}">
+                            <i class="fas fa-trash"></i> Borrar
+                        </button>
+                    </div>
+                `;
+                columnistItem.addEventListener('click', function(e) {
+                    // No activar si se hace clic en el botón de borrar
+                    if (e.target.closest('.admin-delete-columnist-small')) return;
+                    
+                    // Remover clase active de todos los items
+                    document.querySelectorAll('.columnist-admin-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Activar item actual
+                    this.classList.add('active');
+                    
+                    // Cargar columnista para edición
+                    loadColumnistForEditing(columnist.id);
+                });
+                
+                // Configurar botón de borrar
+                columnistItem.querySelector('.admin-delete-columnist-small').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const columnistId = parseInt(this.getAttribute('data-columnist-id'));
+                    deleteColumnist(columnistId);
+                });
+                
+                columnistsList.appendChild(columnistItem);
+            });
+        }
+
+        // Cargar columnista para edición
+        function loadColumnistForEditing(columnistId) {
+            const columnist = columnists.find(c => c.id === columnistId);
+            if (!columnist) {
+                // Es un columnista nuevo
+                document.getElementById('columnistFormTitle').textContent = 'Nuevo Columnista';
+                document.getElementById('columnistName').value = '';
+                document.getElementById('columnistTagline').value = '';
+                document.getElementById('columnistDescription').value = '';
+                document.getElementById('columnistAnonymous').checked = false;
+                ADMIN_CONFIG.currentEditColumnistId = null;
+            } else {
+                // Es un columnista existente
+                document.getElementById('columnistFormTitle').textContent = 'Editar Columnista';
+                document.getElementById('columnistName').value = columnist.isAnonymous ? '' : columnist.name;
+                document.getElementById('columnistTagline').value = columnist.tagline;
+                document.getElementById('columnistDescription').value = columnist.description;
+                document.getElementById('columnistAnonymous').checked = columnist.isAnonymous;
+                ADMIN_CONFIG.currentEditColumnistId = columnistId;
+            }
+        }
+
+        // Resetear formulario de columnista
+        function resetColumnistForm() {
+            document.getElementById('columnistFormTitle').textContent = 'Nuevo Columnista';
+            document.getElementById('columnistName').value = '';
+            document.getElementById('columnistTagline').value = '';
+            document.getElementById('columnistDescription').value = '';
+            document.getElementById('columnistAnonymous').checked = false;
+            ADMIN_CONFIG.currentEditColumnistId = null;
+        }
+
+        // Guardar columnista
+        function saveColumnist() {
+            const name = document.getElementById('columnistName').value;
+            const tagline = document.getElementById('columnistTagline').value;
+            const description = document.getElementById('columnistDescription').value;
+            const isAnonymous = document.getElementById('columnistAnonymous').checked;
+            
+            if ((!name && !isAnonymous) || !tagline || !description) {
+                showNotification('Por favor completa todos los campos obligatorios.', 'error');
+                return;
+            }
+            
+            const columnistId = ADMIN_CONFIG.currentEditColumnistId || Date.now();
+            
+            // Crear o actualizar columnista
+            const columnistData = {
+                id: columnistId,
+                name: isAnonymous ? 'Anónimo' : name,
+                tagline: tagline,
+                description: description,
+                isAnonymous: isAnonymous,
+                socialLinks: [
+                    { platform: "twitter", url: "#" },
+                    { platform: "instagram", url: "#" },
+                    { platform: "email", url: "#" }
+                ]
+            };
+            
+            if (ADMIN_CONFIG.currentEditColumnistId) {
+                // Actualizar columnista existente
+                const index = columnists.findIndex(c => c.id === columnistId);
+                if (index !== -1) {
+                    columnists[index] = columnistData;
+                }
+            } else {
+                // Agregar nuevo columnista
+                columnists.push(columnistData);
+            }
+            
+            // Guardar en localStorage
+            saveColumnistsToStorage();
+            
+            // Actualizar vista
+            renderColumnists();
+            loadColumnistsAdminList();
+            
+            // Resetear formulario
+            resetColumnistForm();
+            
+            showNotification('Columnista guardado correctamente.', 'success');
+        }
+
+        // Borrar columnista
+        function deleteColumnist(columnistId) {
+            if (!confirm('¿Estás seguro de que quieres borrar este columnista? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            // No permitir borrar todos los columnistas
+            if (columnists.length <= 1) {
+                showNotification('Debe haber al menos un columnista.', 'error');
+                return;
+            }
+            
+            // Eliminar columnista
+            const index = columnists.findIndex(c => c.id === columnistId);
+            if (index !== -1) {
+                columnists.splice(index, 1);
+            }
+            
+            // Guardar cambios
+            saveColumnistsToStorage();
+            
+            // Actualizar vista
+            renderColumnists();
+            loadColumnistsAdminList();
+            
+            showNotification('Columnista eliminado correctamente.', 'success');
+        }
+
+        // Guardar columnistas en localStorage
+        function saveColumnistsToStorage() {
+            localStorage.setItem(ADMIN_CONFIG.columnistsKey, JSON.stringify(columnists));
+        }
+
         // Abrir modal de artículo
         function openArticleModal(articleId) {
             const articleData = articlesFullContent[articleId];
             
             if (!articleData) {
-                alert('Artículo no encontrado.');
+                showNotification('Artículo no encontrado.', 'error');
                 return;
             }
             
@@ -1578,7 +2824,7 @@
                     <h1>${articleData.title}</h1>
                     <div class="article-modal-meta">
                         <span>${articleData.date}</span>
-                        <span>Por Santiago Galíndez</span>
+                        <span>Por ${articleData.author || 'Santiago Galíndez'}</span>
                     </div>
                 </div>
                 <div class="article-modal-body">
@@ -1634,257 +2880,74 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Activar modo administrador
-        function enableAdminMode() {
-            // Agregar botón flotante
-            addAdminFloatingButton();
-            
-            // Agregar botones de edición a los artículos
-            addEditButtonsToArticles();
-            
-            // Agregar botón para nuevo artículo
-            addNewArticleButton();
-        }
-
-        // Agregar botón flotante de administración
-        function addAdminFloatingButton() {
+        // Guardar suscriptor
+        function saveSubscriber(subscriber) {
             // Verificar si ya existe
-            if (document.querySelector('.admin-floating-btn')) return;
+            const exists = subscribers.some(s => s.email.toLowerCase() === subscriber.email.toLowerCase());
             
-            const floatingBtn = document.createElement('div');
-            floatingBtn.className = 'admin-floating-btn';
-            floatingBtn.innerHTML = `
-                <button class="admin-panel-btn">
-                    <i class="fas fa-cog"></i> Panel Admin
-                </button>
-            `;
-            document.body.appendChild(floatingBtn);
-            
-            floatingBtn.querySelector('button').addEventListener('click', showAdminPanel);
-        }
-
-        // Agregar botones de edición a los artículos
-        function addEditButtonsToArticles() {
-            const articles = document.querySelectorAll('.article-card, .featured-card');
-            articles.forEach((article, index) => {
-                if (!article.querySelector('.admin-edit-btn')) {
-                    const editBtn = document.createElement('button');
-                    editBtn.className = 'admin-edit-btn';
-                    editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar';
-                    editBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        editArticle(article.getAttribute('data-article-id'));
-                    });
-                    article.style.position = 'relative';
-                    article.appendChild(editBtn);
+            if (!exists) {
+                subscribers.push(subscriber);
+                localStorage.setItem('ladoc_subscribers', JSON.stringify(subscribers));
+                showNotification('¡Gracias por suscribirte! Ahora puedes comentar los artículos.', 'success');
+                
+                // Actualizar lista en panel admin si está abierto
+                if (ADMIN_CONFIG.isAdmin) {
+                    loadSubscribersList();
                 }
-            });
-        }
-
-        // Agregar botón para nuevo artículo
-        function addNewArticleButton() {
-            const mainContent = document.querySelector('.main-content');
-            
-            if (!document.querySelector('.new-article-btn')) {
-                const newArticleBtn = document.createElement('button');
-                newArticleBtn.className = 'new-article-btn';
-                newArticleBtn.innerHTML = '<i class="fas fa-plus"></i> Nuevo Artículo';
-                newArticleBtn.addEventListener('click', createNewArticle);
-                mainContent.insertBefore(newArticleBtn, document.querySelector('.articles-grid'));
+            } else {
+                showNotification('Ya estás suscrito con este correo.', 'info');
             }
         }
 
-        // Mostrar panel de administración
-        function showAdminPanel() {
-            // En una versión más completa, aquí iría el panel con estadísticas, etc.
-            alert('Panel de administración. En una versión completa, aquí verías estadísticas, gestión de usuarios, etc.');
-        }
-
-        // Editar artículo
-        function editArticle(articleId) {
-            ADMIN_CONFIG.currentEditArticleId = articleId;
+        // Cargar lista de suscriptores en el panel
+        function loadSubscribersList() {
+            const subscribersList = document.getElementById('subscribersList');
+            subscribersList.innerHTML = '';
             
-            const articleData = articlesFullContent[articleId];
-            if (!articleData) {
-                // Si es un artículo nuevo
-                articleData = {
-                    title: '',
-                    category: 'Opinión',
-                    date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }),
-                    image: 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    excerpt: '',
-                    fullContent: ''
-                };
-            }
-            
-            // Llenar formulario
-            document.getElementById('edit-title').value = articleData.title;
-            document.getElementById('edit-category').value = articleData.category;
-            document.getElementById('edit-date').value = articleData.date;
-            document.getElementById('edit-image').value = articleData.image;
-            document.getElementById('edit-excerpt').value = articleData.excerpt;
-            document.getElementById('edit-full-content').value = articleData.fullContent;
-            
-            // Mostrar modal
-            document.getElementById('adminEditModal').classList.add('active');
-            
-            // Configurar botones
-            document.getElementById('previewEdit').onclick = function() {
-                previewArticle();
-            };
-            
-            document.getElementById('saveEdit').onclick = function() {
-                saveArticleEdit();
-            };
-        }
-
-        // Cerrar modal de edición
-        function closeAdminEditModal() {
-            document.getElementById('adminEditModal').classList.remove('active');
-            ADMIN_CONFIG.currentEditArticleId = null;
-        }
-
-        // Vista previa de artículo
-        function previewArticle() {
-            const articleData = {
-                title: document.getElementById('edit-title').value,
-                category: document.getElementById('edit-category').value,
-                date: document.getElementById('edit-date').value,
-                image: document.getElementById('edit-image').value,
-                excerpt: document.getElementById('edit-excerpt').value,
-                fullContent: document.getElementById('edit-full-content').value
-            };
-            
-            // Crear un ID temporal para la vista previa
-            const tempId = 'preview-' + Date.now();
-            articlesFullContent[tempId] = articleData;
-            
-            // Abrir modal con vista previa
-            openArticleModal(tempId);
-            
-            // Cerrar modal de edición
-            closeAdminEditModal();
-        }
-
-        // Guardar edición de artículo
-        function saveArticleEdit() {
-            const articleId = ADMIN_CONFIG.currentEditArticleId;
-            const title = document.getElementById('edit-title').value;
-            const category = document.getElementById('edit-category').value;
-            const date = document.getElementById('edit-date').value;
-            const image = document.getElementById('edit-image').value;
-            const excerpt = document.getElementById('edit-excerpt').value;
-            const fullContent = document.getElementById('edit-full-content').value;
-            
-            if (!title || !excerpt) {
-                alert('Por favor completa al menos el título y el resumen.');
+            if (subscribers.length === 0) {
+                subscribersList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay suscriptores aún.</p>';
                 return;
             }
             
-            // Actualizar datos del artículo
-            articlesFullContent[articleId] = {
-                title: title,
-                category: category,
-                date: date,
-                image: image,
-                excerpt: excerpt,
-                fullContent: fullContent,
-                comments: articlesFullContent[articleId]?.comments || []
-            };
-            
-            // Actualizar en la página principal si el artículo ya existe
-            const articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
-            if (articleCard) {
-                // Actualizar tarjeta
-                if (articleCard.querySelector('.article-title')) {
-                    articleCard.querySelector('.article-title').textContent = title;
-                    articleCard.querySelector('.article-category').textContent = category;
-                    articleCard.querySelector('.article-excerpt').textContent = excerpt;
-                    articleCard.querySelector('.article-meta span').textContent = date;
-                    
-                    // Actualizar imagen
-                    if (articleCard.querySelector('.article-image')) {
-                        articleCard.querySelector('.article-image').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')`;
-                    }
-                }
-            } else {
-                // Es un artículo nuevo, agregarlo al DOM
-                const newId = Date.now();
-                articlesFullContent[newId] = articlesFullContent[articleId];
-                
-                const articlesGrid = document.querySelector('.articles-grid');
-                const newArticle = document.createElement('article');
-                newArticle.className = 'article-card';
-                newArticle.setAttribute('data-article-id', newId);
-                newArticle.innerHTML = `
-                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${image}')"></div>
-                    <div class="article-content">
-                        <span class="article-category">${category}</span>
-                        <h2 class="article-title">${title}</h2>
-                        <p class="article-excerpt">${excerpt}</p>
-                        <div class="article-meta">
-                            <span>${date}</span>
-                            <a href="#articulo-${newId}" class="read-more">Leer más</a>
-                        </div>
+            subscribers.forEach(subscriber => {
+                const subscriberItem = document.createElement('div');
+                subscriberItem.className = 'admin-article-item';
+                subscriberItem.innerHTML = `
+                    <h4>${subscriber.name}</h4>
+                    <div class="admin-article-meta">
+                        <span>${subscriber.email}</span>
+                        <span>${subscriber.subscribedAt}</span>
                     </div>
                 `;
-                articlesGrid.appendChild(newArticle);
-                
-                // Agregar funcionalidad
-                newArticle.addEventListener('click', function(e) {
-                    if (!e.target.closest('.read-more') && !e.target.closest('.admin-edit-btn')) {
-                        openArticleModal(newId);
-                    }
-                });
-                
-                newArticle.querySelector('.read-more').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    openArticleModal(newId);
-                });
+                subscribersList.appendChild(subscriberItem);
+            });
+        }
+
+        // Exportar suscriptores
+        function exportSubscribers() {
+            if (subscribers.length === 0) {
+                showNotification('No hay suscriptores para exportar.', 'info');
+                return;
             }
             
-            // Guardar en localStorage
-            saveContentToStorage();
+            // Convertir a CSV
+            let csv = 'Nombre,Email,Fecha de suscripción,Tipo\n';
+            subscribers.forEach(subscriber => {
+                csv += `"${subscriber.name}","${subscriber.email}","${subscriber.subscribedAt}","${subscriber.isGmail ? 'Gmail' : 'Otro'}"\n`;
+            });
             
-            // Cerrar modal
-            closeAdminEditModal();
+            // Crear y descargar archivo
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `suscriptores_ladoc_${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
-            alert('Artículo guardado correctamente.');
-        }
-
-        // Crear nuevo artículo
-        function createNewArticle() {
-            const newId = 'new-' + Date.now();
-            ADMIN_CONFIG.currentEditArticleId = newId;
-            
-            // Llenar formulario con valores por defecto
-            document.getElementById('edit-title').value = '';
-            document.getElementById('edit-category').value = 'Opinión';
-            document.getElementById('edit-date').value = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('edit-image').value = 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-            document.getElementById('edit-excerpt').value = '';
-            document.getElementById('edit-full-content').value = '';
-            
-            // Mostrar modal
-            document.getElementById('adminEditModal').classList.add('active');
-            
-            // Configurar botones
-            document.getElementById('previewEdit').onclick = function() {
-                previewArticle();
-            };
-            
-            document.getElementById('saveEdit').onclick = function() {
-                saveArticleEdit();
-            };
-        }
-
-        // Guardar suscriptor
-        function saveSubscriber(subscriber) {
-            const subscribers = JSON.parse(localStorage.getItem('ladoc_subscribers') || '[]');
-            subscribers.push(subscriber);
-            localStorage.setItem('ladoc_subscribers', JSON.stringify(subscribers));
+            showNotification('Suscriptores exportados correctamente.', 'success');
         }
 
         // Enviar comentario
@@ -1897,13 +2960,14 @@
             const content = contentInput.value;
             
             if (!content.trim()) {
-                alert('Por favor escribe un comentario.');
+                showNotification('Por favor escribe un comentario.', 'error');
                 return;
             }
             
             const comment = {
                 id: Date.now(),
                 articleId: articleId,
+                articleTitle: articlesFullContent[articleId]?.title || 'Artículo',
                 author: name,
                 content: content,
                 date: new Date().toLocaleString('es-ES'),
@@ -1921,26 +2985,29 @@
             // Mostrar comentario
             displayComment(comment);
             
-            alert('Comentario publicado.');
+            showNotification('Comentario publicado.', 'success');
         }
 
         // Guardar comentario
         function saveComment(comment) {
             // Agregar a los datos del artículo
+            if (!articlesFullContent[comment.articleId]) {
+                articlesFullContent[comment.articleId] = { comments: [] };
+            }
             if (!articlesFullContent[comment.articleId].comments) {
                 articlesFullContent[comment.articleId].comments = [];
             }
             articlesFullContent[comment.articleId].comments.push(comment);
             
-            // Guardar en localStorage
-            const comments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
-            comments.push(comment);
-            localStorage.setItem('ladoc_comments', JSON.stringify(comments));
+            // Agregar a lista general
+            allComments.push(comment);
+            localStorage.setItem('ladoc_comments', JSON.stringify(allComments));
         }
 
         // Cargar comentarios desde localStorage
         function loadCommentsFromStorage() {
             const savedComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
+            allComments = savedComments;
             
             // Organizar comentarios por artículo
             savedComments.forEach(comment => {
@@ -1955,6 +3022,9 @@
 
         // Cargar comentarios de un artículo
         function loadArticleComments(articleId) {
+            if (!articlesFullContent[articleId]) {
+                articlesFullContent[articleId] = { comments: [] };
+            }
             if (!articlesFullContent[articleId].comments) {
                 articlesFullContent[articleId].comments = [];
             }
@@ -1965,10 +3035,10 @@
             const commentsList = document.getElementById(`comments-list-${articleId}`);
             if (!commentsList) return;
             
-            const comments = articlesFullContent[articleId].comments || [];
+            const comments = articlesFullContent[articleId]?.comments || [];
             
             if (comments.length === 0) {
-                commentsList.innerHTML = '<p style="color: var(--gris-medio); text-align: center;">No hay comentarios aún. ¡Sé el primero en comentar!</p>';
+                commentsList.innerHTML = '<p style="color: var(--gris-medio); text-align: center; padding: 2rem;">No hay comentarios aún. ¡Sé el primero en comentar!</p>';
                 return;
             }
             
@@ -2003,6 +3073,91 @@
             commentsList.prepend(commentElement);
         }
 
+        // Cargar lista de comentarios en el panel
+        function loadCommentsList() {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = '';
+            
+            if (allComments.length === 0) {
+                commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
+                return;
+            }
+            
+            // Mostrar últimos 20 comentarios
+            const recentComments = [...allComments].sort((a, b) => b.id - a.id).slice(0, 20);
+            
+            recentComments.forEach(comment => {
+                const commentItem = document.createElement('div');
+                commentItem.className = 'admin-article-item';
+                commentItem.innerHTML = `
+                    <h4>${comment.author} ${comment.isAnonymous ? '(Anónimo)' : ''}</h4>
+                    <div class="admin-article-meta">
+                        <span>Artículo: ${comment.articleTitle}</span>
+                        <span>${comment.date}</span>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gris-medio);">${comment.content.length > 100 ? comment.content.substring(0, 100) + '...' : comment.content}</p>
+                `;
+                commentsList.appendChild(commentItem);
+            });
+        }
+
+        // Cargar todos los comentarios
+        function loadAllComments() {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = '';
+            
+            if (allComments.length === 0) {
+                commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
+                return;
+            }
+            
+            // Mostrar todos los comentarios ordenados por fecha
+            const sortedComments = [...allComments].sort((a, b) => b.id - a.id);
+            
+            sortedComments.forEach(comment => {
+                const commentItem = document.createElement('div');
+                commentItem.className = 'admin-article-item';
+                commentItem.innerHTML = `
+                    <h4>${comment.author} ${comment.isAnonymous ? '(Anónimo)' : ''}</h4>
+                    <div class="admin-article-meta">
+                        <span>Artículo: ${comment.articleTitle}</span>
+                        <span>${comment.date}</span>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gris-medio);">${comment.content.length > 100 ? comment.content.substring(0, 100) + '...' : comment.content}</p>
+                `;
+                commentsList.appendChild(commentItem);
+            });
+            
+            showNotification(`Mostrando todos los ${allComments.length} comentarios.`, 'info');
+        }
+
+        // Exportar comentarios
+        function exportComments() {
+            if (allComments.length === 0) {
+                showNotification('No hay comentarios para exportar.', 'info');
+                return;
+            }
+            
+            // Convertir a CSV
+            let csv = 'Artículo,Autor,Fecha,Comentario,Anónimo\n';
+            allComments.forEach(comment => {
+                csv += `"${comment.articleTitle}","${comment.author}","${comment.date}","${comment.content.replace(/"/g, '""')}","${comment.isAnonymous ? 'Sí' : 'No'}"\n`;
+            });
+            
+            // Crear y descargar archivo
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `comentarios_ladoc_${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('Comentarios exportados correctamente.', 'success');
+        }
+
         // Guardar contenido en localStorage
         function saveContentToStorage() {
             const content = {
@@ -2026,9 +3181,78 @@
             }
         }
 
+        // Mostrar notificación
+        function showNotification(message, type = 'info') {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                z-index: 4000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Color según tipo
+            if (type === 'success') {
+                notification.style.backgroundColor = 'var(--verde)';
+            } else if (type === 'error') {
+                notification.style.backgroundColor = '#d32f2f';
+            } else if (type === 'warning') {
+                notification.style.backgroundColor = '#ff9800';
+            } else {
+                notification.style.backgroundColor = 'var(--bordo)';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+            
+            // Agregar estilos de animación si no existen
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Validar email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
         // Para uso global
         window.enableAdminMode = enableAdminMode;
         window.closeArticleModal = closeArticleModal;
+        window.openAdminPanel = openAdminPanel;
+        window.closeAdminPanel = closeAdminPanel;
+        window.filterArticlesByCategory = filterArticlesByCategory;
     </script>
 </body>
 </html>
