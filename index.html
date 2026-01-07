@@ -1057,11 +1057,10 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="author-info">
-                <img src="">
+                <img src="" alt="Foto del autor" class="author-photo" id="author-photo">
                 <h3 class="author-name" id="author-name"></h3>
-                <p class="author-quote" id="author-quote">""</p>
+                <p class="author-quote" id="author-quote"></p>
                 <div class="author-bio" id="author-bio">
-                    <p></p>
                     <p></p>
                 </div>
             </div>
@@ -1218,7 +1217,7 @@
                 
                 <div class="form-group">
                     <label for="author-bio-input">Biografía:</label>
-                    <textarea id="author-bio-input" class="form-control">.</textarea>
+                    <textarea id="author-bio-input" class="form-control"></textarea>
                 </div>
                 
                 <button class="admin-button success" id="save-author">Guardar Cambios del Autor</button>
@@ -1281,7 +1280,7 @@
                 summary: "Un análisis sobre los desafíos y oportunidades del socialismo democrático en la provincia y su impacto en las políticas públicas locales.",
                 content: "<p>En los últimos años, Catamarca ha experimentado transformaciones significativas en su escenario político. El socialismo democrático, como corriente de pensamiento y acción política, enfrenta el desafío de adaptarse a las particularidades de nuestra provincia mientras mantiene sus principios fundamentales.</p><p>La experiencia de gobiernos locales en la región muestra que es posible implementar políticas progresistas que mejoren la calidad de vida sin renunciar a los valores democráticos. Sin embargo, el camino está lleno de obstáculos, desde la resistencia de sectores conservadores hasta las limitaciones presupuestarias.</p><p>El verdadero cambio no vendrá de discursos vacíos, sino de la construcción de alternativas concretas que respondan a las necesidades reales de los catamarqueños. La participación ciudadana, la transparencia en la gestión y la defensa de los derechos sociales deben ser los pilares de cualquier proyecto político que se reclame del socialismo democrático.</p>",
                 category: "Catamarca",
-                author: "",
+                author: "Juan Pérez",
                 date: "15 de noviembre, 2023",
                 image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
                 views: 142,
@@ -1293,7 +1292,7 @@
                 summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
                 content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconocer y valorar las particularidades de cada región.</p>",
                 category: "Política Nacional",
-                author: "",
+                author: "Juan Pérez",
                 date: "8 de noviembre, 2023",
                 image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80",
                 views: 98,
@@ -1305,7 +1304,7 @@
                 summary: "Cómo los jóvenes catamarqueños perciben la política actual y qué oportunidades existen para renovar la participación ciudadana.",
                 content: "<p>En Catamarca, como en el resto del país, una gran parte de la juventud manifiesta desencanto hacia la política tradicional. Este fenómeno, sin embargo, no debe interpretarse como apatía, sino como rechazo a las formas caducas de hacer política.</p><p>Los jóvenes están interesados en los problemas que afectan su vida cotidiana: el acceso a la educación, las oportunidades laborales, el cuidado del medio ambiente, los derechos de las minorías. Donde no encuentran respuestas en los espacios tradicionales, crean los propios: colectivos, organizaciones barriales, movimientos culturales.</p><p>El desafío para el socialismo democrático es tender puentes con estas nuevas formas de participación, sin intentar cooptarlas ni domesticarlas. Debemos aprender a escuchar y crear espacios donde las voces jóvenes puedan expresarse y traducirse en acción política concreta.</p>",
                 category: "Sociedad",
-                author: "",
+                author: "Juan Pérez",
                 date: "1 de noviembre, 2023",
                 image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
                 views: 76,
@@ -1315,7 +1314,7 @@
 
         let currentArticleId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) : 0;
         let authorInfo = JSON.parse(localStorage.getItem('ladoC-author')) || {
-            name: "",
+            name: "Juan Pérez",
             photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
             quote: "Pensar distinto también es un acto de compromiso.",
             bio: "Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales. Su trabajo se centra en el análisis de las políticas públicas, la participación ciudadana y los desafíos de la democracia en el siglo XXI, con especial atención a la realidad de Catamarca y el noroeste argentino."
@@ -1546,7 +1545,7 @@
                         <div class="article-full-meta">
                             <span>${article.date}</span>
                             <span>${article.category}</span>
-                            <span>Por ${article.author}</span>
+                            <span>Por ${article.author || authorInfo.name}</span>
                             <span>${article.views} lecturas</span>
                         </div>
                     </div>
@@ -1748,7 +1747,7 @@
             const content = document.getElementById('article-content').value;
             const category = document.getElementById('article-category').value;
             const image = document.getElementById('article-image').value;
-            const author = document.getElementById('article-author').value;
+            const author = document.getElementById('article-author').value || authorInfo.name;
             const featured = document.getElementById('article-featured').value === '1';
             const editingId = document.getElementById('editing-article-id').value;
             
@@ -1946,6 +1945,9 @@
             document.getElementById('author-quote').textContent = `"${quote}"`;
             document.getElementById('author-bio').innerHTML = `<p>${bio}</p>`;
             
+            // Actualizar también el campo de autor en el formulario de artículos
+            document.getElementById('article-author').value = name;
+            
             showNotification('Información del autor actualizada correctamente', 'success');
         }
 
@@ -1979,7 +1981,7 @@
                     summary: "Un análisis sobre los desafíos y oportunidades del socialismo democrático en la provincia y su impacto en las políticas públicas locales.",
                     content: "<p>En los últimos años, Catamarca ha experimentado transformaciones significativas en su escenario político. El socialismo democrático, como corriente de pensamiento y acción política, enfrenta el desafío de adaptarse a las particularidades de nuestra provincia mientras mantiene sus principios fundamentales.</p><p>La experiencia de gobiernos locales en la región muestra que es posible implementar políticas progresistas que mejoren la calidad de vida sin renunciar a los valores democráticos. Sin embargo, el camino está lleno de obstáculos, desde la resistencia de sectores conservadores hasta las limitaciones presupuestarias.</p><p>El verdadero cambio no vendrá de discursos vacíos, sino de la construcción de alternativas concretas que respondan a las necesidades reales de los catamarqueños. La participación ciudadana, la transparencia en la gestión y la defensa de los derechos sociales deben ser los pilares de cualquier proyecto político que se reclame del socialismo democrático.</p>",
                     category: "Catamarca",
-                    author: "",
+                    author: "Juan Pérez",
                     date: "15 de noviembre, 2023",
                     image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
                     views: 142,
@@ -1991,7 +1993,7 @@
                     summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
                     content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconocer y valorar las particularidades de cada región.</p>",
                     category: "Política Nacional",
-                    author: "",
+                    author: "Juan Pérez",
                     date: "8 de noviembre, 2023",
                     image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80",
                     views: 98,
@@ -2003,7 +2005,7 @@
                     summary: "Cómo los jóvenes catamarqueños perciben la política actual y qué oportunidades existen para renovar la participación ciudadana.",
                     content: "<p>En Catamarca, como en el resto del país, una gran parte de la juventud manifiesta desencanto hacia la política tradicional. Este fenómeno, sin embargo, no debe interpretarse como apatía, sino como rechazo a las formas caducas de hacer política.</p><p>Los jóvenes están interesados en los problemas que afectan su vida cotidiana: el acceso a la educación, las oportunidades laborales, el cuidado del medio ambiente, los derechos de las minorías. Donde no encuentran respuestas en los espacios tradicionales, crean los propios: colectivos, organizaciones barriales, movimientos culturales.</p><p>El desafío para el socialismo democrático es tender puentes con estas nuevas formas de participación, sin intentar cooptarlas ni domesticarlas. Debemos aprender a escuchar y crear espacios donde las voces jóvenes puedan expresarse y traducirse en acción política concreta.</p>",
                     category: "Sociedad",
-                    author: "",
+                    author: "Juan Pérez",
                     date: "1 de noviembre, 2023",
                     image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
                     views: 76,
@@ -2014,13 +2016,19 @@
             currentArticleId = 3;
             
             authorInfo = {
-                name: "",
-                photo: "",
-                quote: "",
-                bio: ""
+                name: "Juan Pérez",
+                photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+                quote: "Pensar distinto también es un acto de compromiso.",
+                bio: "Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales. Su trabajo se centra en el análisis de las políticas públicas, la participación ciudadana y los desafíos de la democracia en el siglo XXI, con especial atención a la realidad de Catamarca y el noroeste argentino."
             };
             
             saveToLocalStorage();
+            
+            // Actualizar vista de autor
+            document.getElementById('author-name').textContent = authorInfo.name;
+            document.getElementById('author-photo').src = authorInfo.photo;
+            document.getElementById('author-quote').textContent = `"${authorInfo.quote}"`;
+            document.getElementById('author-bio').innerHTML = `<p>${authorInfo.bio}</p>`;
             
             // Actualizar vista actual
             if (currentSection === 'inicio') {
@@ -2089,6 +2097,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Verificar autenticación
             checkAuth();
+            
+            // Inicializar información del autor en la barra lateral
+            document.getElementById('author-name').textContent = authorInfo.name;
+            document.getElementById('author-photo').src = authorInfo.photo;
+            document.getElementById('author-quote').textContent = `"${authorInfo.quote}"`;
+            document.getElementById('author-bio').innerHTML = `<p>${authorInfo.bio}</p>`;
             
             // Renderizar artículos iniciales
             renderArticles();
