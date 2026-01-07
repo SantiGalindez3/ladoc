@@ -3,711 +3,1915 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LADO C - Noticias y Opinión de Catamarca</title>
+    <title>Dictum Limpieza y Perfumería Catamarca</title>
+    <meta name="google-site-verification" content="F8afRuc1cHF1sPvgUsci7IupBV6B40Zhehvl4xD9AHA" />
+    <meta name="description" content="Dictum Limpieza y Perfumería: productos de limpieza, perfumería, aromatizantes, jabones y artículos de higiene para el hogar y uso personal en San Fernando del Valle de Catamarca">
+    <!-- FAVICON PARA TODOS LOS DISPOSITIVOS -->
+    <link rel="icon" type="image/png" href="logo-favicon.png">
+    <link rel="apple-touch-icon" href="logo-favicon.png">
+    <link rel="shortcut icon" href="logo-favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== ESTILOS GENERALES ===== */
+        :root {
+            --color-primary: #ce5da4;    /* ROSADO principal */
+            --color-secondary: #60d1b9;  /* VERDE menta */
+            --color-accent: #87CEEB;     /* CELESTE */
+            --color-light: #f5f5f5;      /* FONDO BLANCO/GRIS CLARO */
+            --color-dark: #333333;       /* Texto oscuro */
+            --color-white: #ffffff;      /* Blanco puro */
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: var(--color-light);
+            color: var(--color-dark);
             line-height: 1.6;
-            padding: 20px;
         }
 
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 0 15px;
         }
 
-        /* ===== CABECERA ===== */
-        .header {
+        header {
+            background-color: var(--color-white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+
+        .logo-text span {
+            color: var(--color-primary);
+        }
+
+        /* Estilo para el aerosol en el logo */
+        .aerosol-icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: var(--color-white);
+            padding: 80px 0;
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #ddd;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .header h2 {
-            font-size: 1.2em;
-            color: #7f8c8d;
-            font-weight: normal;
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
         }
 
-        /* ===== MENÚ PRINCIPAL ===== */
-        .main-nav {
+        .btn {
+            display: inline-block;
+            background-color: var(--color-white);
+            color: var(--color-primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--color-secondary);
+            color: white;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #4abda6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--color-dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-primary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-light);
+            padding: 20px;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .categories {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .nav-item {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 8px 15px;
-            border-radius: 3px;
-        }
-
-        .nav-item:hover {
-            background: #e9ecef;
-        }
-
-        /* ===== CONTADOR DE ARTÍCULOS ===== */
-        .article-count {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #666;
-            font-style: italic;
-        }
-
-        /* ===== LISTA DE EDITORIALES PÚBLICOS ===== */
-        .editorial-list {
-            list-style: none;
             margin-bottom: 40px;
         }
 
-        .editorial-item {
-            background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #3498db;
-            border-radius: 0 5px 5px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .category-btn {
+            background-color: var(--color-white);
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        .editorial-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 1.1em;
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
         }
 
-        .editorial-meta {
-            color: #666;
-            font-size: 0.9em;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--color-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-light) 0%, var(--color-accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-image .placeholder-icon {
+            font-size: 3rem;
+            color: var(--color-primary);
+            opacity: 0.7;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-white);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
             margin-bottom: 10px;
         }
 
-        .editorial-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
+        .product-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--color-dark);
         }
 
-        .action-btn {
-            padding: 5px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: bold;
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            flex-grow: 1;
         }
 
-        .edit-btn {
-            background: #3498db;
-            color: white;
+        .product-actions {
+            margin-top: auto;
         }
 
-        .delete-btn {
-            background: #e74c3c;
-            color: white;
+        .promotions {
+            background-color: var(--color-secondary);
+            color: var(--color-white);
         }
 
-        /* ===== BOTÓN ACCESO ADMIN ===== */
-        .access-admin-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 100;
+        .promotions .section-title h2 {
+            color: var(--color-white);
         }
 
-        /* ===== PANEL DE ADMINISTRACIÓN ===== */
-        #adminPanel {
-            display: none;
-            border: 2px solid #2c3e50;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 40px;
-            background: white;
+        .promotions .section-title h2::after {
+            background-color: var(--color-white);
         }
 
-        .admin-header {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            text-align: center;
+        .promo-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .admin-header h3 {
-            font-size: 1.5em;
-        }
-
-        /* ===== TABS DEL PANEL ===== */
-        .admin-tabs {
-            display: flex;
-            background: #34495e;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 15px;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            border-right: 1px solid #2c3e50;
-            transition: background 0.3s;
-        }
-
-        .tab-btn:last-child {
-            border-right: none;
-        }
-
-        .tab-btn:hover,
-        .tab-btn.active {
-            background: #1a252f;
-        }
-
-        /* ===== CONTENIDO DE LOS TABS ===== */
-        .tab-content {
-            display: none;
-            padding: 20px;
-            background: #f8f9fa;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .tab-content h4 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-            font-size: 1.3em;
-        }
-
-        /* ===== BOTÓN CREAR EDITORIAL ===== */
-        .create-btn {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .create-btn:hover {
-            background: #219653;
-        }
-
-        /* ===== MODAL LOGIN ===== */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .login-content {
-            background: white;
-            padding: 30px;
+        .promo-card {
+            background-color: var(--color-white);
             border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            color: var(--color-dark);
+        }
+
+        .promo-header {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 15px;
             text-align: center;
         }
 
-        .login-content h3 {
+        .promo-body {
+            padding: 20px;
+        }
+
+        .promo-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .promo-description {
+            margin-bottom: 15px;
+        }
+
+        .promo-price {
+            font-weight: 700;
+            color: var(--color-accent);
+            font-size: 1.2rem;
+        }
+
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-card {
+            background-color: var(--color-white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin: 20px;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
             margin-bottom: 20px;
-            color: #2c3e50;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--color-primary);
+            position: absolute;
+            left: -10px;
+            top: -20px;
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .testimonial-form {
+            background-color: var(--color-white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-top: 50px;
+        }
+
+        .testimonial-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--color-primary);
         }
 
         .form-group {
             margin-bottom: 20px;
-            text-align: left;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
-            color: #2c3e50;
+            font-weight: 500;
         }
 
-        .form-group input {
+        .form-control {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 1em;
+            font-size: 1rem;
+            transition: var(--transition);
         }
 
-        .login-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+        .form-control:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(206, 93, 164, 0.2);
         }
 
-        .btn {
-            padding: 10px 20px;
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background-color: var(--color-primary);
+            color: var(--color-white);
             border: none;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            flex: 1;
+            font-weight: 600;
+            transition: var(--transition);
+            display: block;
+            margin: 0 auto;
         }
 
-        .btn-primary {
-            background: #2c3e50;
-            color: white;
+        .btn-submit:hover {
+            background-color: var(--color-accent);
         }
 
-        .btn-secondary {
-            background: #95a5a6;
-            color: white;
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
-        /* ===== MODAL NUEVO EDITORIAL ===== */
-        .editorial-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            z-index: 1001;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
-        .editorial-content {
-            background: white;
-            padding: 30px;
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background-color: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            background-color: var(--color-white);
             border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
+            padding: 30px;
+            box-shadow: var(--shadow);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .admin-tabs {
+        .contact-form h3 {
+            margin-bottom: 20px;
+            color: var(--color-primary);
+            text-align: center;
+        }
+
+        footer {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--color-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: var(--color-secondary);
+            color: white;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 992px) {
+            .about-content {
                 flex-direction: column;
             }
             
-            .tab-btn {
-                border-right: none;
-                border-bottom: 1px solid #2c3e50;
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
             }
             
-            .main-nav {
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
                 flex-direction: column;
                 align-items: center;
+                width: 100%;
             }
             
-            .access-admin-btn {
-                position: static;
-                margin: 0 auto 20px;
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
                 display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-img {
+                height: 50px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .aerosol-icon {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== BOTÓN PARA ACCEDER AL ADMIN ===== -->
-    <button id="accessAdminBtn" class="access-admin-btn">
-        🔐 Acceso Administrador
-    </button>
-
-    <!-- ===== PÁGINA LADO C ===== -->
-    <div class="container">
-        <!-- Cabecera -->
-        <div class="header">
-            <h1>LADO C</h1>
-            <h2>Noticias y Opinión de Catamarca</h2>
-        </div>
-
-        <!-- Menú de navegación -->
-        <nav class="main-nav">
-            <a href="#" class="nav-item"><strong>Todos</strong></a>
-            <a href="#" class="nav-item">Catamarca</a>
-            <a href="#" class="nav-item">Opinión</a>
-            <a href="#" class="nav-item">Sociedad</a>
-            <a href="#" class="nav-item">Internacionales</a>
-            <a href="#" class="nav-item">Política Nacional</a>
-        </nav>
-
-        <!-- Contador de artículos -->
-        <div class="article-count">
-            <em>Mostrando 2 artículos</em>
-        </div>
-
-        <!-- Editoriales públicos -->
-        <div class="editorial-list">
-            <div class="editorial-item">
-                <div class="editorial-title">El futuro del trabajo en el Noroeste Argentino</div>
-                <div class="editorial-meta">Catamarca - 15 de mayo, 2023</div>
-                <div class="editorial-actions">
-                    <button class="action-btn delete-btn">Borrar</button>
-                    <button class="action-btn edit-btn">Editar</button>
-                </div>
+    <div id="notification" class="notification"></div>
+    
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <!-- Aerosol agregado antes del logo -->
+                <i class="fas fa-spray-can aerosol-icon"></i>
+                <img src="logo-favicon.png" alt="Dictum Limpieza" class="logo-img">
+                <div class="logo-text">Dictum <span>Limpieza</span></div>
             </div>
             
-            <div class="editorial-item">
-                <div class="editorial-title">Juventud y participación política: más allá del voto</div>
-                <div class="editorial-meta">Sociedad - 12 de mayo, 2023</div>
-                <div class="editorial-actions">
-                    <button class="action-btn delete-btn">Borrar</button>
-                    <button class="action-btn edit-btn">Editar</button>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#promociones">Promociones</a></li>
+                    <li><a href="#testimonios">Opiniones</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Productos que cuidan tu hogar y a los que más querés</h1>
+            <p>En Dictum Limpieza y Perfumería ofrecemos productos de limpieza, perfumería y aromatizantes de la más alta calidad para tu hogar y cuidado personal.</p>
+            <a href="#productos" class="btn">Ver Productos</a>
+        </div>
+    </section>
+
+    <section id="nosotros">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Nuestra Historia</h3>
+                    <p>Dictum Limpieza y Perfumería nació como un emprendimiento familiar con la misión de ofrecer productos de limpieza y perfumería de calidad a precios accesibles. Con años de experiencia en el rubro, hemos crecido manteniendo nuestros valores de honestidad, compromiso y atención personalizada.</p>
+                    <p>Nos enorgullece ser parte de la comunidad de San Fernando del Valle de Catamarca, ofreciendo productos que cuidan tu hogar, tu familia y el medio ambiente.</p>
+                    <p>Nuestro compromiso es brindar soluciones efectivas para la limpieza del hogar, aromatización de ambientes y cuidado personal, siempre con el mejor servicio y asesoramiento.</p>
+                </div>
+                <div class="about-image">
+                    <!-- Usando logo-favicon.png que ya existe en tu repositorio -->
+                    <img src="logo-favicon.png" alt="Dictum Limpieza">
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ===== PANEL DE ADMINISTRACIÓN (INICIALMENTE OCULTO) ===== -->
-        <div id="adminPanel" class="admin-panel">
-            <!-- Cabecera del panel -->
-            <div class="admin-header">
-                <h3>Panel de Administración</h3>
+    <section id="productos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
             </div>
-
-            <!-- Tabs del panel -->
-            <div class="admin-tabs">
-                <button class="tab-btn active" data-tab="editoriales">Editoriales</button>
-                <button class="tab-btn" data-tab="columnistas">Columnistas</button>
-                <button class="tab-btn" data-tab="suscriptores">Suscriptores</button>
-                <button class="tab-btn" data-tab="comentarios">Comentarios</button>
+            
+            <div class="categories">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="ropa">Ropa</button>
+                <button class="category-btn" data-category="limpieza">Limpieza del Hogar</button>
+                <button class="category-btn" data-category="higiene">Higiene Personal</button>
+                <button class="category-btn" data-category="saphirus">Productos Saphirus</button>
             </div>
-
-            <!-- Contenido de las tabs -->
-            <div id="editorialesTab" class="tab-content active">
-                <h4>Editoriales Actuales</h4>
-                <button id="createEditorialBtn" class="create-btn">+ Crear Nuevo Editorial</button>
+            
+            <div class="products-grid">
+                <!-- PRODUCTOS DE ROPA - JABONES -->
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Jabones</span>
+                        <h3 class="product-name">Jabón líquido ARIEL</h3>
+                        <p class="product-description">Jabón líquido para ropa de alta calidad.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Jabón%20líquido%20ARIEL" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="editorial-list">
-                    <div class="editorial-item">
-                        <div class="editorial-title">El futuro del trabajo en el Noroeste Argentino</div>
-                        <div class="editorial-meta">Catamarca - 15 de mayo, 2023</div>
-                        <div class="editorial-actions">
-                            <button class="action-btn delete-btn" onclick="deleteEditorial(this)">Borrar</button>
-                            <button class="action-btn edit-btn" onclick="editEditorial(this)">Editar</button>
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Jabones</span>
+                        <h3 class="product-name">Jabón líquido SKIP</h3>
+                        <p class="product-description">Jabón líquido para ropa con tecnología avanzada.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Jabón%20líquido%20SKIP" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Jabones</span>
+                        <h3 class="product-name">Jabón líquido con suavizante ALA</h3>
+                        <p class="product-description">Jabón líquido con suavizante incorporado.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Jabón%20líquido%20con%20suavizante%20ALA" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Jabones</span>
+                        <h3 class="product-name">Jabón en polvo Granby</h3>
+                        <p class="product-description">Jabón en polvo tradicional.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Jabón%20en%20polvo%20Granby" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Jabones</span>
+                        <h3 class="product-name">Jabón en polvo Ala</h3>
+                        <p class="product-description">Jabón en polvo de calidad premium.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Jabón%20en%20polvo%20Ala" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTOS DE ROPA - SUAVIZANTES -->
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Suavizantes</span>
+                        <h3 class="product-name">Suavizante Celeste</h3>
+                        <p class="product-description">Suavizante con fragancia fresca.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Suavizante%20Celeste" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Suavizantes</span>
+                        <h3 class="product-name">Suavizante Amarillo</h3>
+                        <p class="product-description">Suavizante con aroma intenso.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Suavizante%20Amarillo" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Suavizantes</span>
+                        <h3 class="product-name">Suavizante Rosado</h3>
+                        <p class="product-description">Suavizante con fragancia floral.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Suavizante%20Rosado" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Suavizantes</span>
+                        <h3 class="product-name">Suavizante Borita</h3>
+                        <p class="product-description">Suavizante tradicional de calidad.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Suavizante%20Borita" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTOS DE ROPA - LAVANDINAS Y CAMELLITO -->
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-palette"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Lavandinas</span>
+                        <h3 class="product-name">Lavandina ropa color</h3>
+                        <p class="product-description">Lavandina especial para ropa de color.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Lavandina%20ropa%20color" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-palette"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa - Lavandinas</span>
+                        <h3 class="product-name">Lavandina ropa blanca</h3>
+                        <p class="product-description">Lavandina para ropa blanca.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Lavandina%20ropa%20blanca" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="ropa">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-cloud"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Ropa</span>
+                        <h3 class="product-name">Camellito</h3>
+                        <p class="product-description">Producto para suavizar y perfumar la ropa.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Camellito" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LIMPIEZA DEL HOGAR -->
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Lavandina</h3>
+                        <p class="product-description">Lavandina concentrada para desinfección.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Lavandina" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Cloro</h3>
+                        <p class="product-description">Cloro para limpieza y desinfección.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Cloro" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PERFUMES PARA PISO -->
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Perfume para piso Softy</h3>
+                        <p class="product-description">Perfume para pisos con fragancia suave.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Perfume%20para%20piso%20Softy" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Perfume para piso Pino</h3>
+                        <p class="product-description">Perfume para pisos con aroma a pino.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Perfume%20para%20piso%20Pino" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Perfume para piso Lavanda</h3>
+                        <p class="product-description">Perfume para pisos con fragancia lavanda.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Perfume%20para%20piso%20Lavanda" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Perfume para piso Lysoform</h3>
+                        <p class="product-description">Perfume para pisos con desinfectante.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Perfume%20para%20piso%20Lysoform" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-spray-can"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Perfume para piso Citronella</h3>
+                        <p class="product-description">Perfume para pisos con aroma cítrico.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Perfume%20para%20piso%20Citronella" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OTROS PRODUCTOS DE LIMPIEZA -->
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-bug"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Veneno</h3>
+                        <p class="product-description">Insecticida para control de plagas.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Veneno" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-broom"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Creolina</h3>
+                        <p class="product-description">Desinfectante y desodorante ambiental.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Creolina" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-broom"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Lampazo Base Gasoil</h3>
+                        <p class="product-description">Lampazo de calidad profesional.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Lampazo%20Base%20Gasoil" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-broom"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Lampazo Siliconado</h3>
+                        <p class="product-description">Lampazo con tratamiento siliconado.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Lampazo%20Siliconado" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-window-restore"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Limpia Vidrios</h3>
+                        <p class="product-description">Producto para limpieza de vidrios y superficies.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Limpia%20Vidrios" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Secador</h3>
+                        <p class="product-description">Secador de piso de calidad.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Secador" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-broom"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Escoba</h3>
+                        <p class="product-description">Escoba para limpieza general.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Escoba" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-broom"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Cabo</h3>
+                        <p class="product-description">Cabos para herramientas de limpieza.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Cabo" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Trapos</h3>
+                        <p class="product-description">Trapos de limpieza de diferentes tipos.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20los%20Trapos" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tshirt"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Paños</h3>
+                        <p class="product-description">Paños de microfibra para limpieza.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20los%20Paños" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-soap"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Detergente</h3>
+                        <p class="product-description">Detergente para vajilla y limpieza.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Detergente" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-soap"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Desengrasante</h3>
+                        <p class="product-description">Desengrasante potente para cocina.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Desengrasante" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-toilet-paper"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Papel Servilleta</h3>
+                        <p class="product-description">Servilletas de papel de diferentes tamaños.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Papel%20Servilleta" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-toilet-paper"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Papel Higienico</h3>
+                        <p class="product-description">Papel higiénico de diferentes calidades.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Papel%20Higienico" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-paperclip"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Broches</h3>
+                        <p class="product-description">Broches para tender la ropa.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20los%20Broches" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-pump-soap"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">CIF crema</h3>
+                        <p class="product-description">Crema limpiadora para superficies.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20CIF%20crema" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-faucet"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Quita Sarro</h3>
+                        <p class="product-description">Producto para eliminar sarro en baños y cocinas.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Quita%20Sarro" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="limpieza">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-fire"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Limpieza del Hogar</span>
+                        <h3 class="product-name">Sahumerios</h3>
+                        <p class="product-description">Sahumerios de diferentes aromas.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20los%20Sahumerios" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HIGIENE PERSONAL -->
+                <div class="product-card" data-category="higiene">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-pump-soap"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Higiene Personal</span>
+                        <h3 class="product-name">Shampoo SEDAL</h3>
+                        <p class="product-description">Shampoo para el cuidado del cabello.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Shampoo%20SEDAL" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="higiene">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-pump-soap"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Higiene Personal</span>
+                        <h3 class="product-name">Acondicionador SEDAL</h3>
+                        <p class="product-description">Acondicionador para cabello suave y manejable.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Acondicionador%20SEDAL" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="higiene">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-tooth"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Higiene Personal</span>
+                        <h3 class="product-name">Pasta dental</h3>
+                        <p class="product-description">Pasta dental de diferentes marcas.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20la%20Pasta%20dental" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTOS SAPHIRUS -->
+                <div class="product-card" data-category="saphirus">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Productos Saphirus</span>
+                        <h3 class="product-name">Aromatizante textil AMBAR</h3>
+                        <p class="product-description">Aromatizante para textiles con fragancia ámbar.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Aromatizante%20textil%20AMBAR" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="saphirus">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Productos Saphirus</span>
+                        <h3 class="product-name">Aerosol AMBAR</h3>
+                        <p class="product-description">Aerosol ambientador con fragancia ámbar.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20del%20Aerosol%20AMBAR" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="saphirus">
+                    <div class="product-image">
+                        <div class="placeholder-icon"><i class="fas fa-fire"></i></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Productos Saphirus</span>
+                        <h3 class="product-name">Sahumerios Saphirus</h3>
+                        <p class="product-description">Sahumerios de alta calidad con diferentes aromas.</p>
+                        <div class="product-actions">
+                            <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20saber%20el%20precio%20de%20los%20Sahumerios%20Saphirus" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consulte Precio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="promotions" id="promociones">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ofertas Especiales</h2>
+            </div>
+            
+            <div class="promo-cards">
+                <div class="promo-card">
+                    <div class="promo-header">
+                        <h3>OFERTA JABÓN ARIEL</h3>
+                    </div>
+                    <div class="promo-body">
+                        <h4 class="promo-title">5 LITROS DE JABÓN ARIEL</h4>
+                        <p class="promo-description">Jabón líquido Ariel de 5 litros. Calidad premium para tu ropa.</p>
+                        <div class="promo-price">$7.500</div>
+                        <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20la%20oferta%20de%205%20litros%20de%20Jabón%20ARIEL%20por%20$7.500" class="btn-whatsapp" style="margin-top: 15px; display: inline-block;">
+                            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="promo-card">
+                    <div class="promo-header">
+                        <h3>OFERTA JABÓN SKIP</h3>
+                    </div>
+                    <div class="promo-body">
+                        <h4 class="promo-title">5 LITROS DE JABÓN SKIP</h4>
+                        <p class="promo-description">Jabón líquido Skip de 5 litros. Tecnología avanzada de limpieza.</p>
+                        <div class="promo-price">$6.500</div>
+                        <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20la%20oferta%20de%205%20litros%20de%20Jabón%20SKIP%20por%20$6.500" class="btn-whatsapp" style="margin-top: 15px; display: inline-block;">
+                            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="promo-card">
+                    <div class="promo-header">
+                        <h3>OFERTA JABÓN ALA</h3>
+                    </div>
+                    <div class="promo-body">
+                        <h4 class="promo-title">5 LITROS DE JABÓN ALA</h4>
+                        <p class="promo-description">Jabón líquido Ala de 5 litros con suavizante incorporado.</p>
+                        <div class="promo-price">$5.500</div>
+                        <a href="https://wa.me/543834317752?text=Hola,%20me%20interesa%20la%20oferta%20de%205%20litros%20de%20Jabón%20ALA%20por%20$5.500" class="btn-whatsapp" style="margin-top: 15px; display: inline-block;">
+                            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Opiniones de Clientes</h2>
+            </div>
+            
+            <div id="testimonials-list" class="testimonials-container">
+                <!-- Las opiniones se cargarán aquí dinámicamente -->
+            </div>
+            
+            <div class="testimonial-form">
+                <h3>¡Compartí tu experiencia con nosotros!</h3>
+                <form id="testimonialForm">
+                    <div class="form-group">
+                        <label for="name">Tu nombre (opcional)</label>
+                        <input type="text" id="name" class="form-control" placeholder="Podés usar tu nombre o un seudónimo">
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial">Tu opinión *</label>
+                        <textarea id="testimonial" class="form-control" required placeholder="Contanos tu experiencia con nuestros productos..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Publicar Opinión</button>
+                    <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #666;">Tu opinión será publicada en esta página para ayudar a otros clientes</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto y Pedidos</h2>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Dirección</h3>
+                            <p>San Fernando del Valle de Catamarca, Catamarca, Argentina</p>
                         </div>
                     </div>
                     
-                    <div class="editorial-item">
-                        <div class="editorial-title">Juventud y participación política: más allá del voto</div>
-                        <div class="editorial-meta">Sociedad - 12 de mayo, 2023</div>
-                        <div class="editorial-actions">
-                            <button class="action-btn delete-btn" onclick="deleteEditorial(this)">Borrar</button>
-                            <button class="action-btn edit-btn" onclick="editEditorial(this)">Editar</button>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>WhatsApp</h3>
+                            <p>3834-317752</p>
+                            <a href="https://wa.me/543834317752" class="btn" style="margin-top: 10px; padding: 8px 20px; font-size: 0.9rem;">
+                                <i class="fab fa-whatsapp"></i> Escribinos por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>dictumlimpiezaperfumeria@gmail.com</p>
+                            <a href="mailto:dictumlimpiezaperfumeria@gmail.com" class="btn" style="margin-top: 10px; padding: 8px 20px; font-size: 0.9rem;">
+                                <i class="fas fa-envelope"></i> Enviar Email
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Instagram</h3>
+                            <p>@dictum_limpieza_perfumeria</p>
+                            <div class="social-links">
+                                <a href="https://instagram.com/dictum_limpieza_perfumeria" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Horarios de Atención</h3>
+                            <p>Lunes a Viernes: 8:00 - 13:00 y 16:00 - 20:00</p>
+                            <p>Sábados: 8:00 - 13:00</p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="columnistasTab" class="tab-content">
-                <h4>Gestión de Columnistas</h4>
-                <p>Aquí puedes gestionar los columnistas del periódico.</p>
-            </div>
-
-            <div id="suscriptoresTab" class="tab-content">
-                <h4>Gestión de Suscriptores</h4>
-                <p>Lista de suscriptores al newsletter.</p>
-            </div>
-
-            <div id="comentariosTab" class="tab-content">
-                <h4>Moderación de Comentarios</h4>
-                <p>Comentarios pendientes de aprobación.</p>
+                
+                <div class="contact-form">
+                    <h3>Envíanos tu consulta</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Nombre *</label>
+                            <input type="text" id="contactName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Teléfono *</label>
+                            <input type="tel" id="contactPhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email *</label>
+                            <input type="email" id="contactEmail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Mensaje *</label>
+                            <textarea id="contactMessage" class="form-control" required placeholder="¿Qué productos te interesan?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Consulta</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ===== MODAL DE LOGIN ===== -->
-    <div id="loginModal" class="login-modal">
-        <div class="login-content">
-            <h3>Panel de Administración</h3>
-            <h4>LADO C - Noticias y Opinión de Catamarca</h4>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" value="admin" required>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dictum Limpieza</h3>
+                    <p>Productos de limpieza y perfumería de calidad para tu hogar y cuidado personal.</p>
                 </div>
-                
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#promociones">Ofertas</a></li>
+                    </ul>
                 </div>
-                
-                <div class="login-actions">
-                    <button type="button" id="cancelLoginBtn" class="btn btn-secondary">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://wa.me/543834317752"><i class="fab fa-whatsapp"></i> WhatsApp: 3834-317752</a></li>
+                        <li><a href="mailto:dictumlimpiezaperfumeria@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="https://instagram.com/dictum_limpieza_perfumeria" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
                 </div>
-            </form>
+            </div>
+            <div class="footer-bottom">
+                <p>Gracias por confiar en la limpieza artesanal 💧✨</p>
+            </div>
         </div>
-    </div>
-
-    <!-- ===== MODAL PARA NUEVO EDITORIAL ===== -->
-    <div id="editorialModal" class="editorial-modal">
-        <div class="editorial-content">
-            <h3>Nuevo Editorial</h3>
-            
-            <form id="newEditorialForm">
-                <div class="form-group">
-                    <label for="editorialTitle">Título:</label>
-                    <input type="text" id="editorialTitle" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editorialCategory">Categoría:</label>
-                    <select id="editorialCategory" required>
-                        <option value="Catamarca">Catamarca</option>
-                        <option value="Sociedad">Sociedad</option>
-                        <option value="Internacionales">Internacionales</option>
-                        <option value="Opinión">Opinión</option>
-                        <option value="Política Nacional">Política Nacional</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editorialDate">Fecha:</label>
-                    <input type="date" id="editorialDate" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editorialContent">Contenido:</label>
-                    <textarea id="editorialContent" rows="6" required></textarea>
-                </div>
-                
-                <div class="login-actions">
-                    <button type="button" id="cancelEditorialBtn" class="btn btn-secondary">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Publicar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    </footer>
 
     <script>
-        // ===== CONFIGURACIÓN =====
-        const ADMIN_CREDENTIALS = {
-            username: 'admin',
-            password: 'admin123'
-        };
-
-        // ===== ELEMENTOS DEL DOM =====
-        const accessAdminBtn = document.getElementById('accessAdminBtn');
-        const loginModal = document.getElementById('loginModal');
-        const loginForm = document.getElementById('loginForm');
-        const cancelLoginBtn = document.getElementById('cancelLoginBtn');
-        const adminPanel = document.getElementById('adminPanel');
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const createEditorialBtn = document.getElementById('createEditorialBtn');
-        const editorialModal = document.getElementById('editorialModal');
-        const cancelEditorialBtn = document.getElementById('cancelEditorialBtn');
-        const newEditorialForm = document.getElementById('newEditorialForm');
-
-        // ===== FUNCIONALIDAD LOGIN =====
-        
-        // Abrir modal de login
-        accessAdminBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-            document.getElementById('password').focus();
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
         });
 
-        // Cerrar modal de login
-        cancelLoginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        // Cerrar modal al hacer clic fuera
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-            if (e.target === editorialModal) {
-                editorialModal.style.display = 'none';
-                newEditorialForm.reset();
-            }
-        });
-
-        // Manejar login
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username === ADMIN_CREDENTIALS.username && 
-                password === ADMIN_CREDENTIALS.password) {
-                
-                // Login exitoso
-                loginModal.style.display = 'none';
-                adminPanel.style.display = 'block';
-                accessAdminBtn.textContent = '🚪 Cerrar Sesión';
-                
-                // Cambiar funcionalidad del botón a logout
-                accessAdminBtn.onclick = () => {
-                    if (confirm('¿Estás seguro de cerrar sesión?')) {
-                        adminPanel.style.display = 'none';
-                        accessAdminBtn.textContent = '🔐 Acceso Administrador';
-                        accessAdminBtn.onclick = () => {
-                            loginModal.style.display = 'flex';
-                        };
-                    }
-                };
-                
-            } else {
-                alert('Usuario o contraseña incorrectos');
-                document.getElementById('password').value = '';
-                document.getElementById('password').focus();
-            }
-        });
-
-        // ===== FUNCIONALIDAD TABS =====
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                
-                // Remover clase active de todos los botones
-                tabBtns.forEach(b => b.classList.remove('active'));
-                // Agregar clase active al botón clickeado
-                btn.classList.add('active');
-                
-                // Ocultar todos los contenidos
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
+        // Product filtering
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
                 });
                 
-                // Mostrar el contenido correspondiente
-                document.getElementById(`${tabId}Tab`).classList.add('active');
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter products
+                const category = this.getAttribute('data-category');
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    if (category === 'all' || product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
             });
         });
 
-        // ===== FUNCIONALIDAD EDITORIALES =====
-        
-        // Abrir modal para nuevo editorial
-        createEditorialBtn.addEventListener('click', () => {
-            editorialModal.style.display = 'flex';
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
             
-            // Establecer fecha actual por defecto
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('editorialDate').value = today;
-        });
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
 
-        // Cerrar modal de editorial
-        cancelEditorialBtn.addEventListener('click', () => {
-            editorialModal.style.display = 'none';
-            newEditorialForm.reset();
-        });
+        // Testimonial system with localStorage
+        function loadTestimonials() {
+            const testimonials = JSON.parse(localStorage.getItem('dictumTestimonials')) || [];
+            const testimonialsContainer = document.getElementById('testimonials-list');
+            
+            testimonialsContainer.innerHTML = '';
+            
+            if (testimonials.length === 0) {
+                testimonialsContainer.innerHTML = `
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Aún no hay opiniones. ¡Sé el primero en compartir tu experiencia!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">D</div>
+                            <div class="author-info">
+                                <h4>Equipo Dictum</h4>
+                                <p>Esperamos tu opinión</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            testimonials.forEach(testimonial => {
+                const testimonialElement = document.createElement('div');
+                testimonialElement.className = 'testimonial-card';
+                testimonialElement.innerHTML = `
+                    <p class="testimonial-text">${testimonial.text}</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">${testimonial.name.charAt(0).toUpperCase()}</div>
+                        <div class="author-info">
+                            <h4>${testimonial.name}</h4>
+                            <p>Cliente desde ${testimonial.date}</p>
+                        </div>
+                    </div>
+                `;
+                testimonialsContainer.appendChild(testimonialElement);
+            });
+        }
 
-        // Guardar nuevo editorial
-        newEditorialForm.addEventListener('submit', (e) => {
+        // Testimonial form submission
+        document.getElementById('testimonialForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const title = document.getElementById('editorialTitle').value;
-            const category = document.getElementById('editorialCategory').value;
-            const date = document.getElementById('editorialDate').value;
+            const name = document.getElementById('name').value || 'Cliente Satisfecho';
+            const testimonial = document.getElementById('testimonial').value;
             
-            // Formatear fecha
-            const formattedDate = new Date(date).toLocaleDateString('es-ES', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
+            if (testimonial.trim() === '') {
+                showNotification('Por favor, escribí tu opinión antes de enviar.', 'error');
+                return;
+            }
+            
+            // Get existing testimonials
+            const testimonials = JSON.parse(localStorage.getItem('dictumTestimonials')) || [];
+            
+            // Add new testimonial
+            testimonials.unshift({
+                name: name,
+                text: testimonial,
+                date: new Date().toLocaleDateString('es-AR')
             });
             
-            // Crear nuevo elemento en la lista
-            const editorialList = document.querySelector('#editorialesTab .editorial-list');
-            const newEditorial = document.createElement('div');
-            newEditorial.className = 'editorial-item';
-            newEditorial.innerHTML = `
-                <div class="editorial-title">${title}</div>
-                <div class="editorial-meta">${category} - ${formattedDate}</div>
-                <div class="editorial-actions">
-                    <button class="action-btn delete-btn" onclick="deleteEditorial(this)">Borrar</button>
-                    <button class="action-btn edit-btn" onclick="editEditorial(this)">Editar</button>
-                </div>
-            `;
+            // Save to localStorage
+            localStorage.setItem('dictumTestimonials', JSON.stringify(testimonials));
             
-            // Agregar al inicio de la lista
-            editorialList.insertBefore(newEditorial, editorialList.firstChild);
+            // Reload testimonials
+            loadTestimonials();
             
-            // Cerrar modal y mostrar mensaje
-            editorialModal.style.display = 'none';
-            newEditorialForm.reset();
-            alert('¡Editorial creado exitosamente!');
+            // Show success message
+            showNotification('¡Gracias por tu opinión! Ya fue publicada en nuestra página.');
+            
+            // Reset form
+            this.reset();
         });
 
-        // ===== FUNCIONES PARA BOTONES =====
-        function deleteEditorial(button) {
-            if (confirm('¿Estás seguro de eliminar este editorial?')) {
-                button.closest('.editorial-item').remove();
-            }
-        }
+        // Contact form submission with email functionality
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const phone = document.getElementById('contactPhone').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Create email content
+            const subject = `Consulta de ${name} - Dictum Limpieza`;
+            const body = `Nombre: ${name}%0D%0ATeléfono: ${phone}%0D%0AEmail: ${email}%0D%0AMensaje: ${message}`;
+            
+            // Open default email client
+            window.location.href = `mailto:dictumlimpiezaperfumeria@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Show success message
+            showNotification(`¡Gracias ${name}! Tu consulta fue enviada. Te contactaremos pronto.`);
+            
+            // Reset form
+            this.reset();
+        });
 
-        function editEditorial(button) {
-            const editorialItem = button.closest('.editorial-item');
-            const title = editorialItem.querySelector('.editorial-title').textContent;
-            const meta = editorialItem.querySelector('.editorial-meta').textContent;
-            
-            // Extraer categoría y fecha del texto
-            const [category, date] = meta.split(' - ');
-            
-            alert(`Editando: ${title}\nCategoría: ${category}\nFecha: ${date}\n\n(En una versión completa, esto abriría un formulario de edición)`);
-        }
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav').classList.remove('active');
+                }
+            });
+        });
 
-        // ===== INICIALIZACIÓN =====
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Página LADO C cargada correctamente');
-            console.log('Usuario: admin');
-            console.log('Contraseña: admin123');
-            
-            // Establecer fecha actual por defecto
-            const today = new Date().toISOString().split('T')[0];
-            if (document.getElementById('editorialDate')) {
-                document.getElementById('editorialDate').value = today;
-            }
-            
-            // Asegurar que el panel esté oculto al inicio
-            adminPanel.style.display = 'none';
-            loginModal.style.display = 'none';
-            editorialModal.style.display = 'none';
+        // Initialize testimonials on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTestimonials();
         });
     </script>
 </body>
