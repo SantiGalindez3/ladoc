@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lado C - Una mirada distinta sobre la política</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Montserrat:wght@600;700&family=Merriweather:wght@400;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bordo: #9B1C1C;
+            --color-blanco: #FFFFFF;
+            --color-azul-claro: #DCE6F2;
+            --color-gris-oscuro: #333333;
+            --color-gris-medio: #666666;
+            --color-gris-claro: #F5F5F5;
+            --color-bg-sidebar: #f9f9f9;
+            --shadow-sutil: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            color: var(--color-gris-oscuro);
+            background-color: var(--color-blanco);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--color-bordo);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--color-blanco);
+            box-shadow: var(--shadow-sutil);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-bordo);
+            letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.03);
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: var(--color-gris-medio);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--color-bordo);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-bordo);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: flex;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .content {
+            flex: 3;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: var(--color-bg-sidebar);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow-sutil);
+            align-self: flex-start;
+        }
+
+        /* ARTICLES */
+        .section-title {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-azul-claro);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .article-card {
+            background-color: var(--color-blanco);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sutil);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .article-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            color: var(--color-gris-medio);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .article-excerpt {
+            margin-bottom: 20px;
+            color: var(--color-gris-medio);
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: var(--color-bordo);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .read-more:hover {
+            background-color: #7a1616;
+            transform: translateY(-2px);
+        }
+
+        /* SIDEBAR */
+        .author-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .author-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--color-bordo);
+        }
+
+        .author-name {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .author-quote {
+            font-style: italic;
+            color: var(--color-gris-medio);
+            margin-bottom: 20px;
+            padding: 0 10px;
+            border-left: 3px solid var(--color-bordo);
+            padding-left: 15px;
+        }
+
+        .author-bio {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .admin-toggle {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-toggle label {
+            font-size: 0.9rem;
+        }
+
+        /* ARTICLE PAGE */
+        .article-full {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+        }
+
+        .article-full-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .article-full-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--color-gris-medio);
+            margin-bottom: 30px;
+        }
+
+        .article-full-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+        }
+
+        .article-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .article-body p {
+            margin-bottom: 25px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: var(--color-azul-claro);
+            color: var(--color-gris-oscuro);
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #c8d6e8;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--color-bordo);
+            color: var(--color-blanco);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ADMIN PANEL */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 30px 0;
+        }
+
+        .admin-container {
+            background-color: var(--color-blanco);
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--color-azul-claro);
+        }
+
+        .admin-title {
+            font-size: 1.8rem;
+        }
+
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-gris-medio);
+            transition: color 0.3s ease;
+        }
+
+        .close-admin:hover {
+            color: var(--color-bordo);
+        }
+
+        .admin-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid var(--color-azul-claro);
+            border-radius: var(--border-radius);
+        }
+
+        .admin-section h3 {
+            margin-bottom: 15px;
+            color: var(--color-gris-oscuro);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Merriweather', serif;
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .admin-button {
+            background-color: var(--color-bordo);
+            color: var(--color-blanco);
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-button:hover {
+            background-color: #7a1616;
+        }
+
+        .admin-button.danger {
+            background-color: #d9534f;
+        }
+
+        .admin-button.danger:hover {
+            background-color: #c9302c;
+        }
+
+        .article-list {
+            list-style: none;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .article-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .article-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .article-list-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--color-gris-oscuro);
+        }
+
+        /* HIGHLIGHTS */
+        .highlighted {
+            border: 2px solid var(--color-bordo);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                order: -1;
+                margin-bottom: 30px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .admin-container {
+                padding: 20px;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .article-card, .sidebar, .article-full {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* HIDDEN ELEMENTS */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" id="logo">Lado <span>C</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#opinion">Opinión</a></li>
+                    <li><a href="#catamarca">Catamarca</a></li>
+                    <li><a href="#politica-nacional">Política Nacional</a></li>
+                    <li><a href="#sociedad">Sociedad</a></li>
+                    <li><a href="#internacionales">Internacionales</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container main-content">
+        <div class="content">
+            <h2 class="section-title" id="destacados">Artículos Destacados</h2>
+            <div class="articles-grid" id="articles-container">
+                <!-- Artículos se cargarán dinámicamente aquí -->
+            </div>
+            
+            <h2 class="section-title" id="archivo">Archivo de Artículos</h2>
+            <div class="articles-grid" id="archive-container">
+                <!-- Archivo se cargará dinámicamente aquí -->
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="author-info">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Santiago Galíndez" class="author-photo" id="author-photo">
+                <h3 class="author-name" id="author-name">Santiago Galíndez</h3>
+                <p class="author-quote" id="author-quote">"Pensar distinto también es un acto de compromiso."</p>
+                <div class="author-bio" id="author-bio">
+                    <p>Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales.</p>
+                    <p>Su trabajo se centra en el análisis de las políticas públicas, la participación ciudadana y los desafíos de la democracia en el siglo XXI, con especial atención a la realidad de Catamarca y el noroeste argentino.</p>
+                </div>
+            </div>
+            
+            <div class="admin-toggle">
+                <label for="anon-mode">
+                    <input type="checkbox" id="anon-mode"> Modo anónimo
+                </label>
+                <button class="read-more" id="open-admin">Panel de Administración</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ARTICLE FULL VIEW (oculto por defecto) -->
+    <div class="container hidden" id="article-full-view">
+        <!-- Contenido del artículo se cargará dinámicamente aquí -->
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Lado C</h3>
+                    <p>Un medio digital de opinión política con enfoque en Catamarca y la visión del socialismo democrático.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Secciones</h3>
+                    <ul class="footer-links">
+                        <li><a href="#opinion">Opinión</a></li>
+                        <li><a href="#catamarca">Catamarca</a></li>
+                        <li><a href="#politica-nacional">Política Nacional</a></li>
+                        <li><a href="#sociedad">Sociedad</a></li>
+                        <li><a href="#internacionales">Internacionales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Contacto</h3>
+                    <p>ladoc.opinion@gmail.com</p>
+                    <p>+54 3834 123456</p>
+                    <p>Catamarca, Argentina</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Lado C – Una mirada distinta sobre la política. © 2023</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2 class="admin-title">Panel de Administración</h2>
+                <button class="close-admin" id="close-admin">&times;</button>
+            </div>
+            
+            <!-- SECCIÓN: GESTIÓN DE ARTÍCULOS -->
+            <div class="admin-section">
+                <h3>Gestión de Artículos</h3>
+                
+                <div class="form-group">
+                    <label for="article-title">Título:</label>
+                    <input type="text" id="article-title" class="form-control" placeholder="Título del artículo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="article-summary">Resumen:</label>
+                    <textarea id="article-summary" class="form-control" placeholder="Resumen breve del artículo"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="article-content">Contenido:</label>
+                    <textarea id="article-content" class="form-control" placeholder="Contenido completo del artículo"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="article-category">Categoría:</label>
+                    <select id="article-category" class="form-control">
+                        <option value="Opinión">Opinión</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Política Nacional">Política Nacional</option>
+                        <option value="Sociedad">Sociedad</option>
+                        <option value="Internacionales">Internacionales</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="article-image">URL de la imagen:</label>
+                    <input type="text" id="article-image" class="form-control" placeholder="URL de la imagen de portada">
+                </div>
+                
+                <div class="form-group">
+                    <label for="article-author">Autor:</label>
+                    <input type="text" id="article-author" class="form-control" value="Santiago Galíndez">
+                </div>
+                
+                <button class="admin-button" id="save-article">Guardar Artículo</button>
+                <button class="admin-button" id="new-article">Nuevo Artículo</button>
+            </div>
+            
+            <!-- SECCIÓN: LISTA DE ARTÍCULOS EXISTENTES -->
+            <div class="admin-section">
+                <h3>Artículos Existentes</h3>
+                <ul class="article-list" id="admin-article-list">
+                    <!-- Lista de artículos se cargará dinámicamente aquí -->
+                </ul>
+            </div>
+            
+            <!-- SECCIÓN: CONFIGURACIÓN DEL AUTOR -->
+            <div class="admin-section">
+                <h3>Configuración del Columnista</h3>
+                
+                <div class="form-group">
+                    <label for="author-name-input">Nombre:</label>
+                    <input type="text" id="author-name-input" class="form-control" value="Santiago Galíndez">
+                </div>
+                
+                <div class="form-group">
+                    <label for="author-photo-input">URL de la foto:</label>
+                    <input type="text" id="author-photo-input" class="form-control" value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80">
+                </div>
+                
+                <div class="form-group">
+                    <label for="author-quote-input">Frase inspiradora:</label>
+                    <input type="text" id="author-quote-input" class="form-control" value="Pensar distinto también es un acto de compromiso.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="author-bio-input">Biografía:</label>
+                    <textarea id="author-bio-input" class="form-control">Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales.</textarea>
+                </div>
+                
+                <button class="admin-button" id="save-author">Guardar Cambios del Autor</button>
+            </div>
+            
+            <!-- SECCIÓN: CONFIGURACIÓN DEL SITIO -->
+            <div class="admin-section">
+                <h3>Configuración del Sitio</h3>
+                
+                <div class="form-group">
+                    <label>Color principal:</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background-color: #9B1C1C;" data-color="#9B1C1C"></div>
+                        <div class="color-option" style="background-color: #1C4E9B;" data-color="#1C4E9B"></div>
+                        <div class="color-option" style="background-color: #1C9B5E;" data-color="#1C9B5E"></div>
+                        <div class="color-option" style="background-color: #6B1C9B;" data-color="#6B1C9B"></div>
+                    </div>
+                </div>
+                
+                <button class="admin-button" id="save-site">Guardar Configuración</button>
+            </div>
+            
+            <!-- SECCIÓN: ACCIONES PELIGROSAS -->
+            <div class="admin-section">
+                <h3>Acciones Peligrosas</h3>
+                <button class="admin-button danger" id="reset-data">Restablecer Datos de Ejemplo</button>
+                <p class="small-text">Nota: Esta acción eliminará todos los artículos y restaurará los datos originales.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATOS INICIALES
+        let articles = JSON.parse(localStorage.getItem('ladoC-articles')) || [
+            {
+                id: 1,
+                title: "El futuro del socialismo democrático en Catamarca",
+                summary: "Un análisis sobre los desafíos y oportunidades del socialismo democrático en la provincia y su impacto en las políticas públicas locales.",
+                content: "<p>En los últimos años, Catamarca ha experimentado transformaciones significativas en su escenario político. El socialismo democrático, como corriente de pensamiento y acción política, enfrenta el desafío de adaptarse a las particularidades de nuestra provincia mientras mantiene sus principios fundamentales.</p><p>La experiencia de gobiernos locales en la región muestra que es posible implementar políticas progresistas que mejoren la calidad de vida sin renunciar a los valores democráticos. Sin embargo, el camino está lleno de obstáculos, desde la resistencia de sectores conservadores hasta las limitaciones presupuestarias.</p><p>El verdadero cambio no vendrá de discursos vacíos, sino de la construcción de alternativas concretas que respondan a las necesidades reales de los catamarqueños. La participación ciudadana, la transparencia en la gestión y la defensa de los derechos sociales deben ser los pilares de cualquier proyecto político que se reclame del socialismo democrático.</p>",
+                category: "Catamarca",
+                author: "Santiago Galíndez",
+                date: "15 de noviembre, 2023",
+                image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+                views: 142
+            },
+            {
+                id: 2,
+                title: "La desigualdad regional en Argentina: un problema estructural",
+                summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
+                content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconociendo y valorando las particularidades de cada región.</p>",
+                category: "Política Nacional",
+                author: "Santiago Galíndez",
+                date: "8 de noviembre, 2023",
+                image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80",
+                views: 98
+            },
+            {
+                id: 3,
+                title: "Juventud y política: el desencanto y la esperanza",
+                summary: "Cómo los jóvenes catamarqueños perciben la política actual y qué oportunidades existen para renovar la participación ciudadana.",
+                content: "<p>En Catamarca, como en el resto del país, una gran parte de la juventud manifiesta desencanto hacia la política tradicional. Este fenómeno, sin embargo, no debe interpretarse como apatía, sino como rechazo a las formas caducas de hacer política.</p><p>Los jóvenes están interesados en los problemas que afectan su vida cotidiana: el acceso a la educación, las oportunidades laborales, el cuidado del medio ambiente, los derechos de las minorías. Donde no encuentran respuestas en los espacios tradicionales, crean los propios: colectivos, organizaciones barriales, movimientos culturales.</p><p>El desafío para el socialismo democrático es tender puentes con estas nuevas formas de participación, sin intentar cooptarlas ni domesticarlas. Debemos aprender a escuchar y crear espacios donde las voces jóvenes puedan expresarse y traducirse en acción política concreta.</p>",
+                category: "Sociedad",
+                author: "Santiago Galíndez",
+                date: "1 de noviembre, 2023",
+                image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+                views: 76
+            }
+        ];
+
+        let currentArticleId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) : 0;
+        let authorInfo = JSON.parse(localStorage.getItem('ladoC-author')) || {
+            name: "Santiago Galíndez",
+            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+            quote: "Pensar distinto también es un acto de compromiso.",
+            bio: "Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales. Su trabajo se centra en el análisis de las políticas públicas, la participación ciudadana y los desafíos de la democracia en el siglo XXI, con especial atención a la realidad de Catamarca y el noroeste argentino."
+        };
+
+        // FUNCIONES DE UTILIDAD
+        function saveToLocalStorage() {
+            localStorage.setItem('ladoC-articles', JSON.stringify(articles));
+            localStorage.setItem('ladoC-author', JSON.stringify(authorInfo));
+        }
+
+        function formatDate() {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return now.toLocaleDateString('es-ES', options);
+        }
+
+        // RENDERIZAR ARTÍCULOS
+        function renderArticles() {
+            const articlesContainer = document.getElementById('articles-container');
+            const archiveContainer = document.getElementById('archive-container');
+            
+            // Ordenar artículos por vistas (destacados primero)
+            const sortedArticles = [...articles].sort((a, b) => b.views - a.views);
+            
+            // Mostrar los 3 más vistos como destacados
+            const highlightedArticles = sortedArticles.slice(0, 3);
+            const otherArticles = sortedArticles.slice(3);
+            
+            articlesContainer.innerHTML = '';
+            archiveContainer.innerHTML = '';
+            
+            // Renderizar destacados
+            highlightedArticles.forEach(article => {
+                const articleElement = createArticleElement(article, true);
+                articlesContainer.appendChild(articleElement);
+            });
+            
+            // Renderizar archivo
+            otherArticles.forEach(article => {
+                const articleElement = createArticleElement(article, false);
+                archiveContainer.appendChild(articleElement);
+            });
+            
+            // Actualizar lista de artículos en panel de administración
+            updateAdminArticleList();
+        }
+
+        function createArticleElement(article, isHighlighted) {
+            const articleElement = document.createElement('div');
+            articleElement.className = `article-card ${isHighlighted ? 'highlighted' : ''}`;
+            articleElement.dataset.id = article.id;
+            
+            articleElement.innerHTML = `
+                <img src="${article.image}" alt="${article.title}" class="article-img">
+                <div class="article-content">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-meta">
+                        <span>${article.date}</span>
+                        <span>${article.category}</span>
+                        <span>${article.views} lecturas</span>
+                    </div>
+                    <p class="article-excerpt">${article.summary}</p>
+                    <button class="read-more" onclick="viewArticle(${article.id})">Leer más</button>
+                </div>
+            `;
+            
+            return articleElement;
+        }
+
+        // VISTA DE ARTÍCULO COMPLETO
+        function viewArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            
+            // Incrementar contador de vistas
+            article.views++;
+            saveToLocalStorage();
+            
+            // Mostrar artículo completo
+            const articleFullView = document.getElementById('article-full-view');
+            const mainContent = document.querySelector('.main-content');
+            
+            articleFullView.innerHTML = `
+                <div class="article-full">
+                    <button class="back-button" onclick="goBack()">&larr; Volver a los artículos</button>
+                    
+                    <div class="article-header">
+                        <h1 class="article-full-title">${article.title}</h1>
+                        <div class="article-full-meta">
+                            <span>${article.date}</span>
+                            <span>${article.category}</span>
+                            <span>Por ${article.author}</span>
+                            <span>${article.views} lecturas</span>
+                        </div>
+                    </div>
+                    
+                    <img src="${article.image}" alt="${article.title}" class="article-full-img">
+                    
+                    <div class="article-body">
+                        ${article.content}
+                    </div>
+                    
+                    <button class="back-button" onclick="goBack()">&larr; Volver a los artículos</button>
+                </div>
+            `;
+            
+            mainContent.classList.add('hidden');
+            articleFullView.classList.remove('hidden');
+            
+            // Scroll al inicio del artículo
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            const articleFullView = document.getElementById('article-full-view');
+            const mainContent = document.querySelector('.main-content');
+            
+            articleFullView.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            
+            // Recargar artículos para actualizar vistas
+            renderArticles();
+        }
+
+        // PANEL DE ADMINISTRACIÓN
+        function openAdminPanel() {
+            // Solicitar contraseña
+            const password = prompt("Ingrese la contraseña de administración:");
+            if (password !== "admin123") {
+                alert("Contraseña incorrecta");
+                return;
+            }
+            
+            document.getElementById('admin-panel').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Cargar datos actuales en el formulario
+            document.getElementById('author-name-input').value = authorInfo.name;
+            document.getElementById('author-photo-input').value = authorInfo.photo;
+            document.getElementById('author-quote-input').value = authorInfo.quote;
+            document.getElementById('author-bio-input').value = authorInfo.bio;
+            
+            // Actualizar lista de artículos
+            updateAdminArticleList();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateAdminArticleList() {
+            const adminArticleList = document.getElementById('admin-article-list');
+            adminArticleList.innerHTML = '';
+            
+            articles.forEach(article => {
+                const listItem = document.createElement('li');
+                listItem.className = 'article-list-item';
+                listItem.innerHTML = `
+                    <div>
+                        <strong>${article.title}</strong><br>
+                        <small>${article.date} - ${article.category} - ${article.views} lecturas</small>
+                    </div>
+                    <div class="article-list-actions">
+                        <button class="admin-button" onclick="editArticle(${article.id})">Editar</button>
+                        <button class="admin-button danger" onclick="deleteArticle(${article.id})">Eliminar</button>
+                    </div>
+                `;
+                adminArticleList.appendChild(listItem);
+            });
+        }
+
+        function saveArticle() {
+            const title = document.getElementById('article-title').value;
+            const summary = document.getElementById('article-summary').value;
+            const content = document.getElementById('article-content').value;
+            const category = document.getElementById('article-category').value;
+            const image = document.getElementById('article-image').value;
+            const author = document.getElementById('article-author').value;
+            
+            if (!title || !summary || !content) {
+                alert("Por favor complete todos los campos obligatorios");
+                return;
+            }
+            
+            // Verificar si estamos editando un artículo existente
+            const editingArticleId = document.getElementById('save-article').dataset.editing;
+            
+            if (editingArticleId) {
+                // Actualizar artículo existente
+                const articleIndex = articles.findIndex(a => a.id === parseInt(editingArticleId));
+                if (articleIndex !== -1) {
+                    articles[articleIndex] = {
+                        ...articles[articleIndex],
+                        title,
+                        summary,
+                        content,
+                        category,
+                        image,
+                        author
+                    };
+                }
+                
+                // Limpiar modo edición
+                document.getElementById('save-article').dataset.editing = '';
+                document.getElementById('save-article').textContent = 'Guardar Artículo';
+            } else {
+                // Crear nuevo artículo
+                currentArticleId++;
+                const newArticle = {
+                    id: currentArticleId,
+                    title,
+                    summary,
+                    content,
+                    category,
+                    author,
+                    date: formatDate(),
+                    image: image || 'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+                    views: 0
+                };
+                
+                articles.unshift(newArticle);
+            }
+            
+            saveToLocalStorage();
+            renderArticles();
+            
+            // Limpiar formulario
+            document.getElementById('article-title').value = '';
+            document.getElementById('article-summary').value = '';
+            document.getElementById('article-content').value = '';
+            document.getElementById('article-image').value = '';
+            
+            alert("Artículo guardado correctamente");
+        }
+
+        function editArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            
+            // Cargar datos en el formulario
+            document.getElementById('article-title').value = article.title;
+            document.getElementById('article-summary').value = article.summary;
+            document.getElementById('article-content').value = article.content;
+            document.getElementById('article-category').value = article.category;
+            document.getElementById('article-image').value = article.image;
+            document.getElementById('article-author').value = article.author;
+            
+            // Cambiar botón a modo edición
+            document.getElementById('save-article').dataset.editing = id;
+            document.getElementById('save-article').textContent = 'Actualizar Artículo';
+            
+            // Scroll al formulario
+            document.querySelector('.admin-container').scrollTop = 0;
+        }
+
+        function deleteArticle(id) {
+            if (!confirm("¿Está seguro de que desea eliminar este artículo? Esta acción no se puede deshacer.")) {
+                return;
+            }
+            
+            articles = articles.filter(a => a.id !== id);
+            saveToLocalStorage();
+            renderArticles();
+            updateAdminArticleList();
+            
+            alert("Artículo eliminado correctamente");
+        }
+
+        function newArticle() {
+            // Limpiar formulario
+            document.getElementById('article-title').value = '';
+            document.getElementById('article-summary').value = '';
+            document.getElementById('article-content').value = '';
+            document.getElementById('article-image').value = '';
+            document.getElementById('article-author').value = 'Santiago Galíndez';
+            document.getElementById('article-category').value = 'Opinión';
+            
+            // Cambiar botón a modo creación
+            document.getElementById('save-article').dataset.editing = '';
+            document.getElementById('save-article').textContent = 'Guardar Artículo';
+        }
+
+        function saveAuthor() {
+            const name = document.getElementById('author-name-input').value;
+            const photo = document.getElementById('author-photo-input').value;
+            const quote = document.getElementById('author-quote-input').value;
+            const bio = document.getElementById('author-bio-input').value;
+            
+            authorInfo = { name, photo, quote, bio };
+            saveToLocalStorage();
+            
+            // Actualizar vista pública
+            document.getElementById('author-name').textContent = name;
+            document.getElementById('author-photo').src = photo;
+            document.getElementById('author-quote').textContent = `"${quote}"`;
+            document.getElementById('author-bio').innerHTML = `<p>${bio}</p>`;
+            
+            alert("Información del autor actualizada correctamente");
+        }
+
+        function saveSite() {
+            const selectedColor = document.querySelector('.color-option.active').dataset.color;
+            
+            // Aplicar nuevo color
+            document.documentElement.style.setProperty('--color-bordo', selectedColor);
+            
+            // Guardar en localStorage
+            localStorage.setItem('ladoC-color', selectedColor);
+            
+            alert("Configuración del sitio guardada correctamente");
+        }
+
+        function resetData() {
+            if (!confirm("¿Está seguro de que desea restablecer los datos de ejemplo? Se perderán todos los artículos actuales.")) {
+                return;
+            }
+            
+            // Restaurar datos iniciales
+            articles = [
+                {
+                    id: 1,
+                    title: "El futuro del socialismo democrático en Catamarca",
+                    summary: "Un análisis sobre los desafíos y oportunidades del socialismo democrático en la provincia y su impacto en las políticas públicas locales.",
+                    content: "<p>En los últimos años, Catamarca ha experimentado transformaciones significativas en su escenario político. El socialismo democrático, como corriente de pensamiento y acción política, enfrenta el desafío de adaptarse a las particularidades de nuestra provincia mientras mantiene sus principios fundamentales.</p><p>La experiencia de gobiernos locales en la región muestra que es posible implementar políticas progresistas que mejoren la calidad de vida sin renunciar a los valores democráticos. Sin embargo, el camino está lleno de obstáculos, desde la resistencia de sectores conservadores hasta las limitaciones presupuestarias.</p><p>El verdadero cambio no vendrá de discursos vacíos, sino de la construcción de alternativas concretas que respondan a las necesidades reales de los catamarqueños. La participación ciudadana, la transparencia en la gestión y la defensa de los derechos sociales deben ser los pilares de cualquier proyecto político que se reclame del socialismo democrático.</p>",
+                    category: "Catamarca",
+                    author: "Santiago Galíndez",
+                    date: "15 de noviembre, 2023",
+                    image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+                    views: 142
+                },
+                {
+                    id: 2,
+                    title: "La desigualdad regional en Argentina: un problema estructural",
+                    summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
+                    content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconociendo y valorando las particularidades de cada región.</p>",
+                    category: "Política Nacional",
+                    author: "Santiago Galíndez",
+                    date: "8 de noviembre, 2023",
+                    image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80",
+                    views: 98
+                },
+                {
+                    id: 3,
+                    title: "Juventud y política: el desencanto y la esperanza",
+                    summary: "Cómo los jóvenes catamarqueños perciben la política actual y qué oportunidades existen para renovar la participación ciudadana.",
+                    content: "<p>En Catamarca, como en el resto del país, una gran parte de la juventud manifiesta desencanto hacia la política tradicional. Este fenómeno, sin embargo, no debe interpretarse como apatía, sino como rechazo a las formas caducas de hacer política.</p><p>Los jóvenes están interesados en los problemas que afectan su vida cotidiana: el acceso a la educación, las oportunidades laborales, el cuidado del medio ambiente, los derechos de las minorías. Donde no encuentran respuestas en los espacios tradicionales, crean los propios: colectivos, organizaciones barriales, movimientos culturales.</p><p>El desafío para el socialismo democrático es tender puentes con estas nuevas formas de participación, sin intentar cooptarlas ni domesticarlas. Debemos aprender a escuchar y crear espacios donde las voces jóvenes puedan expresarse y traducirse en acción política concreta.</p>",
+                    category: "Sociedad",
+                    author: "Santiago Galíndez",
+                    date: "1 de noviembre, 2023",
+                    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+                    views: 76
+                }
+            ];
+            
+            currentArticleId = 3;
+            
+            authorInfo = {
+                name: "Santiago Galíndez",
+                photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+                quote: "Pensar distinto también es un acto de compromiso.",
+                bio: "Periodista y politólogo catamarqueño. Columnista especializado en análisis político desde una perspectiva socialista democrática. Con más de 15 años de experiencia en medios locales y nacionales. Su trabajo se centra en el análisis de las políticas públicas, la participación ciudadana y los desafíos de la democracia en el siglo XXI, con especial atención a la realidad de Catamarca y el noroeste argentino."
+            };
+            
+            saveToLocalStorage();
+            renderArticles();
+            updateAdminArticleList();
+            
+            alert("Datos restablecidos correctamente");
+        }
+
+        // MODO ANÓNIMO
+        function toggleAnonMode() {
+            const anonMode = document.getElementById('anon-mode').checked;
+            
+            if (anonMode) {
+                document.getElementById('author-name').textContent = "Columnista Invitado";
+                document.getElementById('author-photo').src = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80";
+            } else {
+                document.getElementById('author-name').textContent = authorInfo.name;
+                document.getElementById('author-photo').src = authorInfo.photo;
+            }
+        }
+
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renderizar artículos
+            renderArticles();
+            
+            // Configurar color guardado
+            const savedColor = localStorage.getItem('ladoC-color');
+            if (savedColor) {
+                document.documentElement.style.setProperty('--color-bordo', savedColor);
+                
+                // Marcar color activo en el panel
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.color === savedColor) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+            
+            // Configurar eventos
+            document.getElementById('logo').addEventListener('click', function(e) {
+                e.preventDefault();
+                goBack();
+            });
+            
+            document.getElementById('open-admin').addEventListener('click', openAdminPanel);
+            document.getElementById('close-admin').addEventListener('click', closeAdminPanel);
+            document.getElementById('save-article').addEventListener('click', saveArticle);
+            document.getElementById('new-article').addEventListener('click', newArticle);
+            document.getElementById('save-author').addEventListener('click', saveAuthor);
+            document.getElementById('save-site').addEventListener('click', saveSite);
+            document.getElementById('reset-data').addEventListener('click', resetData);
+            document.getElementById('anon-mode').addEventListener('change', toggleAnonMode);
+            
+            // Configurar selectores de color
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Configurar navegación suave
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
