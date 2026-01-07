@@ -8,16 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Cabecera -->
+    <!-- Cabecera SIN acceso admin visible -->
     <header class="site-header">
         <div class="container">
-            <h1 class="logo">LADO C</h1>
-            <p class="slogan">Noticias y Opinión de Catamarca</p>
-            
-            <div class="admin-access">
-                <a href="admin.html" class="admin-btn">
-                    <i class="fas fa-lock"></i> Acceso Administradores
-                </a>
+            <div class="header-content">
+                <h1 class="logo">LADO C</h1>
+                <p class="slogan">Noticias y Opinión de Catamarca</p>
             </div>
         </div>
     </header>
@@ -26,12 +22,10 @@
     <nav class="main-nav">
         <div class="container">
             <ul class="nav-menu">
-                <li><a href="index.html">Todos</a></li>
-                <li><a href="#">Catamarca</a></li>
-                <li><a href="#">Opinión</a></li>
-                <li><a href="#">Sociedad</a></li>
-                <li><a href="#">Internacionales</a></li>
-                <li><a href="#">Política Nacional</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#catamarca">Catamarca</a></li>
+                <li><a href="index.html#sociedad">Sociedad</a></li>
+                <li><a href="index.html#internacionales">Internacionales</a></li>
             </ul>
         </div>
     </nav>
@@ -46,65 +40,39 @@
                 <span id="articleTitleBreadcrumb">Artículo</span>
             </nav>
 
-            <!-- Artículo -->
+            <!-- Artículo Completo -->
             <article class="full-article">
                 <div class="article-header">
                     <span class="article-category" id="articleCategory">Catamarca</span>
-                    <h1 id="articleTitle">El futuro del trabajo en el Noroeste Argentino</h1>
-                    <div class="article-meta">
+                    <h1 id="articleTitle">Cargando artículo...</h1>
+                    <div class="article-meta-large">
                         <span class="article-date" id="articleDate">
-                            <i class="far fa-calendar"></i> 15 de mayo, 2023
+                            <i class="far fa-calendar"></i> Cargando fecha...
                         </span>
                         <span class="article-author" id="articleAuthor">
-                            <i class="fas fa-user-edit"></i> Por: Redacción LADO C
+                            <i class="fas fa-user-edit"></i> Cargando autor...
                         </span>
                         <span class="article-reading-time" id="readingTime">
-                            <i class="far fa-clock"></i> 5 min de lectura
+                            <i class="far fa-clock"></i> Cargando...
                         </span>
                     </div>
                 </div>
 
-                <div class="article-image">
-                    <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Noroeste Argentino">
-                    <p class="image-caption">Región del Noroeste Argentino - Imagen ilustrativa</p>
+                <!-- Portada del artículo -->
+                <div class="article-cover-large" id="articleImageContainer">
+                    <img src="" alt="" id="articleImage" style="display: none;">
+                    <p class="cover-caption" id="imageCaption" style="display: none;"></p>
                 </div>
 
+                <!-- Contenido del artículo -->
                 <div class="article-body" id="articleContent">
-                    <p>El Noroeste Argentino (NOA) enfrenta desafíos y oportunidades únicas en el panorama laboral actual. En esta región, caracterizada por su diversidad cultural y económica, el futuro del trabajo se está redefiniendo bajo la influencia de la tecnología, las políticas públicas y los cambios sociales.</p>
-                    
-                    <h2>Transformación Digital en el NOA</h2>
-                    <p>La digitalización ha llegado para quedarse, incluso en las provincias más alejadas de los grandes centros urbanos. En Catamarca, por ejemplo, se observa un crecimiento sostenido en el sector tecnológico, con empresas locales desarrollando soluciones adaptadas a las necesidades regionales.</p>
-                    
-                    <blockquote>
-                        "El trabajo remoto ha abierto oportunidades que antes eran impensables para los profesionales del interior del país"
-                    </blockquote>
-                    
-                    <h2>Sectores con Potencial de Crecimiento</h2>
-                    <ul>
-                        <li><strong>Turismo sustentable:</strong> La riqueza cultural y natural del NOA representa una oportunidad única para desarrollar un turismo de calidad.</li>
-                        <li><strong>Agroindustria tecnificada:</strong> La aplicación de tecnología en la producción agrícola puede aumentar la competitividad regional.</li>
-                        <li><strong>Energías renovables:</strong> El potencial solar de la región es enorme y apenas comienza a explotarse.</li>
-                        <li><strong>Economía del conocimiento:</strong> Desarrollo de software y servicios digitales para mercados globales.</li>
-                    </ul>
-                    
-                    <h2>Desafíos a Superar</h2>
-                    <p>Sin embargo, no todo es optimismo. La región enfrenta obstáculos significativos:</p>
-                    <ol>
-                        <li>Infraestructura digital desigual entre zonas urbanas y rurales.</li>
-                        <li>Falta de capacitación específica en nuevas tecnologías.</li>
-                        <li>Migración de talento joven hacia centros urbanos más grandes.</li>
-                        <li>Acceso limitado a financiamiento para emprendimientos innovadores.</li>
-                    </ol>
-                    
-                    <p>El futuro del trabajo en el Noroeste Argentino dependerá en gran medida de cómo se aborden estos desafíos y se potencien las oportunidades. La colaboración entre sector público, privado y académico será clave para construir un futuro laboral inclusivo y sostenible en la región.</p>
+                    <p>Cargando contenido del artículo...</p>
                 </div>
 
+                <!-- Etiquetas y compartir -->
                 <div class="article-footer">
-                    <div class="article-tags">
-                        <span class="tag">Empleo</span>
-                        <span class="tag">Desarrollo Regional</span>
-                        <span class="tag">Tecnología</span>
-                        <span class="tag">Catamarca</span>
+                    <div class="article-tags" id="articleTags">
+                        <!-- Las etiquetas se cargarán dinámicamente -->
                     </div>
                     
                     <div class="article-share">
@@ -130,7 +98,7 @@
                     <i class="fas fa-arrow-left"></i> Artículo Anterior
                 </a>
                 <a href="index.html" class="back-to-list">
-                    <i class="fas fa-list"></i> Ver todos los artículos
+                    <i class="fas fa-list"></i> Ver todos los editoriales
                 </a>
                 <a href="#" class="next-article">
                     Artículo Siguiente <i class="fas fa-arrow-right"></i>
@@ -142,62 +110,23 @@
     <!-- Pie de Página -->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2023 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
-            <p class="footer-contact">
-                <i class="fas fa-envelope"></i> contacto@ladoc-catamarca.com.ar |
-                <i class="fas fa-phone"></i> (383) 123-4567
-            </p>
+            <div class="footer-content">
+                <p>&copy; 2024 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
+                <p class="footer-contact">
+                    <i class="fas fa-envelope"></i> contacto@ladoc-catamarca.com.ar |
+                    <i class="fas fa-phone"></i> (383) 123-4567
+                </p>
+            </div>
+            
+            <!-- Enlace admin discreto SOLO en el footer -->
+            <div class="admin-footer-link">
+                <a href="admin.html" title="Acceso administradores">
+                    <i class="fas fa-lock"></i> Acceso administradores
+                </a>
+            </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Simulación de datos de artículo basado en el ID de la URL
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('id') || '1';
-            
-            // Datos de ejemplo para diferentes artículos
-            const articles = {
-                '1': {
-                    title: 'El futuro del trabajo en el Noroeste Argentino',
-                    category: 'Catamarca',
-                    date: '15 de mayo, 2023',
-                    author: 'Redacción LADO C',
-                    content: document.getElementById('articleContent').innerHTML
-                },
-                '2': {
-                    title: 'Juventud y participación política: más allá del voto',
-                    category: 'Sociedad',
-                    date: '12 de mayo, 2023',
-                    author: 'María Gómez',
-                    content: '<p>Contenido del artículo sobre participación política...</p>'
-                },
-                '3': {
-                    title: 'Desafíos ambientales en Catamarca',
-                    category: 'Opinión',
-                    date: '10 de mayo, 2023',
-                    author: 'Juan Pérez',
-                    content: '<p>Contenido del artículo sobre medio ambiente...</p>'
-                }
-            };
-            
-            const article = articles[articleId] || articles['1'];
-            
-            // Actualizar contenido de la página
-            document.getElementById('articleTitle').textContent = article.title;
-            document.getElementById('articleTitleBreadcrumb').textContent = article.title;
-            document.getElementById('articleCategory').textContent = article.category;
-            document.getElementById('articleCategoryLink').textContent = article.category;
-            document.getElementById('articleDate').innerHTML = `<i class="far fa-calendar"></i> ${article.date}`;
-            document.getElementById('articleAuthor').innerHTML = `<i class="fas fa-user-edit"></i> Por: ${article.author}`;
-            document.getElementById('articleContent').innerHTML = article.content;
-            
-            // Calcular tiempo de lectura (aproximado: 200 palabras por minuto)
-            const wordCount = article.content.split(/\s+/).length;
-            const readingTime = Math.ceil(wordCount / 200);
-            document.getElementById('readingTime').innerHTML = `<i class="far fa-clock"></i> ${readingTime} min de lectura`;
-        });
-    </script>
 </body>
 </html>
