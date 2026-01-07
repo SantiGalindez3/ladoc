@@ -4,140 +4,925 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lado C - Una mirada distinta sobre la política</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@600;700&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bordo: #9B1C1C;
+            --blanco: #FFFFFF;
+            --azul-claro: #DCE6F2;
+            --gris-oscuro: #333333;
+            --gris-medio: #666666;
+            --gris-claro: #F5F5F5;
+            --sombra: rgba(0, 0, 0, 0.08);
+            --sombra-hover: rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Merriweather', serif;
+            color: var(--gris-oscuro);
+            background-color: var(--blanco);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--blanco);
+            box-shadow: 0 2px 15px var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bordo);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+        
+        .logo span {
+            color: var(--gris-oscuro);
+        }
+        
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        nav a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--bordo);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--bordo);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        @media (min-width: 992px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+        }
+        
+        /* Main articles */
+        .main-content {
+            flex: 1;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--gris-oscuro);
+            border-left: 4px solid var(--bordo);
+            padding-left: 1rem;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .article-card {
+            background-color: var(--blanco);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--sombra);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--sombra-hover);
+        }
+        
+        .article-image {
+            height: 200px;
+            width: 100%;
+            background-color: var(--azul-claro);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .article-category {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--bordo);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+        
+        .article-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--gris-oscuro);
+        }
+        
+        .article-excerpt {
+            color: var(--gris-medio);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            font-size: 0.85rem;
+            color: var(--gris-medio);
+        }
+        
+        .read-more {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--bordo);
+            padding: 0.5rem 1.2rem;
+            border: 1.5px solid var(--bordo);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            background-color: var(--bordo);
+            color: var(--blanco);
+        }
+        
+        /* Featured section */
+        .featured-section {
+            margin-top: 4rem;
+        }
+        
+        .featured-articles {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .featured-articles {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .featured-card {
+            background-color: var(--blanco);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px var(--sombra);
+            transition: transform 0.3s ease;
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .featured-content {
+            padding: 1.2rem;
+        }
+        
+        .featured-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 100%;
+        }
+        
+        @media (min-width: 992px) {
+            .sidebar {
+                width: 320px;
+            }
+        }
+        
+        .sidebar-widget {
+            background-color: var(--gris-claro);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px var(--sombra);
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gris-oscuro);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--bordo);
+        }
+        
+        .author-bio {
+            text-align: center;
+        }
+        
+        .author-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background-color: var(--azul-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--blanco);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-photo i {
+            font-size: 3rem;
+            color: var(--bordo);
+        }
+        
+        .author-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gris-oscuro);
+        }
+        
+        .author-tagline {
+            font-style: italic;
+            color: var(--bordo);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .author-description {
+            color: var(--gris-medio);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--blanco);
+            border-radius: 50%;
+            color: var(--bordo);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px var(--sombra);
+        }
+        
+        .social-link:hover {
+            background-color: var(--bordo);
+            color: var(--blanco);
+            transform: translateY(-3px);
+        }
+        
+        .archive-list {
+            list-style: none;
+        }
+        
+        .archive-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .archive-item:last-child {
+            border-bottom: none;
+        }
+        
+        .archive-item a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .archive-item a:hover {
+            color: var(--bordo);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bordo);
+            color: var(--blanco);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        
+        .footer-description {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--blanco);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Individual article page */
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .article-meta-large {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--gris-medio);
+            margin-bottom: 1rem;
+        }
+        
+        .article-date {
+            font-size: 0.95rem;
+        }
+        
+        .article-author {
+            font-weight: 600;
+            color: var(--bordo);
+        }
+        
+        .article-tag {
+            display: inline-block;
+            background-color: var(--azul-claro);
+            color: var(--gris-oscuro);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .article-body {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .article-body p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-body h2 {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.2rem;
+        }
+        
+        .article-body blockquote {
+            border-left: 4px solid var(--bordo);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--gris-medio);
+            font-size: 1.2rem;
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            background-color: var(--bordo);
+            color: var(--blanco);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            background-color: #7a1616;
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .article-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="logo">LADO C</h1>
-                <p class="slogan">Noticias y Opinión de Catamarca</p>
-                
-                <!-- Enlace MUY discreto para administradores -->
-                <div class="admin-access-hidden">
-                    <a href="admin.html" class="admin-hidden-link" title="Acceso exclusivo administradores">
-                        <i class="fas fa-lock"></i>
-                    </a>
-                </div>
-            </div>
+    <header>
+        <div class="header-container">
+            <div class="logo">Lado <span>C</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Opinión</a></li>
+                    <li><a href="#catamarca">Catamarca</a></li>
+                    <li><a href="#sociedad">Sociedad</a></li>
+                    <li><a href="#internacionales">Internacionales</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Navegación -->
-    <nav class="main-nav">
-        <div class="container">
-            <ul class="nav-menu">
-                <li><a href="#inicio" class="active">Opinión</a></li>
-                <li><a href="#catamarca">Catamarca</a></li>
-                <li><a href="#sociedad">Sociedad</a></li>
-                <li><a href="#internacionales">Internacionales</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Contenido Principal -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Encabezado de sección -->
-            <div class="section-header">
-                <h2>Últimos Editoriales</h2>
-                <p class="article-count" id="articleCount">Cargando artículos...</p>
-            </div>
-
-            <!-- Grid de Artículos (se cargará dinámicamente) -->
-            <div class="articles-grid" id="articlesContainer">
-                <!-- Los artículos se cargarán aquí desde JavaScript -->
-                <div class="loading-articles">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Cargando contenido...</p>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Main Articles -->
+            <main class="main-content">
+                <h1 class="page-title">Opinión Política y Social</h1>
+                
+                <div class="articles-grid" id="inicio">
+                    <!-- Article 1 -->
+                    <article class="article-card">
+                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="article-content">
+                            <span class="article-category">Catamarca</span>
+                            <h2 class="article-title">El futuro del trabajo en el Noroeste Argentino</h2>
+                            <p class="article-excerpt">La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad?</p>
+                            <div class="article-meta">
+                                <span>15 de mayo, 2023</span>
+                                <a href="#articulo1" class="read-more">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="article-card">
+                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="article-content">
+                            <span class="article-category">Sociedad</span>
+                            <h2 class="article-title">Juventud y participación política: más allá del voto</h2>
+                            <p class="article-excerpt">La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca.</p>
+                            <div class="article-meta">
+                                <span>12 de mayo, 2023</span>
+                                <a href="#articulo2" class="read-more">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="article-card">
+                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="article-content">
+                            <span class="article-category">Internacionales</span>
+                            <h2 class="article-title">Nuevas izquierdas en América Latina: aprendizajes y desafíos</h2>
+                            <p class="article-excerpt">De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia?</p>
+                            <div class="article-meta">
+                                <span>8 de mayo, 2023</span>
+                                <a href="#articulo3" class="read-more">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 4 -->
+                    <article class="article-card">
+                        <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="article-content">
+                            <span class="article-category">Opinión</span>
+                            <h2 class="article-title">Democracia socialista: ¿utopía o horizonte alcanzable?</h2>
+                            <p class="article-excerpt">Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa.</p>
+                            <div class="article-meta">
+                                <span>5 de mayo, 2023</span>
+                                <a href="#articulo4" class="read-more">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <!-- Sección Destacados -->
-            <div class="featured-section">
-                <h2 class="section-header">Destacados de la Semana</h2>
-                <div class="articles-grid featured-grid" id="featuredContainer">
-                    <!-- Artículos destacados se cargarán aquí -->
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Sidebar de Información -->
-    <aside class="sidebar">
-        <div class="container">
-            <div class="sidebar-content">
-                <div class="author-bio">
-                    <div class="author-photo">
-                        <i class="fas fa-user-edit"></i>
+                
+                <!-- Featured Articles Section -->
+                <section class="featured-section">
+                    <h2 class="page-title">Destacados de la semana</h2>
+                    <div class="featured-articles">
+                        <article class="featured-card">
+                            <div class="featured-content">
+                                <span class="article-category">Catamarca</span>
+                                <h3 class="featured-title">La minería y el desarrollo sustentable: ¿son compatibles?</h3>
+                                <div class="article-meta">
+                                    <span>3 de mayo, 2023</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="featured-card">
+                            <div class="featured-content">
+                                <span class="article-category">Sociedad</span>
+                                <h3 class="featured-title">Feminismo popular en el interior: las mujeres que transforman</h3>
+                                <div class="article-meta">
+                                    <span>30 de abril, 2023</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="featured-card">
+                            <div class="featured-content">
+                                <span class="article-category">Internacionales</span>
+                                <h3 class="featured-title">Crisis climática y justicia social: la deuda ecológica del Norte</h3>
+                                <div class="article-meta">
+                                    <span>28 de abril, 2023</span>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                    <h3 class="author-name">Redacción LADO C</h3>
+                </section>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Author Bio -->
+                <div class="sidebar-widget author-bio">
+                    <div class="author-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="author-name">Santiago Galíndez</h3>
                     <p class="author-tagline">"Pensar distinto también es un acto de compromiso."</p>
-                    <p class="author-description">Medio digital de opinión política y social desde Catamarca. Analizamos la realidad con mirada crítica y perspectiva socialista democrática.</p>
+                    <p class="author-description">Columnista y analista político catamarqueño. Licenciado en Ciencia Política (UNCa). Miembro del Instituto de Estudios Socialistas. Escribe sobre política, sociedad y economía desde la perspectiva del socialismo democrático, con especial atención a la realidad del Noroeste Argentino.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Correo">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
                 </div>
+                
+                <!-- Archive -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Archivo</h3>
+                    <ul class="archive-list">
+                        <li class="archive-item">
+                            <a href="#">Mayo 2023 <span>(4)</span></a>
+                        </li>
+                        <li class="archive-item">
+                            <a href="#">Abril 2023 <span>(6)</span></a>
+                        </li>
+                        <li class="archive-item">
+                            <a href="#">Marzo 2023 <span>(5)</span></a>
+                        </li>
+                        <li class="archive-item">
+                            <a href="#">Febrero 2023 <span>(3)</span></a>
+                        </li>
+                        <li class="archive-item">
+                            <a href="#">Enero 2023 <span>(4)</span></a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Suscríbete</h3>
+                    <p style="margin-bottom: 1rem; color: var(--gris-medio); font-size: 0.95rem;">Recibe las nuevas columnas directamente en tu correo.</p>
+                    <form style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        <input type="email" placeholder="Tu correo electrónico" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; font-family: 'Merriweather', serif;">
+                        <button type="submit" style="background-color: var(--bordo); color: white; border: none; padding: 0.8rem; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease;">Suscribirse</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
 
-                <!-- Enlace ADMIN oculto en el sidebar -->
-                <div class="sidebar-admin-access">
-                    <p>¿Eres administrador?</p>
-                    <a href="admin.html" class="btn-secondary btn-small">
-                        <i class="fas fa-lock"></i> Acceso seguro
-                    </a>
-                </div>
+    <!-- Individual Article Example -->
+    <div id="articulo1" class="container" style="display: none;">
+        <div class="article-header">
+            <h1>El futuro del trabajo en el Noroeste Argentino</h1>
+            <div class="article-meta-large">
+                <span class="article-date">15 de mayo, 2023</span>
+                <span class="article-author">Por Santiago Galíndez</span>
+            </div>
+            <span class="article-tag">Catamarca</span>
+        </div>
+        
+        <div class="article-body">
+            <p>La revolución tecnológica y la transformación digital están reconfigurando los mercados laborales en todo el mundo. En el Noroeste Argentino, esta transformación plantea desafíos particulares que requieren respuestas desde una perspectiva socialista democrática, centrada en la dignidad humana y la justicia social.</p>
+            
+            <p>Durante décadas, Catamarca ha dependido de una matriz productiva basada en la agricultura familiar, la minería y, más recientemente, el turismo. Sin embargo, la automatización y la globalización están alterando estas industrias tradicionales, mientras que nuevas oportunidades emergen en áreas como la economía del conocimiento, las energías renovables y la economía circular.</p>
+            
+            <h2>El desafío de la transición justa</h2>
+            
+            <p>El concepto de "transición justa", desarrollado por el movimiento sindical internacional, adquiere especial relevancia en nuestro contexto. No se trata simplemente de adaptarse a las nuevas tecnologías, sino de garantizar que esta adaptación no profundice las desigualdades existentes.</p>
+            
+            <blockquote>
+                "El socialismo democrático del siglo XXI debe proponer un nuevo pacto social del trabajo que garantice derechos en la era digital y distribuya los beneficios del progreso tecnológico de manera equitativa."
+            </blockquote>
+            
+            <p>En Catamarca, esto implica políticas activas de formación profesional vinculadas a los sectores estratégicos de la provincia, protección social ampliada para trabajadores de plataformas digitales, y el fomento de cooperativas y empresas de la economía social que puedan competir en los nuevos mercados.</p>
+            
+            <h2>Hacia una soberanía productiva regional</h2>
+            
+            <p>La dependencia tecnológica es una nueva forma de colonialismo. Por ello, es crucial desarrollar capacidades locales en áreas como software, biotecnología y energías limpias. Las universidades públicas, como la UNCa, tienen un rol fundamental en este proceso, pero requieren mayor financiamiento y vinculación con las necesidades productivas regionales.</p>
+            
+            <p>El socialismo democrático en Catamarca debe aspirar a construir un modelo de desarrollo que combine innovación tecnológica con justicia social, sostenibilidad ambiental y participación popular en las decisiones económicas. Solo así podremos garantizar que el futuro del trabajo sea un futuro de libertad, dignidad y prosperidad compartida.</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="#" class="back-to-home" onclick="showMainContent()">Volver al inicio</a>
+        </div>
+        
+        <div class="related-articles">
+            <h2 class="widget-title">Artículos relacionados</h2>
+            <div class="articles-grid" style="grid-template-columns: 1fr; margin-top: 1.5rem;">
+                <article class="article-card">
+                    <div class="article-content">
+                        <span class="article-category">Sociedad</span>
+                        <h3 class="article-title">Formación profesional y empleo digno: el rol del Estado</h3>
+                        <p class="article-excerpt">Cómo las políticas públicas pueden conectar educación con necesidades productivas reales en Catamarca.</p>
+                        <div class="article-meta">
+                            <span>22 de abril, 2023</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
-    </aside>
+    </div>
 
     <!-- Footer -->
-    <footer class="site-footer" id="contacto">
-        <div class="container">
+    <footer id="contacto">
+        <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>LADO C</h3>
-                    <p>Noticias y Opinión de Catamarca</p>
+                <div>
+                    <div class="footer-logo">Lado C</div>
+                    <p class="footer-description">Medio digital de opinión política y social desde Catamarca. Analizamos la realidad con mirada crítica y perspectiva socialista democrática.</p>
                 </div>
                 
-                <div class="footer-info">
-                    <h4>Contacto</h4>
-                    <p><i class="fas fa-envelope"></i> contacto@ladoc-catamarca.com.ar</p>
-                    <p><i class="fas fa-phone"></i> (383) 123-4567</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Secciones</h4>
-                    <ul>
+                <div>
+                    <h4 class="footer-title">Secciones</h4>
+                    <ul class="footer-links">
                         <li><a href="#inicio">Opinión</a></li>
                         <li><a href="#catamarca">Catamarca</a></li>
                         <li><a href="#sociedad">Sociedad</a></li>
                         <li><a href="#internacionales">Internacionales</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contacto@ladoc.com.ar">contacto@ladoc.com.ar</a></li>
+                        <li><a href="#">Twitter: @LadoC_Opinion</a></li>
+                        <li><a href="#">Instagram: @LadoC_Opinion</a></li>
+                        <li><a href="#">Facebook: /LadoCOpinion</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
-                <!-- Enlace admin extremadamente discreto -->
-                <p class="admin-footer-link">
-                    <a href="admin.html" title="Acceso administradores">
-                        <i class="fas fa-cog"></i> Panel de administración
-                    </a>
-                </p>
+                <p>Lado C – Una mirada distinta sobre la política.</p>
+                <p style="margin-top: 0.5rem;">© 2023 Lado C. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-        // Función para cargar artículos en la página principal
-        function loadArticlesForPublic() {
-            // Esta función se ejecutará desde script.js
-            console.log('Página pública cargada correctamente');
+        // Function to show article page and hide main content
+        function showArticle(articleId) {
+            document.querySelector('.content-wrapper').style.display = 'none';
+            document.getElementById(articleId).style.display = 'block';
+            window.scrollTo(0, 0);
         }
-
+        
+        // Function to show main content and hide article page
+        function showMainContent() {
+            document.querySelector('.content-wrapper').style.display = 'flex';
+            document.getElementById('articulo1').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        // Add event listeners to "Leer más" buttons
         document.addEventListener('DOMContentLoaded', function() {
-            loadArticlesForPublic();
+            const readMoreButtons = document.querySelectorAll('.read-more');
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const articleId = this.getAttribute('href').substring(1);
+                    showArticle(articleId);
+                });
+            });
+            
+            // Add smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
