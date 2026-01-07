@@ -6,9 +6,317 @@
     <title>Panel de Administración - LADO C</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS PARA LA VISTA DE ADMINISTRACIÓN DE LA IMAGEN */
+        
+        /* Header estilo LADO C de la imagen */
+        .simple-header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #8B0000;
+        }
+        
+        .simple-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .simple-logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+        }
+        
+        .simple-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        
+        /* Navegación simple */
+        .simple-nav {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .simple-nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .simple-nav li {
+            margin-right: 20px;
+        }
+        
+        .simple-nav a {
+            display: block;
+            padding: 15px 0;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .simple-nav a:hover,
+        .simple-nav a.active {
+            color: #8B0000;
+            border-bottom-color: #8B0000;
+        }
+        
+        /* Contenido principal - estilo de la imagen */
+        .simple-main {
+            padding: 20px 0;
+        }
+        
+        .content-header-simple {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .content-header-simple h2 {
+            font-size: 20px;
+            color: #333;
+            margin: 0;
+        }
+        
+        .article-count-simple {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .simple-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-simple {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: #333;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn-simple:hover {
+            background-color: #eee;
+        }
+        
+        .btn-simple.borrar {
+            color: #d9534f;
+            border-color: #d9534f;
+        }
+        
+        .btn-simple.editar {
+            color: #5bc0de;
+            border-color: #5bc0de;
+        }
+        
+        /* Panel de administración estilo de la imagen */
+        .simple-admin-panel {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        
+        .simple-admin-tabs {
+            display: flex;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .simple-admin-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .simple-admin-tab.active {
+            background-color: white;
+            color: #333;
+            border-bottom: 2px solid #8B0000;
+        }
+        
+        .simple-admin-content {
+            padding: 25px;
+        }
+        
+        .section-title-simple {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Lista de editoriales estilo simple */
+        .simple-editorial-list {
+            margin-top: 20px;
+        }
+        
+        .simple-editorial-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .simple-editorial-info h3 {
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .simple-editorial-meta {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Botón crear nuevo editorial */
+        .btn-crear-simple {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-crear-simple:hover {
+            background-color: #4cae4c;
+        }
+        
+        /* Formulario nuevo editorial - CORREGIDO para no mostrar títulos anteriores */
+        .simple-new-editorial {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        
+        .simple-new-editorial.active {
+            display: block;
+        }
+        
+        .simple-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .simple-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .simple-form-group input,
+        .simple-form-group select,
+        .simple-form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        .simple-form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .simple-form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .btn-cancelar-simple {
+            background-color: #999;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .btn-cancelar-simple:hover {
+            background-color: #888;
+        }
+        
+        .btn-guardar-simple {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .btn-guardar-simple:hover {
+            background-color: #286090;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .simple-nav ul {
+                flex-wrap: wrap;
+            }
+            
+            .simple-nav li {
+                margin-right: 10px;
+            }
+            
+            .content-header-simple {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .simple-editorial-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        /* Estilos para mantener compatibilidad con el sistema existente */
+        #editorialesSection {
+            display: block !important;
+        }
+        
+        .admin-section {
+            display: block;
+        }
+    </style>
 </head>
 <body class="admin-page">
-    <!-- Login Container -->
+    <!-- Sistema de login (mantenido del original) -->
     <div id="loginContainer" class="login-container">
         <div class="login-box">
             <div class="login-header">
@@ -51,236 +359,342 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="admin-panel-container" style="display: none;">
-        <!-- Header del Panel -->
-        <header class="admin-panel-header">
-            <div class="admin-header-left">
-                <h1><i class="fas fa-cogs"></i> Panel de Administración</h1>
-                <p>Bienvenido, <span id="adminName">Administrador</span></p>
-            </div>
-            <div class="admin-header-right">
-                <button id="logoutBtn" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                </button>
-                <a href="index.html" class="btn-view-site">
-                    <i class="fas fa-external-link-alt"></i> Ver Sitio
-                </a>
+    <!-- Panel de administración (nueva estética) -->
+    <div id="adminPanel" style="display: none;">
+        <!-- Header estilo LADO C de la imagen -->
+        <header class="simple-header">
+            <div class="container">
+                <div>
+                    <div class="simple-logo">LADO C</div>
+                    <div class="simple-subtitle">Noticias y Opinión de Catamarca</div>
+                </div>
+                <div>
+                    <button id="simpleLogoutBtn" class="btn-simple editar">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </button>
+                </div>
             </div>
         </header>
-
-        <!-- Navegación del Panel -->
-        <nav class="admin-nav">
-            <ul class="admin-nav-menu">
-                <li><a href="#editoriales" class="admin-nav-link active" data-tab="editoriales">
-                    <i class="fas fa-newspaper"></i> Editoriales
-                </a></li>
-                <li><a href="#columnistas" class="admin-nav-link" data-tab="columnistas">
-                    <i class="fas fa-pen-alt"></i> Columnistas
-                </a></li>
-                <li><a href="#suscriptores" class="admin-nav-link" data-tab="suscriptores">
-                    <i class="fas fa-users"></i> Suscriptores
-                </a></li>
-                <li><a href="#comentarios" class="admin-nav-link" data-tab="comentarios">
-                    <i class="fas fa-comments"></i> Comentarios
-                </a></li>
-            </ul>
+        
+        <!-- Navegación estilo de la imagen -->
+        <nav class="simple-nav">
+            <div class="container">
+                <ul>
+                    <li><a href="#" class="active">Todos</a></li>
+                    <li><a href="#">Catamarca</a></li>
+                    <li><a href="#">Opinión</a></li>
+                    <li><a href="#">Sociedad</a></li>
+                    <li><a href="#">Internacionales</a></li>
+                    <li><a href="#">Política Nacional</a></li>
+                </ul>
+            </div>
         </nav>
-
-        <!-- Contenido del Panel -->
-        <main class="admin-content">
-            <!-- Mensajes -->
-            <div id="adminMessage" class="message"></div>
-
-            <!-- Sección Editoriales -->
-            <section id="editorialesSection" class="admin-section active">
-                <div class="section-header">
-                    <h2><i class="fas fa-newspaper"></i> Gestión de Editoriales</h2>
-                    <button id="newArticleBtn" class="btn-primary">
-                        <i class="fas fa-plus"></i> Nuevo Editorial
-                    </button>
+        
+        <!-- Contenido principal -->
+        <main class="simple-main">
+            <div class="container">
+                <!-- Encabezado con contador y botones -->
+                <div class="content-header-simple">
+                    <h2>Panel de Administración</h2>
+                    <div class="article-count-simple">Mostrando <span id="simpleArticlesCount">2</span> artículos</div>
+                    <div class="simple-actions">
+                        <button class="btn-simple borrar" id="simpleBorrarBtn">Borrar</button>
+                        <button class="btn-simple editar" id="simpleEditarBtn">Editar</button>
+                    </div>
                 </div>
                 
-                <div class="articles-list" id="adminArticlesList">
-                    <!-- Los artículos se cargarán aquí con JavaScript -->
-                </div>
-            </section>
-
-            <!-- Sección Columnistas -->
-            <section id="columnistasSection" class="admin-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-pen-alt"></i> Gestión de Columnistas</h2>
-                    <button class="btn-primary">
-                        <i class="fas fa-plus"></i> Nuevo Columnista
-                    </button>
-                </div>
-                
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Especialidad</th>
-                            <th>Estado</th>
-                            <th>Artículos</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Juan Pérez</td>
-                            <td>Política Nacional</td>
-                            <td><span class="status-active">Activo</span></td>
-                            <td>15</td>
-                            <td>
-                                <button class="btn-small btn-edit">Editar</button>
-                                <button class="btn-small btn-delete">Desactivar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- Sección Suscriptores -->
-            <section id="suscriptoresSection" class="admin-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-users"></i> Gestión de Suscriptores</h2>
-                    <button class="btn-secondary">
-                        <i class="fas fa-download"></i> Exportar CSV
-                    </button>
-                </div>
-                
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Fecha Suscripción</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ejemplo@email.com</td>
-                            <td>10/05/2023</td>
-                            <td><span class="status-active">Activo</span></td>
-                            <td>
-                                <button class="btn-small btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- Sección Comentarios -->
-            <section id="comentariosSection" class="admin-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-comments"></i> Moderación de Comentarios</h2>
-                </div>
-                
-                <div class="comments-list">
-                    <div class="comment-item">
-                        <div class="comment-header">
-                            <strong>Carlos Gómez</strong> comentó en:
-                            <a href="#">"Juventud y participación política"</a>
-                        </div>
-                        <div class="comment-content">
-                            Excelente artículo sobre la participación juvenil.
-                        </div>
-                        <div class="comment-meta">
-                            <span class="date">Hoy, 10:30 AM</span>
-                        </div>
-                        <div class="comment-actions">
-                            <button class="btn-approve">
-                                <i class="fas fa-check"></i> Aprobar
+                <!-- Panel de administración con pestañas -->
+                <div class="simple-admin-panel">
+                    <div class="simple-admin-tabs">
+                        <div class="simple-admin-tab active" data-tab="editoriales">Editoriales</div>
+                        <div class="simple-admin-tab" data-tab="columnistas">Columnistas</div>
+                        <div class="simple-admin-tab" data-tab="suscriptores">Suscriptores</div>
+                        <div class="simple-admin-tab" data-tab="comentarios">Comentarios</div>
+                    </div>
+                    
+                    <div class="simple-admin-content">
+                        <!-- Sección Editoriales -->
+                        <div id="simpleEditorialesTab" class="simple-tab-content active">
+                            <h3 class="section-title-simple">Editoriales Actuales</h3>
+                            
+                            <button class="btn-crear-simple" id="simpleCrearBtn">
+                                <i class="fas fa-plus"></i> Crear Nuevo Editorial
                             </button>
-                            <button class="btn-reject">
-                                <i class="fas fa-times"></i> Rechazar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Modal para Nuevo/Editar Editorial -->
-        <div id="articleModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 id="modalTitle">Nuevo Editorial</h3>
-                    <button class="modal-close" id="closeModal">&times;</button>
-                </div>
-                <form id="articleForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modalTitleInput">Título *</label>
-                            <input type="text" id="modalTitleInput" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="modalCategory">Categoría *</label>
-                            <select id="modalCategory" required>
-                                <option value="Catamarca">Catamarca</option>
-                                <option value="Sociedad">Sociedad</option>
-                                <option value="Opinión">Opinión</option>
-                                <option value="Internacionales">Internacionales</option>
-                                <option value="Política Nacional">Política Nacional</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="modalExcerpt">Resumen (máx. 200 caracteres)</label>
-                        <textarea id="modalExcerpt" rows="3" maxlength="200" placeholder="Breve descripción que aparecerá en la lista de artículos..."></textarea>
-                        <small class="char-count">0/200 caracteres</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="modalImage">URL de la imagen de portada</label>
-                        <input type="text" id="modalImage" placeholder="https://ejemplo.com/imagen.jpg">
-                        <small>Pega la URL completa de la imagen. Se recomienda tamaño 1200x600px.</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div id="coverPreview" class="cover-preview">
-                            <div id="coverPreviewPlaceholder" class="cover-preview-placeholder">
-                                <i class="fas fa-image"></i>
-                                <p>Vista previa de la portada</p>
+                            
+                            <!-- Lista de editoriales existentes -->
+                            <div class="simple-editorial-list" id="simpleArticlesList">
+                                <!-- Los editoriales se cargarán aquí con JavaScript -->
+                            </div>
+                            
+                            <!-- Formulario para nuevo editorial - INICIALMENTE OCULTO -->
+                            <div class="simple-new-editorial" id="simpleNuevoEditorial">
+                                <h3>Nuevo Editorial</h3>
+                                
+                                <form id="simpleArticleForm">
+                                    <div class="simple-form-group">
+                                        <label for="simpleTitulo">Título del Editorial</label>
+                                        <input type="text" id="simpleTitulo" placeholder="Escribe el título aquí">
+                                    </div>
+                                    
+                                    <div class="simple-form-group">
+                                        <label for="simpleCategoria">Categoría</label>
+                                        <select id="simpleCategoria">
+                                            <option value="">Selecciona una categoría</option>
+                                            <option value="Catamarca">Catamarca</option>
+                                            <option value="Opinión">Opinión</option>
+                                            <option value="Sociedad">Sociedad</option>
+                                            <option value="Internacionales">Internacionales</option>
+                                            <option value="Política Nacional">Política Nacional</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="simple-form-group">
+                                        <label for="simpleContenido">Contenido</label>
+                                        <textarea id="simpleContenido" placeholder="Escribe el contenido del editorial aquí"></textarea>
+                                    </div>
+                                    
+                                    <div class="simple-form-actions">
+                                        <button type="button" class="btn-cancelar-simple" id="simpleCancelarBtn">Cancelar</button>
+                                        <button type="button" class="btn-guardar-simple" id="simpleGuardarBtn">Guardar Editorial</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="modalContent">Contenido completo *</label>
-                        <textarea id="modalContent" rows="10" required placeholder="Escribe aquí el contenido completo del artículo..."></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modalDate">Fecha de Publicación *</label>
-                            <input type="date" id="modalDate" required>
+                        
+                        <!-- Otras pestañas (simuladas) -->
+                        <div id="simpleColumnistasTab" class="simple-tab-content">
+                            <h3 class="section-title-simple">Columnistas</h3>
+                            <p>Funcionalidad de columnistas en desarrollo.</p>
                         </div>
-                        <div class="form-group">
-                            <label for="modalAuthor">Autor</label>
-                            <input type="text" id="modalAuthor" value="Redacción LADO C">
+                        
+                        <div id="simpleSuscriptoresTab" class="simple-tab-content">
+                            <h3 class="section-title-simple">Suscriptores</h3>
+                            <p>Funcionalidad de suscriptores en desarrollo.</p>
                         </div>
-                        <div class="form-group">
-                            <label for="modalStatus">Estado</label>
-                            <select id="modalStatus">
-                                <option value="published">Publicado</option>
-                                <option value="draft">Borrador</option>
-                            </select>
+                        
+                        <div id="simpleComentariosTab" class="simple-tab-content">
+                            <h3 class="section-title-simple">Comentarios</h3>
+                            <p>Funcionalidad de comentarios en desarrollo.</p>
                         </div>
                     </div>
-                    
-                    <div class="modal-actions">
-                        <button type="button" class="btn-secondary" id="cancelModal">Cancelar</button>
-                        <button type="submit" class="btn-primary" id="saveArticle">Guardar Editorial</button>
-                    </div>
-                    <p class="form-note"><small>* Campos obligatorios</small></p>
-                </form>
+                </div>
             </div>
-        </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <p>&copy; 2023 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // SCRIPT ESPECÍFICO PARA LA NUEVA INTERFAZ
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar el sistema de autenticación existente
+            initAuthSystem();
+            
+            // Cargar artículos en la nueva interfaz
+            cargarArticulosSimple();
+            
+            // Configurar navegación por pestañas
+            const simpleTabs = document.querySelectorAll('.simple-admin-tab');
+            simpleTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remover clase active de todas las pestañas
+                    simpleTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Ocultar todos los contenidos de pestañas
+                    document.querySelectorAll('.simple-tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Mostrar el contenido correspondiente
+                    document.getElementById(`simple${tabId.charAt(0).toUpperCase() + tabId.slice(1)}Tab`).classList.add('active');
+                });
+            });
+            
+            // Botón para crear nuevo editorial
+            const simpleCrearBtn = document.getElementById('simpleCrearBtn');
+            const simpleNuevoEditorial = document.getElementById('simpleNuevoEditorial');
+            const simpleCancelarBtn = document.getElementById('simpleCancelarBtn');
+            const simpleGuardarBtn = document.getElementById('simpleGuardarBtn');
+            const simpleTituloInput = document.getElementById('simpleTitulo');
+            
+            simpleCrearBtn.addEventListener('click', function() {
+                simpleNuevoEditorial.classList.add('active');
+                simpleCrearBtn.style.display = 'none';
+                
+                // LIMPIAR EL FORMULARIO - Esto corrige el problema de títulos anteriores
+                simpleTituloInput.value = '';
+                document.getElementById('simpleCategoria').value = '';
+                document.getElementById('simpleContenido').value = '';
+                
+                // Enfocar el campo del título
+                simpleTituloInput.focus();
+            });
+            
+            // Cancelar creación de nuevo editorial
+            simpleCancelarBtn.addEventListener('click', function() {
+                simpleNuevoEditorial.classList.remove('active');
+                simpleCrearBtn.style.display = 'block';
+            });
+            
+            // Guardar nuevo editorial
+            simpleGuardarBtn.addEventListener('click', function() {
+                const titulo = simpleTituloInput.value.trim();
+                const categoria = document.getElementById('simpleCategoria').value;
+                const contenido = document.getElementById('simpleContenido').value.trim();
+                
+                if (!titulo || !categoria || !contenido) {
+                    alert('Por favor, completa todos los campos del formulario.');
+                    return;
+                }
+                
+                // Usar la función existente createArticle del script.js
+                const newArticle = {
+                    title: titulo,
+                    category: categoria,
+                    content: contenido,
+                    excerpt: contenido.substring(0, 150) + '...',
+                    published: true,
+                    author: 'Redacción LADO C'
+                };
+                
+                const createdArticle = createArticle(newArticle);
+                
+                if (createdArticle) {
+                    // Ocultar formulario
+                    simpleNuevoEditorial.classList.remove('active');
+                    simpleCrearBtn.style.display = 'block';
+                    
+                    // Recargar la lista de artículos
+                    cargarArticulosSimple();
+                    
+                    // Mostrar mensaje de éxito
+                    alert('¡Editorial creado exitosamente!');
+                }
+            });
+            
+            // Botón de cerrar sesión específico
+            const simpleLogoutBtn = document.getElementById('simpleLogoutBtn');
+            if (simpleLogoutBtn) {
+                simpleLogoutBtn.addEventListener('click', function() {
+                    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                        clearSession();
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+            
+            // Botones de acciones principales
+            document.getElementById('simpleBorrarBtn').addEventListener('click', function() {
+                alert('Selecciona un editorial específico para borrar.');
+            });
+            
+            document.getElementById('simpleEditarBtn').addEventListener('click', function() {
+                alert('Selecciona un editorial específico para editar.');
+            });
+        });
+        
+        // Función para cargar artículos en la nueva interfaz
+        function cargarArticulosSimple() {
+            const container = document.getElementById('simpleArticlesList');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Obtener artículos del localStorage o del array global
+            let articles = JSON.parse(localStorage.getItem('ladoc_articles')) || [
+                {
+                    id: 1,
+                    title: 'El futuro del trabajo en el Noroeste Argentino',
+                    category: 'Catamarca',
+                    date: '2023-05-15',
+                    content: 'Contenido del artículo...',
+                    published: true
+                },
+                {
+                    id: 2,
+                    title: 'Juventud y participación política: más allá del voto',
+                    category: 'Sociedad',
+                    date: '2023-05-12',
+                    content: 'Contenido del artículo...',
+                    published: true
+                }
+            ];
+            
+            if (articles.length === 0) {
+                container.innerHTML = '<p>No hay editoriales creados aún.</p>';
+                document.getElementById('simpleArticlesCount').textContent = '0';
+                return;
+            }
+            
+            // Filtrar solo los artículos publicados
+            const publishedArticles = articles.filter(article => article.published);
+            
+            publishedArticles.forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.className = 'simple-editorial-item';
+                articleElement.dataset.id = article.id;
+                
+                // Formatear fecha
+                const dateObj = new Date(article.date);
+                const formattedDate = dateObj.toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                articleElement.innerHTML = `
+                    <div class="simple-editorial-info">
+                        <h3>${article.title}</h3>
+                        <div class="simple-editorial-meta">${article.category} - ${formattedDate}</div>
+                    </div>
+                    <div>
+                        <button class="btn-simple borrar" onclick="borrarEditorialSimple(${article.id})">Borrar</button>
+                    </div>
+                `;
+                
+                container.appendChild(articleElement);
+            });
+            
+            // Actualizar contador
+            document.getElementById('simpleArticlesCount').textContent = publishedArticles.length;
+        }
+        
+        // Función para borrar editorial (nueva interfaz)
+        function borrarEditorialSimple(id) {
+            if (!confirm('¿Estás seguro de eliminar este editorial? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            // Obtener artículos actuales
+            let articles = JSON.parse(localStorage.getItem('ladoc_articles')) || [];
+            
+            // Filtrar el artículo a eliminar
+            articles = articles.filter(article => article.id !== id);
+            
+            // Guardar en localStorage
+            localStorage.setItem('ladoc_articles', JSON.stringify(articles));
+            
+            // Recargar la lista
+            cargarArticulosSimple();
+            
+            alert('Editorial eliminado correctamente');
+        }
+        
+        // Función para mostrar/ocultar panel admin (compatibilidad con sistema existente)
+        window.showAdminPanel = function() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        };
+    </script>
 </body>
 </html>
