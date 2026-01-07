@@ -291,6 +291,16 @@
             width: 100%;
         }
 
+        /* SECCIONES ESPECÍFICAS */
+        .category-section, .contact-section, .archive-section {
+            display: none;
+        }
+
+        .category-section.active, .contact-section.active, .archive-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
         /* ARTICLE PAGE */
         .article-full {
             max-width: 800px;
@@ -820,6 +830,55 @@
         .notification.info {
             background-color: var(--color-bordo);
         }
+
+        /* ARCHIVO */
+        .archive-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .archive-filter-btn {
+            background-color: var(--color-azul-claro);
+            color: var(--color-gris-oscuro);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .archive-filter-btn.active, .archive-filter-btn:hover {
+            background-color: var(--color-bordo);
+            color: white;
+        }
+
+        /* CONTACTO */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background-color: var(--color-gris-claro);
+            padding: 25px;
+            border-radius: var(--border-radius);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 15px;
+            color: var(--color-bordo);
+        }
     </style>
 </head>
 <body>
@@ -872,13 +931,15 @@
             <a href="#" class="logo" id="logo">Lado <span>C</span></a>
             <nav>
                 <ul>
-                    <li><a href="#opinion">Opinión</a></li>
-                    <li><a href="#catamarca">Catamarca</a></li>
-                    <li><a href="#politica-nacional">Política Nacional</a></li>
-                    <li><a href="#sociedad">Sociedad</a></li>
-                    <li><a href="#internacionales">Internacionales</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                    <li><a href="#" id="admin-login-link">Admin <span class="admin-indicator" id="admin-indicator"></span></a></li>
+                    <li><a href="#" id="nav-inicio">Inicio</a></li>
+                    <li><a href="#" id="nav-opinion">Opinión</a></li>
+                    <li><a href="#" id="nav-catamarca">Catamarca</a></li>
+                    <li><a href="#" id="nav-politica-nacional">Política Nacional</a></li>
+                    <li><a href="#" id="nav-sociedad">Sociedad</a></li>
+                    <li><a href="#" id="nav-internacionales">Internacionales</a></li>
+                    <li><a href="#" id="nav-archivo">Archivo</a></li>
+                    <li><a href="#" id="nav-contacto">Contacto</a></li>
+                    <li><a href="#" id="nav-admin">Administración <span class="admin-indicator" id="admin-indicator"></span></a></li>
                 </ul>
             </nav>
         </div>
@@ -887,14 +948,109 @@
     <!-- MAIN CONTENT -->
     <div class="container main-content">
         <div class="content">
-            <h2 class="section-title" id="destacados">Editoriales Destacados</h2>
-            <div class="articles-grid" id="articles-container">
-                <!-- Artículos se cargarán dinámicamente aquí -->
+            <!-- SECCIÓN INICIO (VISIBLE POR DEFECTO) -->
+            <div id="inicio-section">
+                <h2 class="section-title" id="destacados">Editoriales Destacados</h2>
+                <div class="articles-grid" id="articles-container">
+                    <!-- Artículos destacados se cargarán dinámicamente aquí -->
+                </div>
+                
+                <h2 class="section-title" id="archivo">Archivo de Editoriales</h2>
+                <div class="articles-grid" id="archive-container">
+                    <!-- Archivo se cargará dinámicamente aquí -->
+                </div>
             </div>
-            
-            <h2 class="section-title" id="archivo">Archivo de Editoriales</h2>
-            <div class="articles-grid" id="archive-container">
-                <!-- Archivo se cargará dinámicamente aquí -->
+
+            <!-- SECCIONES POR CATEGORÍA -->
+            <div id="opinion-section" class="category-section">
+                <h2 class="section-title">Opinión</h2>
+                <div class="articles-grid" id="opinion-container">
+                    <!-- Artículos de opinión se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <div id="catamarca-section" class="category-section">
+                <h2 class="section-title">Catamarca</h2>
+                <div class="articles-grid" id="catamarca-container">
+                    <!-- Artículos de Catamarca se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <div id="politica-nacional-section" class="category-section">
+                <h2 class="section-title">Política Nacional</h2>
+                <div class="articles-grid" id="politica-nacional-container">
+                    <!-- Artículos de política nacional se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <div id="sociedad-section" class="category-section">
+                <h2 class="section-title">Sociedad</h2>
+                <div class="articles-grid" id="sociedad-container">
+                    <!-- Artículos de sociedad se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <div id="internacionales-section" class="category-section">
+                <h2 class="section-title">Internacionales</h2>
+                <div class="articles-grid" id="internacionales-container">
+                    <!-- Artículos internacionales se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <!-- SECCIÓN ARCHIVO COMPLETO -->
+            <div id="archivo-section" class="archive-section">
+                <h2 class="section-title">Archivo Completo</h2>
+                <div class="archive-filters">
+                    <button class="archive-filter-btn active" data-filter="all">Todos</button>
+                    <button class="archive-filter-btn" data-filter="Opinión">Opinión</button>
+                    <button class="archive-filter-btn" data-filter="Catamarca">Catamarca</button>
+                    <button class="archive-filter-btn" data-filter="Política Nacional">Política Nacional</button>
+                    <button class="archive-filter-btn" data-filter="Sociedad">Sociedad</button>
+                    <button class="archive-filter-btn" data-filter="Internacionales">Internacionales</button>
+                </div>
+                <div class="articles-grid" id="full-archive-container">
+                    <!-- Archivo completo se cargará dinámicamente aquí -->
+                </div>
+            </div>
+
+            <!-- SECCIÓN CONTACTO -->
+            <div id="contacto-section" class="contact-section">
+                <h2 class="section-title">Contacto</h2>
+                
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Nombre</label>
+                        <input type="text" id="contact-name" class="form-control" placeholder="Su nombre">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-email">Correo electrónico</label>
+                        <input type="email" id="contact-email" class="form-control" placeholder="su@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-message">Mensaje</label>
+                        <textarea id="contact-message" class="form-control" placeholder="Escriba su mensaje aquí..." rows="5"></textarea>
+                    </div>
+                    
+                    <button class="admin-button" id="send-message">Enviar Mensaje</button>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>Información de contacto</h3>
+                        <p><strong>Email:</strong> ladoc.opinion@gmail.com</p>
+                        <p><strong>Teléfono:</strong> +54 3834 123456</p>
+                        <p><strong>Dirección:</strong> Catamarca, Argentina</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Horarios de atención</h3>
+                        <p><strong>Lunes a Viernes:</strong> 9:00 - 18:00</p>
+                        <p><strong>Sábados:</strong> 9:00 - 13:00</p>
+                        <p><strong>Domingos:</strong> Cerrado</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -923,7 +1079,7 @@
     </div>
 
     <!-- FOOTER -->
-    <footer>
+    <footer id="footer-section">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -934,20 +1090,19 @@
                 <div class="footer-section">
                     <h3 class="footer-title">Secciones</h3>
                     <ul class="footer-links">
-                        <li><a href="#opinion">Opinión</a></li>
-                        <li><a href="#catamarca">Catamarca</a></li>
-                        <li><a href="#politica-nacional">Política Nacional</a></li>
-                        <li><a href="#sociedad">Sociedad</a></li>
-                        <li><a href="#internacionales">Internacionales</a></li>
+                        <li><a href="#" id="footer-inicio">Inicio</a></li>
+                        <li><a href="#" id="footer-opinion">Opinión</a></li>
+                        <li><a href="#" id="footer-catamarca">Catamarca</a></li>
+                        <li><a href="#" id="footer-politica-nacional">Política Nacional</a></li>
+                        <li><a href="#" id="footer-sociedad">Sociedad</a></li>
+                        <li><a href="#" id="footer-internacionales">Internacionales</a></li>
+                        <li><a href="#" id="footer-archivo">Archivo</a></li>
+                        <li><a href="#" id="footer-contacto">Contacto</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3 class="footer-title">Contacto</h3>
-                    <p>ladoc.opinion@gmail.com</p>
-                    <p>+54 3834 123456</p>
-                    <p>Catamarca, Argentina</p>
-                    
+                    <h3 class="footer-title">Redes Sociales</h3>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1136,7 +1291,7 @@
                 id: 2,
                 title: "La desigualdad regional en Argentina: un problema estructural",
                 summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
-                content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconociendo y valorando las particularidades de cada región.</p>",
+                content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconocer y valorar las particularidades de cada región.</p>",
                 category: "Política Nacional",
                 author: "Santiago Galíndez",
                 date: "8 de noviembre, 2023",
@@ -1171,6 +1326,10 @@
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD = "ladoc2023"; // Contraseña por defecto
 
+        // VARIABLES DE ESTADO
+        let currentSection = 'inicio';
+        let currentArchiveFilter = 'all';
+
         // FUNCIONES DE UTILIDAD
         function saveToLocalStorage() {
             localStorage.setItem('ladoC-articles', JSON.stringify(articles));
@@ -1194,7 +1353,52 @@
             }, 3000);
         }
 
-        // RENDERIZAR ARTÍCULOS
+        // NAVEGACIÓN
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.getElementById('inicio-section').style.display = 'none';
+            document.querySelectorAll('.category-section').forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
+            document.getElementById('archivo-section').style.display = 'none';
+            document.getElementById('archivo-section').classList.remove('active');
+            document.getElementById('contacto-section').style.display = 'none';
+            document.getElementById('contacto-section').classList.remove('active');
+            
+            // Ocultar vista de artículo si está abierta
+            const articleFullView = document.getElementById('article-full-view');
+            const mainContent = document.querySelector('.main-content');
+            if (!articleFullView.classList.contains('hidden')) {
+                articleFullView.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            }
+            
+            // Mostrar la sección solicitada
+            currentSection = sectionId;
+            
+            if (sectionId === 'inicio') {
+                document.getElementById('inicio-section').style.display = 'block';
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(sectionId)) {
+                const sectionElement = document.getElementById(`${sectionId}-section`);
+                sectionElement.style.display = 'block';
+                sectionElement.classList.add('active');
+                renderCategoryArticles(sectionId);
+            } else if (sectionId === 'archivo') {
+                document.getElementById('archivo-section').style.display = 'block';
+                document.getElementById('archivo-section').classList.add('active');
+                renderFullArchive();
+            } else if (sectionId === 'contacto') {
+                document.getElementById('contacto-section').style.display = 'block';
+                document.getElementById('contacto-section').classList.add('active');
+            }
+            
+            // Scroll al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // RENDERIZAR ARTÍCULOS POR SECCIÓN
         function renderArticles() {
             const articlesContainer = document.getElementById('articles-container');
             const archiveContainer = document.getElementById('archive-container');
@@ -1232,6 +1436,65 @@
             
             // Actualizar estadísticas
             updateStatistics();
+        }
+
+        function renderCategoryArticles(category) {
+            // Convertir el ID de categoría al nombre de categoría
+            const categoryMap = {
+                'opinion': 'Opinión',
+                'catamarca': 'Catamarca',
+                'politica-nacional': 'Política Nacional',
+                'sociedad': 'Sociedad',
+                'internacionales': 'Internacionales'
+            };
+            
+            const categoryName = categoryMap[category];
+            const containerId = `${category}-container`;
+            const container = document.getElementById(containerId);
+            
+            if (!container) return;
+            
+            // Filtrar artículos por categoría
+            const categoryArticles = articles.filter(article => article.category === categoryName);
+            
+            // Ordenar por fecha (más recientes primero)
+            categoryArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = '';
+            
+            if (categoryArticles.length > 0) {
+                categoryArticles.forEach(article => {
+                    const articleElement = createArticleElement(article, article.featured);
+                    container.appendChild(articleElement);
+                });
+            } else {
+                container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-gris-medio); padding: 40px;">No hay editoriales en esta categoría aún.</p>';
+            }
+        }
+
+        function renderFullArchive() {
+            const container = document.getElementById('full-archive-container');
+            
+            let filteredArticles = articles;
+            
+            // Aplicar filtro si no es "all"
+            if (currentArchiveFilter !== 'all') {
+                filteredArticles = articles.filter(article => article.category === currentArchiveFilter);
+            }
+            
+            // Ordenar por fecha (más recientes primero)
+            filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = '';
+            
+            if (filteredArticles.length > 0) {
+                filteredArticles.forEach(article => {
+                    const articleElement = createArticleElement(article, article.featured);
+                    container.appendChild(articleElement);
+                });
+            } else {
+                container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-gris-medio); padding: 40px;">No hay editoriales con este filtro.</p>';
+            }
         }
 
         function createArticleElement(article, isFeatured) {
@@ -1276,7 +1539,7 @@
             
             articleFullView.innerHTML = `
                 <div class="article-full">
-                    <button class="back-button" onclick="goBack()">&larr; Volver a los editoriales</button>
+                    <button class="back-button" onclick="goBack()">&larr; Volver a ${getSectionName(currentSection)}</button>
                     
                     <div class="article-header">
                         <h1 class="article-full-title">${article.title}</h1>
@@ -1301,7 +1564,7 @@
                             <button class="admin-button danger" onclick="deleteArticle(${article.id})">Eliminar este editorial</button>
                         </div>
                         ` : ''}
-                        <button class="back-button" onclick="goBack()">&larr; Volver a los editoriales</button>
+                        <button class="back-button" onclick="goBack()">&larr; Volver a ${getSectionName(currentSection)}</button>
                     </div>
                 </div>
             `;
@@ -1313,6 +1576,21 @@
             window.scrollTo(0, 0);
         }
 
+        function getSectionName(sectionId) {
+            const sectionNames = {
+                'inicio': 'Inicio',
+                'opinion': 'Opinión',
+                'catamarca': 'Catamarca',
+                'politica-nacional': 'Política Nacional',
+                'sociedad': 'Sociedad',
+                'internacionales': 'Internacionales',
+                'archivo': 'Archivo',
+                'contacto': 'Contacto'
+            };
+            
+            return sectionNames[sectionId] || 'Inicio';
+        }
+
         function goBack() {
             const articleFullView = document.getElementById('article-full-view');
             const mainContent = document.querySelector('.main-content');
@@ -1321,7 +1599,13 @@
             mainContent.classList.remove('hidden');
             
             // Recargar artículos para actualizar vistas
-            renderArticles();
+            if (currentSection === 'inicio') {
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(currentSection)) {
+                renderCategoryArticles(currentSection);
+            } else if (currentSection === 'archivo') {
+                renderFullArchive();
+            }
         }
 
         // SISTEMA DE AUTENTICACIÓN
@@ -1341,6 +1625,7 @@
             localStorage.removeItem('ladoC-admin');
             updateAdminUI();
             showNotification('Sesión cerrada correctamente', 'info');
+            showSection('inicio');
         }
 
         function checkAuth() {
@@ -1354,23 +1639,26 @@
         function updateAdminUI() {
             const adminIndicator = document.getElementById('admin-indicator');
             const adminToolbar = document.getElementById('admin-toolbar');
-            const adminLoginLink = document.getElementById('admin-login-link');
             
             if (isAdmin) {
                 adminIndicator.textContent = '✓';
                 adminToolbar.style.display = 'block';
-                adminLoginLink.textContent = 'Cerrar Sesión';
                 document.body.classList.add('admin-mode');
                 showNotification('Modo administrador activo', 'success');
             } else {
                 adminIndicator.textContent = '';
                 adminToolbar.style.display = 'none';
-                adminLoginLink.textContent = 'Admin';
                 document.body.classList.remove('admin-mode');
             }
             
             // Actualizar vista de artículos
-            renderArticles();
+            if (currentSection === 'inicio') {
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(currentSection)) {
+                renderCategoryArticles(currentSection);
+            } else if (currentSection === 'archivo') {
+                renderFullArchive();
+            }
         }
 
         // PANEL DE ADMINISTRACIÓN
@@ -1453,6 +1741,7 @@
             document.getElementById('articles-count').textContent = `(${filteredArticles.length} editoriales)`;
         }
 
+        // FUNCIONES DE GESTIÓN DE EDITORIALES
         function saveArticle() {
             const title = document.getElementById('article-title').value;
             const summary = document.getElementById('article-summary').value;
@@ -1513,7 +1802,16 @@
             }
             
             saveToLocalStorage();
-            renderArticles();
+            
+            // Actualizar vista actual
+            if (currentSection === 'inicio') {
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(currentSection)) {
+                renderCategoryArticles(currentSection);
+            } else if (currentSection === 'archivo') {
+                renderFullArchive();
+            }
+            
             updateAdminArticleList();
             
             // Limpiar formulario
@@ -1569,7 +1867,16 @@
             
             articles = articles.filter(a => a.id !== id);
             saveToLocalStorage();
-            renderArticles();
+            
+            // Actualizar vista actual
+            if (currentSection === 'inicio') {
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(currentSection)) {
+                renderCategoryArticles(currentSection);
+            } else if (currentSection === 'archivo') {
+                renderFullArchive();
+            }
+            
             updateAdminArticleList();
             
             showNotification('Editorial eliminado correctamente', 'success');
@@ -1590,6 +1897,16 @@
             document.getElementById('save-article').textContent = 'Guardar Editorial';
             
             showNotification('Creando nuevo editorial', 'info');
+        }
+
+        function showNewArticleForm() {
+            if (!isAdmin) {
+                showLoginModal();
+                return;
+            }
+            
+            openAdminPanel();
+            newArticle();
         }
 
         function previewArticle() {
@@ -1672,7 +1989,7 @@
                     id: 2,
                     title: "La desigualdad regional en Argentina: un problema estructural",
                     summary: "Reflexiones sobre las profundas brechas entre las regiones del país y las políticas necesarias para enfrentarlas desde una perspectiva socialista.",
-                    content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconociendo y valorando las particularidades de cada región.</p>",
+                    content: "<p>Argentina se presenta al mundo como un país unificado, pero bajo la superficie persisten profundas desigualdades regionales que condicionan el desarrollo y la calidad de vida de millones de personas. Catamarca, como otras provincias del noroeste, enfrenta desafíos particulares que requieren soluciones específicas.</p><p>El centralismo porteño no es solo geográfico, sino también económico y cultural. Las decisiones que afectan a todo el país se toman en Buenos Aires, muchas veces sin considerar las realidades diversas de las provincias. Esta dinámica perpetúa un sistema donde algunas regiones avanzan mientras otras quedan estancadas.</p><p>Desde el socialismo democrático, proponemos un federalismo real que redistribuya no solo recursos, sino también poder de decisión. Un proyecto nacional debe construirse desde la diversidad, reconocer y valorar las particularidades de cada región.</p>",
                     category: "Política Nacional",
                     author: "Santiago Galíndez",
                     date: "8 de noviembre, 2023",
@@ -1704,7 +2021,16 @@
             };
             
             saveToLocalStorage();
-            renderArticles();
+            
+            // Actualizar vista actual
+            if (currentSection === 'inicio') {
+                renderArticles();
+            } else if (['opinion', 'catamarca', 'politica-nacional', 'sociedad', 'internacionales'].includes(currentSection)) {
+                renderCategoryArticles(currentSection);
+            } else if (currentSection === 'archivo') {
+                renderFullArchive();
+            }
+            
             updateAdminArticleList();
             
             showNotification('Datos restablecidos correctamente', 'success');
@@ -1737,14 +2063,26 @@
             menu.classList.toggle('show');
         }
 
-        function showNewArticleForm() {
-            if (!isAdmin) {
-                showLoginModal();
+        // FUNCIONES DE CONTACTO
+        function sendContactMessage() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            if (!name || !email || !message) {
+                showNotification('Por favor complete todos los campos del formulario', 'error');
                 return;
             }
             
-            openAdminPanel();
-            newArticle();
+            // En un sistema real, aquí enviaríamos el mensaje al servidor
+            // Por ahora, simulamos el envío
+            
+            // Limpiar formulario
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-email').value = '';
+            document.getElementById('contact-message').value = '';
+            
+            showNotification('Mensaje enviado correctamente. Nos pondremos en contacto pronto.', 'success');
         }
 
         // INICIALIZACIÓN
@@ -1752,7 +2090,7 @@
             // Verificar autenticación
             checkAuth();
             
-            // Renderizar artículos
+            // Renderizar artículos iniciales
             renderArticles();
             
             // Configurar color guardado
@@ -1776,30 +2114,89 @@
                 document.getElementById('site-title').value = savedTitle;
             }
             
-            // Configurar eventos
+            // CONFIGURAR NAVEGACIÓN
+            // Logo - Inicio
             document.getElementById('logo').addEventListener('click', function(e) {
                 e.preventDefault();
-                goBack();
+                showSection('inicio');
             });
             
-            // Enlace de login/admin
-            document.getElementById('admin-login-link').addEventListener('click', function(e) {
+            // Menú principal
+            document.getElementById('nav-inicio').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('inicio');
+            });
+            
+            document.getElementById('nav-opinion').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('opinion');
+            });
+            
+            document.getElementById('nav-catamarca').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('catamarca');
+            });
+            
+            document.getElementById('nav-politica-nacional').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('politica-nacional');
+            });
+            
+            document.getElementById('nav-sociedad').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('sociedad');
+            });
+            
+            document.getElementById('nav-internacionales').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('internacionales');
+            });
+            
+            document.getElementById('nav-archivo').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('archivo');
+            });
+            
+            document.getElementById('nav-contacto').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('contacto');
+            });
+            
+            // Administración
+            document.getElementById('nav-admin').addEventListener('click', function(e) {
                 e.preventDefault();
                 if (isAdmin) {
-                    logout();
+                    openAdminPanel();
                 } else {
                     showLoginModal();
                 }
             });
             
-            // Botón de abrir panel admin
-            document.getElementById('open-admin').addEventListener('click', openAdminPanel);
+            // Footer navigation
+            document.querySelectorAll('#footer-section a[id^="footer-"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.id.replace('footer-', '');
+                    showSection(sectionId);
+                });
+            });
             
-            // Botón de nuevo artículo
-            document.getElementById('new-article-button').addEventListener('click', showNewArticleForm);
-            
-            // Cerrar panel admin
-            document.getElementById('close-admin').addEventListener('click', closeAdminPanel);
+            // Filtros de archivo
+            document.querySelectorAll('.archive-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    document.querySelectorAll('.archive-filter-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Actualizar filtro y renderizar
+                    currentArchiveFilter = this.dataset.filter;
+                    renderFullArchive();
+                });
+            });
             
             // Formulario de login
             document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -1822,6 +2219,28 @@
                 }
             });
             
+            // Botón de abrir panel admin desde sidebar
+            document.getElementById('open-admin').addEventListener('click', function() {
+                if (isAdmin) {
+                    openAdminPanel();
+                } else {
+                    showLoginModal();
+                }
+            });
+            
+            // Botón de nuevo artículo desde sidebar
+            document.getElementById('new-article-button').addEventListener('click', function() {
+                if (isAdmin) {
+                    openAdminPanel();
+                    newArticle();
+                } else {
+                    showLoginModal();
+                }
+            });
+            
+            // Cerrar panel admin
+            document.getElementById('close-admin').addEventListener('click', closeAdminPanel);
+            
             // Botones del panel de administración
             document.getElementById('save-article').addEventListener('click', saveArticle);
             document.getElementById('new-article').addEventListener('click', newArticle);
@@ -1830,6 +2249,7 @@
             document.getElementById('save-site').addEventListener('click', saveSite);
             document.getElementById('reset-data').addEventListener('click', resetData);
             document.getElementById('refresh-articles').addEventListener('click', updateAdminArticleList);
+            document.getElementById('send-message').addEventListener('click', sendContactMessage);
             
             // Búsqueda en tiempo real
             document.getElementById('search-articles').addEventListener('input', updateAdminArticleList);
@@ -1854,22 +2274,6 @@
                 if (!toolbar.contains(e.target) && toolbarMenu.classList.contains('show')) {
                     toolbarMenu.classList.remove('show');
                 }
-            });
-            
-            // Configurar navegación suave
-            document.querySelectorAll('nav a:not(#admin-login-link)').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
             });
             
             // Mostrar mensaje de bienvenida
