@@ -3,259 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LADO C – Noticias y Opinión de Catamarca</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .header {
-            background-color: #1a365d;
-            color: white;
-            padding: 1rem 2rem;
-            border-bottom: 4px solid #e53e3e;
-        }
-        
-        .header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.2rem;
-        }
-        
-        .header .tagline {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .news-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .news-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .news-image {
-            height: 200px;
-            background-color: #e2e8f0;
-            background-image: url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .news-content {
-            padding: 1.5rem;
-        }
-        
-        .news-category {
-            display: inline-block;
-            background-color: #e53e3e;
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-        }
-        
-        .news-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: #2d3748;
-        }
-        
-        .news-excerpt {
-            color: #4a5568;
-            margin-bottom: 1rem;
-        }
-        
-        .news-date {
-            font-size: 0.85rem;
-            color: #718096;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #2d3748;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e53e3e;
-        }
-        
-        .opinion-section {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 3rem;
-        }
-        
-        .opinion-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .opinion-item:last-child {
-            border-bottom: none;
-        }
-        
-        .opinion-author {
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 0.3rem;
-        }
-        
-        .opinion-text {
-            color: #4a5568;
-        }
-        
-        .footer {
-            background-color: #2d3748;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-        }
-        
-        .footer a {
-            color: #e53e3e;
-            text-decoration: none;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Enlace de administración discreto */
-        .admin-access {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(26, 54, 93, 0.9);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            opacity: 0.7;
-            z-index: 1000;
-        }
-        
-        .admin-access:hover {
-            opacity: 1;
-            background-color: #1a365d;
-        }
-        
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem;
-            }
-            
-            .news-section {
-                grid-template-columns: 1fr;
-            }
-            
-            .admin-access {
-                font-size: 0.7rem;
-                padding: 6px 10px;
-                bottom: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+    <title>Lado C - Una mirada distinta sobre la política</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <h1>LADO C</h1>
-        <div class="tagline">Noticias y Opinión de Catamarca</div>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">LADO C</h1>
+                <p class="slogan">Noticias y Opinión de Catamarca</p>
+                
+                <!-- Enlace MUY discreto para administradores -->
+                <div class="admin-access-hidden">
+                    <a href="admin.html" class="admin-hidden-link" title="Acceso exclusivo administradores">
+                        <i class="fas fa-lock"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
-    
-    <main class="main-container">
-        <section class="news-highlight">
-            <h2 class="section-title">Últimas Noticias</h2>
-            <div class="news-section">
-                <article class="news-card">
-                    <div class="news-image"></div>
-                    <div class="news-content">
-                        <span class="news-category">POLÍTICA</span>
-                        <h3 class="news-title">Nueva legislación provincial aprobada</h3>
-                        <p class="news-excerpt">El gobierno de Catamarca anunció hoy la aprobación de una nueva ley que afectará directamente a los sectores productivos de la región.</p>
-                        <div class="news-date">Hace 2 horas</div>
-                    </div>
-                </article>
-                
-                <article class="news-card">
-                    <div class="news-content">
-                        <span class="news-category">ECONOMÍA</span>
-                        <h3 class="news-title">Crecimiento del 3.5% en el sector minero</h3>
-                        <p class="news-excerpt">Según el último informe del Ministerio de Economía, Catamarca lidera el crecimiento minero a nivel nacional con una inversión récord.</p>
-                        <div class="news-date">Hace 5 horas</div>
-                    </div>
-                </article>
-                
-                <article class="news-card">
-                    <div class="news-content">
-                        <span class="news-category">CULTURA</span>
-                        <h3 class="news-title">Festival del Poncho 2024: programación completa</h3>
-                        <p class="news-excerpt">Conocé todos los artistas y actividades que se desarrollarán en la próxima edición del tradicional festival catamarqueño.</p>
-                        <div class="news-date">Ayer</div>
-                    </div>
-                </article>
+
+    <!-- Navegación -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="active">Opinión</a></li>
+                <li><a href="#catamarca">Catamarca</a></li>
+                <li><a href="#sociedad">Sociedad</a></li>
+                <li><a href="#internacionales">Internacionales</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Encabezado de sección -->
+            <div class="section-header">
+                <h2>Últimos Editoriales</h2>
+                <p class="article-count" id="articleCount">Cargando artículos...</p>
             </div>
-        </section>
-        
-        <section class="opinion-section">
-            <h2 class="section-title">Opinión</h2>
-            <div class="opinion-item">
-                <div class="opinion-author">Juan Pérez - Analista político</div>
-                <p class="opinion-text">La descentralización de recursos es fundamental para el desarrollo equitativo de nuestra provincia. Urge un plan a largo plazo que trascienda los gobiernos de turno.</p>
+
+            <!-- Grid de Artículos (se cargará dinámicamente) -->
+            <div class="articles-grid" id="articlesContainer">
+                <!-- Los artículos se cargarán aquí desde JavaScript -->
+                <div class="loading-articles">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando contenido...</p>
+                </div>
             </div>
-            <div class="opinion-item">
-                <div class="opinion-author">María Gómez - Economista</div>
-                <p class="opinion-text">La diversificación productiva en Catamarca no es una opción, es una necesidad. Depender exclusivamente de la minería nos hace vulnerables a los vaivenes del mercado internacional.</p>
+
+            <!-- Sección Destacados -->
+            <div class="featured-section">
+                <h2 class="section-header">Destacados de la Semana</h2>
+                <div class="articles-grid featured-grid" id="featuredContainer">
+                    <!-- Artículos destacados se cargarán aquí -->
+                </div>
             </div>
-            <div class="opinion-item">
-                <div class="opinion-author">Carlos Rodríguez - Historiador</div>
-                <p class="opinion-text">Nuestra identidad cultural es nuestro mayor patrimonio. Debemos preservar las tradiciones mientras integramos los avances del mundo moderno.</p>
-            </div>
-        </section>
+        </div>
     </main>
-    
-    <footer class="footer">
-        <p>&copy; 2024 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
-        <p>Contacto: <a href="mailto:contacto@ladoc-catamarca.com">contacto@ladoc-catamarca.com</a></p>
-        <p style="font-size: 0.85rem; margin-top: 1rem; color: #a0aec0;">
-            <a href="/admin" style="color: #a0aec0; text-decoration: none;">Acceso administradores</a>
-        </p>
+
+    <!-- Sidebar de Información -->
+    <aside class="sidebar">
+        <div class="container">
+            <div class="sidebar-content">
+                <div class="author-bio">
+                    <div class="author-photo">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h3 class="author-name">Redacción LADO C</h3>
+                    <p class="author-tagline">"Pensar distinto también es un acto de compromiso."</p>
+                    <p class="author-description">Medio digital de opinión política y social desde Catamarca. Analizamos la realidad con mirada crítica y perspectiva socialista democrática.</p>
+                </div>
+
+                <!-- Enlace ADMIN oculto en el sidebar -->
+                <div class="sidebar-admin-access">
+                    <p>¿Eres administrador?</p>
+                    <a href="admin.html" class="btn-secondary btn-small">
+                        <i class="fas fa-lock"></i> Acceso seguro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>LADO C</h3>
+                    <p>Noticias y Opinión de Catamarca</p>
+                </div>
+                
+                <div class="footer-info">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> contacto@ladoc-catamarca.com.ar</p>
+                    <p><i class="fas fa-phone"></i> (383) 123-4567</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="#inicio">Opinión</a></li>
+                        <li><a href="#catamarca">Catamarca</a></li>
+                        <li><a href="#sociedad">Sociedad</a></li>
+                        <li><a href="#internacionales">Internacionales</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
+                <!-- Enlace admin extremadamente discreto -->
+                <p class="admin-footer-link">
+                    <a href="admin.html" title="Acceso administradores">
+                        <i class="fas fa-cog"></i> Panel de administración
+                    </a>
+                </p>
+            </div>
+        </div>
     </footer>
-    
-    <!-- Enlace discreto flotante para administradores -->
-    <a href="admin.html" class="admin-access">⚙ Admin</a>
+
+    <script src="script.js"></script>
+    <script>
+        // Función para cargar artículos en la página principal
+        function loadArticlesForPublic() {
+            // Esta función se ejecutará desde script.js
+            console.log('Página pública cargada correctamente');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadArticlesForPublic();
+        });
+    </script>
 </body>
 </html>
