@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LADO C - Noticias y Opinión de Catamarca</title>
     <style>
-        /* ===== RESET Y ESTILOS GENERALES ===== */
+        /* ===== ESTILOS GENERALES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -13,566 +13,746 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
             color: #333;
             line-height: 1.6;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        /* ===== CABECERA PÚBLICA ===== */
-        .site-header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 30px 0;
-            border-bottom: 5px solid #e74c3c;
-        }
-
-        .site-title {
+        /* ===== CABECERA ===== */
+        .header {
             text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
             margin-bottom: 10px;
         }
 
-        .site-title h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+        .header h2 {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            font-weight: normal;
         }
 
-        .site-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #ecf0f1;
-            margin-bottom: 30px;
-        }
-
-        /* ===== MENÚ DE NAVEGACIÓN ===== */
+        /* ===== MENÚ PRINCIPAL ===== */
         .main-nav {
-            background-color: #34495e;
-            padding: 15px 0;
-        }
-
-        .nav-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
         }
 
         .nav-item {
-            color: white;
+            color: #2c3e50;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
             padding: 8px 15px;
             border-radius: 3px;
-            transition: background-color 0.3s;
         }
 
         .nav-item:hover {
-            background-color: #3d566e;
+            background: #e9ecef;
         }
 
-        .nav-item.active {
-            background-color: #e74c3c;
-        }
-
-        /* ===== BOTÓN DE ADMINISTRADOR ===== */
-        .admin-access {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-        }
-
-        .admin-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-
-        .admin-btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
-        }
-
-        /* ===== CONTENIDO PRINCIPAL ===== */
-        .main-content {
-            padding: 40px 0;
-            background-color: white;
-            min-height: 500px;
-        }
-
-        .section-header {
+        /* ===== CONTADOR DE ARTÍCULOS ===== */
+        .article-count {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #eee;
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
-        /* ===== LISTA DE EDITORIALES PÚBLICOS ===== */
-        .editoriales-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .editorial-item {
-            margin-bottom: 35px;
-            padding: 25px;
-            border-left: 5px solid #3498db;
-            background-color: #f9f9f9;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .editorial-title {
-            font-size: 1.6rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .editorial-meta {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-            color: #7f8c8d;
-            font-size: 0.95rem;
-        }
-
-        .editorial-category {
-            background-color: #3498db;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-        }
-
-        .editorial-date {
+            margin-bottom: 30px;
+            color: #666;
             font-style: italic;
         }
 
-        /* ===== PANEL DE ADMINISTRACIÓN (OCULTO INICIALMENTE) ===== */
-        #adminPanel {
-            display: none; /* ¡IMPORTANTE! Esto hace que esté oculto al inicio */
-            background-color: white;
-            border: 3px solid #2c3e50;
-            border-radius: 10px;
-            margin: 40px 0;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        /* ===== PANEL DE ADMINISTRACIÓN ===== */
+        .admin-panel {
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 40px;
+            background: white;
         }
 
         .admin-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .admin-header h3 {
+            font-size: 1.5em;
+        }
+
+        /* ===== TABS DEL PANEL ===== */
+        .admin-tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #eee;
+            background: #34495e;
         }
 
-        .admin-header h2 {
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border-right: 1px solid #2c3e50;
+            transition: background 0.3s;
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: #1a252f;
+        }
+
+        /* ===== CONTENIDO DE LOS TABS ===== */
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h4 {
+            margin-bottom: 20px;
             color: #2c3e50;
-            font-size: 1.8rem;
+            font-size: 1.3em;
         }
 
-        .logout-btn {
-            background-color: #95a5a6;
+        /* ===== LISTA DE EDITORIALES ===== */
+        .editorial-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .editorial-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .editorial-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .editorial-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .editorial-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* ===== BOTÓN CREAR EDITORIAL ===== */
+        .create-btn {
+            background: #27ae60;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .logout-btn:hover {
-            background-color: #7f8c8d;
+        .create-btn:hover {
+            background: #219653;
         }
 
-        /* ===== MODAL DE LOGIN ===== */
-        .modal-overlay {
+        /* ===== MODAL LOGIN ===== */
+        .login-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
 
-        .modal-content {
-            background-color: white;
-            padding: 40px;
+        .login-content {
+            background: white;
+            padding: 30px;
             border-radius: 10px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
             text-align: center;
-            margin-bottom: 30px;
         }
 
-        .modal-header h2 {
+        .login-content h3 {
+            margin-bottom: 20px;
             color: #2c3e50;
-            font-size: 1.8rem;
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
+            margin-bottom: 5px;
             font-weight: bold;
+            color: #2c3e50;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 1em;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .modal-actions {
+        .login-actions {
             display: flex;
             gap: 10px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
             flex: 1;
         }
 
         .btn-primary {
-            background-color: #2c3e50;
+            background: #2c3e50;
             color: white;
         }
 
         .btn-secondary {
-            background-color: #95a5a6;
+            background: #95a5a6;
             color: white;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        /* ===== BOTÓN ACCESO ADMIN ===== */
+        .access-admin-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 100;
         }
 
-        /* ===== PIE DE PÁGINA ===== */
-        .site-footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 50px;
+        /* ===== TABLAS ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-weight: bold;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .site-title h1 {
-                font-size: 2.5rem;
+            .admin-tabs {
+                flex-direction: column;
             }
             
-            .admin-access {
-                position: static;
-                text-align: center;
-                margin-top: 20px;
+            .tab-btn {
+                border-right: none;
+                border-bottom: 1px solid #2c3e50;
             }
             
-            .nav-container {
+            .main-nav {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .access-admin-btn {
+                position: static;
+                margin: 0 auto 20px;
+                display: block;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== PÁGINA PÚBLICA (SIEMPRE VISIBLE) ===== -->
-    <header class="site-header">
-        <div class="container">
-            <div class="site-title">
-                <h1>LADO C</h1>
-            </div>
-            <div class="site-subtitle">
-                Noticias y Opinión de Catamarca
-            </div>
-            
-            <!-- Botón para acceder al panel de administrador -->
-            <div class="admin-access">
-                <button id="openAdminBtn" class="admin-btn">
-                    🔐 Acceso Administrador
-                </button>
-            </div>
-        </div>
-    </header>
+    <!-- ===== BOTÓN PARA ACCEDER AL ADMIN ===== -->
+    <button id="accessAdminBtn" class="access-admin-btn">
+        🔐 Acceso Administrador
+    </button>
 
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <a href="#" class="nav-item active">Todos</a>
+    <!-- ===== PÁGINA LADO C ===== -->
+    <div class="container">
+        <!-- Cabecera -->
+        <div class="header">
+            <h1>LADO C</h1>
+            <h2>Noticias y Opinión de Catamarca</h2>
+        </div>
+
+        <!-- Menú de navegación -->
+        <nav class="main-nav">
+            <a href="#" class="nav-item"><strong>Todos</strong></a>
             <a href="#" class="nav-item">Catamarca</a>
             <a href="#" class="nav-item">Opinión</a>
             <a href="#" class="nav-item">Sociedad</a>
             <a href="#" class="nav-item">Internacionales</a>
             <a href="#" class="nav-item">Política Nacional</a>
-        </div>
-    </nav>
+        </nav>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="section-header">
-                <h2>Editoriales Actuales</h2>
-            </div>
-            
-            <div class="editoriales-list">
-                <!-- Editorial 1 -->
-                <div class="editorial-item">
-                    <h3 class="editorial-title">El futuro del trabajo en el Noroeste Argentino</h3>
-                    <div class="editorial-meta">
-                        <span class="editorial-category">Catamarca</span>
-                        <span class="editorial-date">15 de mayo, 2023</span>
-                    </div>
-                    <p>Un análisis profundo sobre las oportunidades laborales y los desafíos económicos que enfrenta la región del Noroeste Argentino en el contexto actual.</p>
-                </div>
-                
-                <!-- Editorial 2 -->
-                <div class="editorial-item">
-                    <h3 class="editorial-title">Juventud y participación política: más allá del voto</h3>
-                    <div class="editorial-meta">
-                        <span class="editorial-category">Sociedad</span>
-                        <span class="editorial-date">12 de mayo, 2023</span>
-                    </div>
-                    <p>Exploramos las distintas formas en que los jóvenes catamarqueños se involucran en la política local y nacional, superando el acto electoral tradicional.</p>
-                </div>
-                
-                <!-- Editorial 3 (ejemplo adicional) -->
-                <div class="editorial-item">
-                    <h3 class="editorial-title">Desafíos ambientales en Catamarca</h3>
-                    <div class="editorial-meta">
-                        <span class="editorial-category">Sociedad</span>
-                        <span class="editorial-date">10 de mayo, 2023</span>
-                    </div>
-                    <p>Un reportaje sobre los principales retos medioambientales que enfrenta nuestra provincia y las soluciones que se proponen desde diferentes sectores.</p>
+        <!-- Contador de artículos -->
+        <div class="article-count">
+            <em>Mostrando 2 artículos</em>
+        </div>
+
+        <!-- Editoriales públicos -->
+        <div class="editorial-list">
+            <div class="editorial-item">
+                <div class="editorial-title">El futuro del trabajo en el Noroeste Argentino</div>
+                <div class="editorial-meta">Catamarca - 15 de mayo, 2023</div>
+                <div class="editorial-actions">
+                    <button class="action-btn delete-btn">Borrar</button>
+                    <button class="action-btn edit-btn">Editar</button>
                 </div>
             </div>
             
-            <!-- ===== PANEL DE ADMINISTRACIÓN ===== -->
-            <!-- NOTA: Este panel está OCULTO por defecto (display: none) -->
-            <!-- Solo se mostrará después de hacer login exitosamente -->
-            <div id="adminPanel">
-                <div class="admin-header">
-                    <h2>📊 Panel de Administración - LADO C</h2>
-                    <button id="logoutBtn" class="logout-btn">Cerrar Sesión</button>
-                </div>
-                
-                <div style="margin-bottom: 30px;">
-                    <p><strong>Bienvenido, Administrador</strong>. Desde aquí puedes gestionar todo el contenido del sitio.</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
-                    <button class="btn btn-primary">📰 Gestionar Editoriales</button>
-                    <button class="btn btn-primary">✍️ Gestionar Columnistas</button>
-                    <button class="btn btn-primary">👥 Ver Suscriptores</button>
-                    <button class="btn btn-primary">💬 Moderar Comentarios</button>
-                </div>
-                
-                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
-                    <h3 style="margin-bottom: 15px;">Editoriales Recientes</h3>
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background-color: #e9ecef;">
-                                <th style="padding: 10px; text-align: left;">Título</th>
-                                <th style="padding: 10px; text-align: left;">Categoría</th>
-                                <th style="padding: 10px; text-align: left;">Fecha</th>
-                                <th style="padding: 10px; text-align: left;">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">El futuro del trabajo...</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">Catamarca</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">15/05/2023</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">
-                                    <button style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px;">Editar</button>
-                                    <button style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px;">Borrar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">Juventud y participación...</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">Sociedad</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">12/05/2023</td>
-                                <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">
-                                    <button style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px;">Editar</button>
-                                    <button style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px;">Borrar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="editorial-item">
+                <div class="editorial-title">Juventud y participación política: más allá del voto</div>
+                <div class="editorial-meta">Sociedad - 12 de mayo, 2023</div>
+                <div class="editorial-actions">
+                    <button class="action-btn delete-btn">Borrar</button>
+                    <button class="action-btn edit-btn">Editar</button>
                 </div>
             </div>
         </div>
-    </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>© 2023 LADO C - Noticias y Opinión de Catamarca. Todos los derechos reservados.</p>
-            <p style="margin-top: 10px; font-size: 0.9rem; color: #bdc3c7;">Contacto: redaccion@ladoc-catamarca.com.ar</p>
+        <!-- ===== PANEL DE ADMINISTRACIÓN (INICIALMENTE OCULTO) ===== -->
+        <div id="adminPanel" class="admin-panel" style="display: none;">
+            <!-- Cabecera del panel -->
+            <div class="admin-header">
+                <h3>Panel de Administración</h3>
+            </div>
+
+            <!-- Tabs del panel -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="editoriales">Editoriales</button>
+                <button class="tab-btn" data-tab="columnistas">Columnistas</button>
+                <button class="tab-btn" data-tab="suscriptores">Suscriptores</button>
+                <button class="tab-btn" data-tab="comentarios">Comentarios</button>
+            </div>
+
+            <!-- Contenido de las tabs -->
+            <div id="editorialesTab" class="tab-content active">
+                <h4>Editoriales Actuales</h4>
+                <button id="createEditorialBtn" class="create-btn">+ Crear Nuevo Editorial</button>
+                
+                <div class="editorial-list">
+                    <div class="editorial-item">
+                        <div class="editorial-title">El futuro del trabajo en el Noroeste Argentino</div>
+                        <div class="editorial-meta">Catamarca - 15 de mayo, 2023</div>
+                        <div class="editorial-actions">
+                            <button class="action-btn delete-btn">Borrar</button>
+                            <button class="action-btn edit-btn">Editar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="editorial-item">
+                        <div class="editorial-title">Juventud y participación política: más allá del voto</div>
+                        <div class="editorial-meta">Sociedad - 12 de mayo, 2023</div>
+                        <div class="editorial-actions">
+                            <button class="action-btn delete-btn">Borrar</button>
+                            <button class="action-btn edit-btn">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="columnistasTab" class="tab-content">
+                <h4>Gestión de Columnistas</h4>
+                <p>Aquí puedes gestionar los columnistas del periódico.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Especialidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Pérez</td>
+                            <td>Política Nacional</td>
+                            <td>
+                                <button class="action-btn edit-btn">Editar</button>
+                                <button class="action-btn delete-btn">Borrar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="suscriptoresTab" class="tab-content">
+                <h4>Gestión de Suscriptores</h4>
+                <p>Lista de suscriptores al newsletter.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Fecha de suscripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ejemplo@email.com</td>
+                            <td>10/05/2023</td>
+                            <td>
+                                <button class="action-btn delete-btn">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="comentariosTab" class="tab-content">
+                <h4>Moderación de Comentarios</h4>
+                <p>Comentarios pendientes de aprobación.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Comentario</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Excelente artículo, muy informativo.</td>
+                            <td>Carlos Gómez</td>
+                            <td>Hoy</td>
+                            <td>
+                                <button class="action-btn edit-btn">Aprobar</button>
+                                <button class="action-btn delete-btn">Rechazar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <!-- ===== MODAL DE LOGIN ===== -->
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>🔐 Acceso Administrador</h2>
-            </div>
+    <div id="loginModal" class="login-modal">
+        <div class="login-content">
+            <h3>Panel de Administración</h3>
+            <h4>LADO C - Noticias y Opinión de Catamarca</h4>
+            
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Usuario:</label>
-                    <input type="text" id="username" placeholder="Ingrese su usuario" required>
+                    <input type="text" id="username" value="admin" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+                    <input type="password" id="password" placeholder="••••••••" required>
                 </div>
-                <div class="modal-actions">
-                    <button type="button" id="cancelLogin" class="btn btn-secondary">Cancelar</button>
+                
+                <div class="login-actions">
+                    <button type="button" id="cancelLoginBtn" class="btn btn-secondary">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- ===== MODAL PARA NUEVO EDITORIAL ===== -->
+    <div id="editorialModal" class="login-modal">
+        <div class="login-content">
+            <h3>Nuevo Editorial</h3>
+            
+            <form id="newEditorialForm">
+                <div class="form-group">
+                    <label for="editorialTitle">Título:</label>
+                    <input type="text" id="editorialTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editorialCategory">Categoría:</label>
+                    <select id="editorialCategory" required>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Sociedad">Sociedad</option>
+                        <option value="Internacionales">Internacionales</option>
+                        <option value="Opinión">Opinión</option>
+                        <option value="Política Nacional">Política Nacional</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editorialDate">Fecha:</label>
+                    <input type="date" id="editorialDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editorialContent">Contenido:</label>
+                    <textarea id="editorialContent" rows="6" required></textarea>
+                </div>
+                
+                <div class="login-actions">
+                    <button type="button" id="cancelEditorialBtn" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Publicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // ===== VARIABLES GLOBALES =====
-        const adminCredentials = {
-            username: "admin",
-            password: "admin123"
+        // ===== CONFIGURACIÓN =====
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'admin123'
         };
 
         // ===== ELEMENTOS DEL DOM =====
-        const openAdminBtn = document.getElementById("openAdminBtn");
-        const loginModal = document.getElementById("loginModal");
-        const loginForm = document.getElementById("loginForm");
-        const cancelLoginBtn = document.getElementById("cancelLogin");
-        const adminPanel = document.getElementById("adminPanel");
-        const logoutBtn = document.getElementById("logoutBtn");
-        const usernameInput = document.getElementById("username");
-        const passwordInput = document.getElementById("password");
+        const accessAdminBtn = document.getElementById('accessAdminBtn');
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const createEditorialBtn = document.getElementById('createEditorialBtn');
+        const editorialModal = document.getElementById('editorialModal');
+        const cancelEditorialBtn = document.getElementById('cancelEditorialBtn');
+        const newEditorialForm = document.getElementById('newEditorialForm');
 
-        // ===== EVENT LISTENERS =====
+        // ===== FUNCIONALIDAD LOGIN =====
         
-        // 1. Abrir modal de login
-        openAdminBtn.addEventListener("click", function() {
-            loginModal.style.display = "flex";
-            usernameInput.focus();
+        // Abrir modal de login
+        accessAdminBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+            document.getElementById('password').focus();
         });
 
-        // 2. Cerrar modal de login
-        cancelLoginBtn.addEventListener("click", function() {
-            loginModal.style.display = "none";
-            loginForm.reset();
+        // Cerrar modal de login
+        cancelLoginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'none';
         });
 
-        // 3. Cerrar modal si se hace clic fuera de él
-        window.addEventListener("click", function(event) {
-            if (event.target === loginModal) {
-                loginModal.style.display = "none";
-                loginForm.reset();
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === editorialModal) {
+                editorialModal.style.display = 'none';
             }
         });
 
-        // 4. Manejar el envío del formulario de login
-        loginForm.addEventListener("submit", function(event) {
-            event.preventDefault();
+        // Manejar login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            const username = usernameInput.value;
-            const password = passwordInput.value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             
-            // Verificar credenciales
-            if (username === adminCredentials.username && password === adminCredentials.password) {
-                // Credenciales correctas
-                alert("✅ ¡Acceso concedido! Bienvenido al panel de administración.");
+            if (username === ADMIN_CREDENTIALS.username && 
+                password === ADMIN_CREDENTIALS.password) {
                 
-                // Ocultar modal
-                loginModal.style.display = "none";
-                loginForm.reset();
+                // Login exitoso
+                loginModal.style.display = 'none';
+                adminPanel.style.display = 'block';
+                accessAdminBtn.textContent = '🚪 Cerrar Sesión';
                 
-                // Mostrar panel de administración
-                adminPanel.style.display = "block";
-                
-                // Desplazar la página al panel
-                adminPanel.scrollIntoView({ behavior: "smooth" });
+                // Cambiar funcionalidad del botón a logout
+                accessAdminBtn.onclick = () => {
+                    if (confirm('¿Estás seguro de cerrar sesión?')) {
+                        adminPanel.style.display = 'none';
+                        accessAdminBtn.textContent = '🔐 Acceso Administrador';
+                        accessAdminBtn.onclick = () => {
+                            loginModal.style.display = 'flex';
+                        };
+                    }
+                };
                 
             } else {
-                // Credenciales incorrectas
-                alert("❌ Usuario o contraseña incorrectos. Intente nuevamente.");
-                passwordInput.value = "";
-                passwordInput.focus();
+                alert('Usuario o contraseña incorrectos');
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
             }
         });
 
-        // 5. Cerrar sesión
-        logoutBtn.addEventListener("click", function() {
-            if (confirm("¿Está seguro de que desea cerrar sesión?")) {
-                // Ocultar panel de administración
-                adminPanel.style.display = "none";
+        // ===== FUNCIONALIDAD TABS =====
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
                 
-                // Desplazar la página al inicio
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                // Remover clase active de todos los botones
+                tabBtns.forEach(b => b.classList.remove('active'));
+                // Agregar clase active al botón clickeado
+                btn.classList.add('active');
                 
-                alert("✅ Sesión cerrada correctamente.");
+                // Ocultar todos los contenidos
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Mostrar el contenido correspondiente
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+            });
+        });
+
+        // ===== FUNCIONALIDAD EDITORIALES =====
+        
+        // Abrir modal para nuevo editorial
+        createEditorialBtn.addEventListener('click', () => {
+            editorialModal.style.display = 'flex';
+            
+            // Establecer fecha actual por defecto
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('editorialDate').value = today;
+        });
+
+        // Cerrar modal de editorial
+        cancelEditorialBtn.addEventListener('click', () => {
+            editorialModal.style.display = 'none';
+            newEditorialForm.reset();
+        });
+
+        // Guardar nuevo editorial
+        newEditorialForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('editorialTitle').value;
+            const category = document.getElementById('editorialCategory').value;
+            const date = document.getElementById('editorialDate').value;
+            
+            // Formatear fecha
+            const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Crear nuevo elemento en la lista
+            const editorialList = document.querySelector('#editorialesTab .editorial-list');
+            const newEditorial = document.createElement('div');
+            newEditorial.className = 'editorial-item';
+            newEditorial.innerHTML = `
+                <div class="editorial-title">${title}</div>
+                <div class="editorial-meta">${category} - ${formattedDate}</div>
+                <div class="editorial-actions">
+                    <button class="action-btn delete-btn" onclick="this.closest('.editorial-item').remove()">Borrar</button>
+                    <button class="action-btn edit-btn" onclick="alert('Funcionalidad de edición en desarrollo')">Editar</button>
+                </div>
+            `;
+            
+            // Agregar al inicio de la lista
+            editorialList.insertBefore(newEditorial, editorialList.firstChild);
+            
+            // Cerrar modal y mostrar mensaje
+            editorialModal.style.display = 'none';
+            newEditorialForm.reset();
+            alert('¡Editorial creado exitosamente!');
+        });
+
+        // ===== FUNCIONALIDAD BOTONES BORRAR/EDITAR =====
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                if (confirm('¿Estás seguro de eliminar este elemento?')) {
+                    e.target.closest('.editorial-item')?.remove();
+                }
+            }
+            
+            if (e.target.classList.contains('edit-btn')) {
+                alert('Funcionalidad de edición en desarrollo');
             }
         });
 
         // ===== INICIALIZACIÓN =====
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Página LADO C cargada correctamente.");
-            console.log("Para acceder al panel de administración, haz clic en 'Acceso Administrador'");
-            console.log("Usuario: admin | Contraseña: admin123");
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Página LADO C cargada');
+            console.log('Credenciales de administrador:');
+            console.log('Usuario: admin');
+            console.log('Contraseña: admin123');
             
-            // Asegurarse de que el panel de administración esté OCULTO al inicio
-            adminPanel.style.display = "none";
-            loginModal.style.display = "none";
+            // Establecer fecha actual por defecto en el formulario
+            const today = new Date().toISOString().split('T')[0];
+            if (document.getElementById('editorialDate')) {
+                document.getElementById('editorialDate').value = today;
+            }
         });
     </script>
 </body>
