@@ -42,49 +42,12 @@
         <div class="container">
             <div class="section-header">
                 <h2>Editoriales Actuales</h2>
-                <p class="article-count">Mostrando 2 artículos</p>
+                <p class="article-count">Mostrando <span id="articlesCount">2</span> artículos</p>
             </div>
 
-            <!-- Lista de Editoriales -->
-            <div class="articles-grid">
-                <!-- Artículo 1 -->
-                <article class="article-card">
-                    <div class="article-category">Catamarca</div>
-                    <h3 class="article-title">
-                        <a href="article.html?id=1">El futuro del trabajo en el Noroeste Argentino</a>
-                    </h3>
-                    <p class="article-excerpt">Un análisis profundo sobre las oportunidades laborales y los desafíos económicos que enfrenta la región del Noroeste Argentino...</p>
-                    <div class="article-meta">
-                        <span class="article-date"><i class="far fa-calendar"></i> 15 de mayo, 2023</span>
-                        <a href="article.html?id=1" class="read-more">Leer completo →</a>
-                    </div>
-                </article>
-
-                <!-- Artículo 2 -->
-                <article class="article-card">
-                    <div class="article-category">Sociedad</div>
-                    <h3 class="article-title">
-                        <a href="article.html?id=2">Juventud y participación política: más allá del voto</a>
-                    </h3>
-                    <p class="article-excerpt">Exploramos las distintas formas en que los jóvenes catamarqueños se involucran en la política local y nacional...</p>
-                    <div class="article-meta">
-                        <span class="article-date"><i class="far fa-calendar"></i> 12 de mayo, 2023</span>
-                        <a href="article.html?id=2" class="read-more">Leer completo →</a>
-                    </div>
-                </article>
-
-                <!-- Artículo 3 -->
-                <article class="article-card">
-                    <div class="article-category">Opinión</div>
-                    <h3 class="article-title">
-                        <a href="article.html?id=3">Desafíos ambientales en Catamarca</a>
-                    </h3>
-                    <p class="article-excerpt">Un reportaje sobre los principales retos medioambientales que enfrenta nuestra provincia y las soluciones que se proponen...</p>
-                    <div class="article-meta">
-                        <span class="article-date"><i class="far fa-calendar"></i> 10 de mayo, 2023</span>
-                        <a href="article.html?id=3" class="read-more">Leer completo →</a>
-                    </div>
-                </article>
+            <!-- Lista de Editoriales (se carga dinámicamente) -->
+            <div class="articles-grid" id="articlesContainer">
+                <!-- Los artículos se cargarán aquí con JavaScript -->
             </div>
         </div>
     </main>
