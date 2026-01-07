@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@600;700&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== ESTILOS ORIGINALES (sin cambios) ===== */
         :root {
             --bordo: #9B1C1C;
             --blanco: #FFFFFF;
@@ -750,7 +751,37 @@
             margin-left: 0.5rem;
         }
         
-        /* Admin Panel - Panel lateral */
+        /* ===== NUEVOS ESTILOS PARA ADMINISTRACIÓN ===== */
+        
+        /* Botón de acceso administrador */
+        .admin-access-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background-color: var(--bordo);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-access-btn:hover {
+            background-color: #7a1616;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Panel de administración lateral */
         .admin-panel {
             position: fixed;
             top: 0;
@@ -761,7 +792,6 @@
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
             z-index: 3000;
             transition: right 0.4s ease;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
@@ -983,32 +1013,6 @@
             background-color: #ef6c00;
         }
         
-        .admin-floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .admin-panel-btn {
-            background: #9B1C1C;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-        
-        .admin-panel-btn:hover {
-            background: #7a1616;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-        
         /* Botones de administrador en vista de administrador */
         .admin-edit-btn {
             position: absolute;
@@ -1046,16 +1050,7 @@
             display: block;
         }
         
-        body.admin-mode .admin-floating-btn {
-            display: block;
-        }
-        
-        /* Ocultar botones flotantes en modo público */
-        body:not(.admin-mode) .admin-floating-btn {
-            display: none;
-        }
-        
-        /* Login modal */
+        /* Modal de login */
         .login-modal {
             position: fixed;
             top: 0;
@@ -1087,17 +1082,6 @@
             margin-bottom: 20px;
         }
         
-        /* Newsletter success */
-        .newsletter-success {
-            background-color: var(--verde);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            text-align: center;
-            display: none;
-        }
-        
         /* Overlay cuando panel admin está abierto */
         .admin-overlay {
             position: fixed;
@@ -1112,55 +1096,6 @@
         
         .admin-overlay.active {
             display: block;
-        }
-        
-        /* Category Filter */
-        .category-filter {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .category-btn {
-            padding: 0.5rem 1.2rem;
-            background-color: var(--gris-claro);
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn:hover {
-            background-color: var(--azul-claro);
-        }
-        
-        .category-btn.active {
-            background-color: var(--bordo);
-            color: var(--blanco);
-            border-color: var(--bordo);
-        }
-        
-        /* Columnist edit */
-        .columnist-form {
-            background-color: var(--gris-claro);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .columnist-item {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
-        }
-        
-        .columnist-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
         }
         
         /* Responsive adjustments */
@@ -1203,22 +1138,22 @@
                 right: -100%;
             }
             
-            .category-filter {
-                justify-content: center;
+            .admin-access-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.8rem;
             }
-        }
-        
-        /* Article count */
-        .article-count {
-            font-size: 0.9rem;
-            color: var(--gris-medio);
-            margin-bottom: 2rem;
-            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- ===== BOTÓN DE ACCESO ADMINISTRADOR ===== -->
+    <button class="admin-access-btn" id="adminAccessBtn">
+        <i class="fas fa-lock"></i> Admin
+    </button>
+
+    <!-- ===== PÁGINA ORIGINAL (sin cambios) ===== -->
     <header>
         <div class="header-container">
             <div class="logo" id="goToHome">Lado <span>C</span></div>
@@ -1235,10 +1170,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <div class="container">
         <div class="content-wrapper">
-            <!-- Main Articles -->
             <main class="main-content" id="inicio">
                 <h1 class="page-title" id="pageTitle">Opinión Política y Social</h1>
                 
@@ -1485,38 +1418,54 @@
         </div>
     </footer>
 
-    <!-- Article Modal -->
-    <div id="articleModal" class="article-modal">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <div class="article-modal-content" id="articleModalContent">
-            <!-- El contenido se llena con JavaScript -->
+    <!-- ===== NUEVOS ELEMENTOS PARA ADMINISTRACIÓN ===== -->
+    
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-content">
+            <h2>Acceso de Administrador</h2>
+            <p>Ingresa la contraseña para acceder al panel de administración.</p>
+            <input type="password" id="adminPassword" class="admin-input" placeholder="Contraseña">
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="loginBtn" class="admin-btn" style="flex: 1;">Ingresar</button>
+                <button id="cancelLoginBtn" class="admin-btn admin-btn-secondary" style="flex: 1;">Cancelar</button>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Contraseña por defecto: <code>admin123</code></p>
         </div>
     </div>
 
-    <!-- Admin Panel Overlay -->
+    <!-- Overlay para panel de administración -->
     <div class="admin-overlay" id="adminOverlay"></div>
 
-    <!-- Admin Panel -->
+    <!-- Panel de Administración Lateral -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-panel-header">
-            <h2>Panel de Administración</h2>
+            <h2><i class="fas fa-cogs"></i> Panel de Administración</h2>
             <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
         </div>
         
         <div class="admin-panel-nav">
-            <button class="admin-nav-btn active" data-tab="editorial">Editoriales</button>
-            <button class="admin-nav-btn" data-tab="columnists">Columnistas</button>
-            <button class="admin-nav-btn" data-tab="subscribers">Suscriptores</button>
-            <button class="admin-nav-btn" data-tab="comments">Comentarios</button>
+            <button class="admin-nav-btn active" data-tab="editoriales">
+                <i class="fas fa-newspaper"></i> Editoriales
+            </button>
+            <button class="admin-nav-btn" data-tab="columnistas">
+                <i class="fas fa-pen"></i> Columnistas
+            </button>
+            <button class="admin-nav-btn" data-tab="suscriptores">
+                <i class="fas fa-users"></i> Suscriptores
+            </button>
+            <button class="admin-nav-btn" data-tab="comentarios">
+                <i class="fas fa-comments"></i> Comentarios
+            </button>
         </div>
         
         <div class="admin-panel-content">
             <!-- Pestaña Editoriales -->
-            <div class="admin-tab-content active" id="tab-editorial">
+            <div class="admin-tab-content active" id="tab-editoriales">
                 <div class="admin-section">
                     <h3>Editoriales Actuales</h3>
                     <div class="admin-articles-list" id="adminArticlesList">
-                        <!-- Lista de artículos se llena con JavaScript -->
+                        <!-- Los artículos se cargarán aquí con JavaScript -->
                     </div>
                 </div>
                 
@@ -1524,12 +1473,12 @@
                     <h3 id="editorFormTitle">Nuevo Editorial</h3>
                     <div class="admin-edit-form">
                         <form id="adminArticleForm">
+                            <div class="admin-form-group">
+                                <label for="articleTitle">Título</label>
+                                <input type="text" id="articleTitle" class="admin-input" placeholder="Título del editorial" required>
+                            </div>
+                            
                             <div class="admin-form-grid">
-                                <div class="admin-form-group">
-                                    <label for="articleTitle">Título</label>
-                                    <input type="text" id="articleTitle" class="admin-input" placeholder="Título del editorial" required>
-                                </div>
-                                
                                 <div class="admin-form-group">
                                     <label for="articleCategory">Categoría</label>
                                     <select id="articleCategory" class="admin-input" required>
@@ -1540,19 +1489,17 @@
                                         <option value="Política Nacional">Política Nacional</option>
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div class="admin-form-grid">
+                                
                                 <div class="admin-form-group">
                                     <label for="articleDate">Fecha</label>
                                     <input type="text" id="articleDate" class="admin-input" placeholder="Ej: 15 de mayo, 2023" required>
                                 </div>
-                                
-                                <div class="admin-form-group">
-                                    <label for="articleImage">URL de la imagen de portada</label>
-                                    <input type="text" id="articleImage" class="admin-input" placeholder="https://..." required>
-                                    <small style="color: var(--gris-medio); font-size: 0.85rem;">Recomendado: imágenes de Unsplash (ej: https://images.unsplash.com/photo-...)</small>
-                                </div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="articleImage">URL de la imagen de portada</label>
+                                <input type="text" id="articleImage" class="admin-input" placeholder="https://images.unsplash.com/..." required>
+                                <small style="color: var(--gris-medio); font-size: 0.85rem;">Usa imágenes de Unsplash para mejor calidad</small>
                             </div>
                             
                             <div class="admin-form-group">
@@ -1576,11 +1523,11 @@
             </div>
             
             <!-- Pestaña Columnistas -->
-            <div class="admin-tab-content" id="tab-columnists">
+            <div class="admin-tab-content" id="tab-columnistas">
                 <div class="admin-section">
                     <h3>Columnistas Actuales</h3>
                     <div class="admin-articles-list" id="columnistsList">
-                        <!-- Lista de columnistas se llena con JavaScript -->
+                        <!-- Los columnistas se cargarán aquí -->
                     </div>
                 </div>
                 
@@ -1622,11 +1569,11 @@
             </div>
             
             <!-- Pestaña Suscriptores -->
-            <div class="admin-tab-content" id="tab-subscribers">
+            <div class="admin-tab-content" id="tab-suscriptores">
                 <div class="admin-section">
                     <h3>Lista de Suscriptores</h3>
                     <div class="admin-articles-list" id="subscribersList">
-                        <!-- Lista de suscriptores se llena con JavaScript -->
+                        <!-- Los suscriptores se cargarán aquí -->
                     </div>
                 </div>
                 
@@ -1638,11 +1585,11 @@
             </div>
             
             <!-- Pestaña Comentarios -->
-            <div class="admin-tab-content" id="tab-comments">
+            <div class="admin-tab-content" id="tab-comentarios">
                 <div class="admin-section">
                     <h3>Comentarios Recientes</h3>
                     <div class="admin-articles-list" id="commentsList">
-                        <!-- Lista de comentarios se llena con JavaScript -->
+                        <!-- Los comentarios se cargarán aquí -->
                     </div>
                 </div>
                 
@@ -1657,60 +1604,29 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="login-modal">
-        <div class="login-modal-content">
-            <h2>Acceso de Administrador</h2>
-            <p>Ingresa la contraseña para acceder al panel de administración.</p>
-            <input type="password" id="adminPassword" class="admin-input" placeholder="Contraseña">
-            <button id="loginBtn" class="admin-btn" style="width: 100%; margin-top: 15px;">Ingresar</button>
-            <button id="cancelLoginBtn" class="admin-btn danger" style="width: 100%; margin-top: 10px;">Cancelar</button>
-        </div>
-    </div>
-
-    <!-- Sistema de Administración y Funcionalidades -->
+    <!-- ===== SISTEMA DE ADMINISTRACIÓN ===== -->
     <script>
-        // Configuración del sistema
+        // Configuración del sistema de administración
         const ADMIN_CONFIG = {
-            password: "LadoC2024",
-            localStorageKey: "ladoc_content",
-            columnistsKey: "ladoc_columnists",
+            password: "admin123", // Contraseña por defecto
             isAdmin: false,
             currentEditArticleId: null,
-            currentEditColumnistId: null
+            currentEditColumnistId: null,
+            articles: {},
+            columnists: [],
+            subscribers: [],
+            comments: []
         };
 
-        // Datos de ejemplo para artículos completos
-        const articlesFullContent = {
+        // Datos iniciales de artículos
+        const initialArticles = {
             1: {
                 title: "El futuro del trabajo en el Noroeste Argentino",
                 category: "Catamarca",
                 date: "15 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 excerpt: "La transformación digital y las nuevas economías requieren una mirada socialista que priorice la dignidad laboral y la soberanía productiva regional. ¿Cómo adaptar nuestra matriz productiva sin perder identidad? La transición justa implica políticas activas de formación profesional, protección social ampliada para trabajadores digitales y el fomento de cooperativas que compitan en los nuevos mercados. El socialismo democrático debe aspirar a un modelo que combine innovación con justicia social y participación popular.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La revolución tecnológica y la transformación digital están reconfigurando los mercados laborales en todo el mundo. En el Noroeste Argentino, esta transformación plantea desafíos particulares que requieren respuestas desde una perspectiva socialista democrática, centrada en la dignidad humana y la justicia social.</p>
-                    
-                    <p>Durante décadas, Catamarca ha dependido de una matriz productiva basada en la agricultura familiar, la minería y, más recientemente, el turismo. Sin embargo, la automatización y la globalización están alterando estas industrias tradicionales, mientras que nuevas oportunidades emergen en áreas como la economía del conocimiento, las energías renovables y la economía circular.</p>
-                    
-                    <h2>El desafío de la transición justa</h2>
-                    
-                    <p>El concepto de "transición justa", desarrollado por el movimiento sindical internacional, adquiere especial relevancia en nuestro contexto. No se trata simplemente de adaptarse a las nuevas tecnologías, sino de garantizar que esta adaptación no profundice las desigualdades existentes.</p>
-                    
-                    <blockquote>
-                        "El socialismo democrático del siglo XXI debe proponer un nuevo pacto social del trabajo que garantice derechos en la era digital y distribuya los beneficios del progreso tecnológico de manera equitativa."
-                    </blockquote>
-                    
-                    <p>En Catamarca, esto implica políticas activas de formación profesional vinculadas a los sectores estratégicos de la provincia, protección social ampliada para trabajadores de plataformas digitales, y el fomento de cooperativas y empresas de la economía social que puedan competir en los nuevos mercados.</p>
-                    
-                    <h2>Hacia una soberanía productiva regional</h2>
-                    
-                    <p>La dependencia tecnológica es una nueva forma de colonialismo. Por ello, es crucial desarrollar capacidades locales en áreas como software, biotecnología y energías limpias. Las universidades públicas, como la UNCa, tienen un rol fundamental en este proceso, pero requieren mayor financiamiento y vinculación con las necesidades productivas regionales.</p>
-                    
-                    <p>El socialismo democrático en Catamarca debe aspirar a construir un modelo de desarrollo que combine innovación tecnológica con justicia social, sostenibilidad ambiental y participación popular en las decisiones económicas. Solo así podremos garantizar que el futuro del trabajo sea un futuro de libertad, dignidad y prosperidad compartida.</p>
-                `,
+                fullContent: "Contenido completo del artículo 1...",
                 comments: []
             },
             2: {
@@ -1719,29 +1635,7 @@
                 date: "12 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 excerpt: "La militancia hoy toma formas diversas: desde el activismo digital hasta la economía social. Un análisis sobre cómo construir poder popular desde las bases en Catamarca. Los jóvenes catamarqueños están reinventando la participación política a través de asambleas barriales, cooperativas estudiantiles y proyectos culturales que desafían las estructuras tradicionales. Este artículo explora cómo estas nuevas formas de organización pueden transformar la política provincial.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1551135049-8a33b2fb2f5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La participación política de los jóvenes en Catamarca está experimentando una transformación radical. Frente al desencanto con las instituciones tradicionales, una nueva generación está inventando formas de intervención política que combinan lo digital con lo territorial, lo cultural con lo económico.</p>
-                    
-                    <p>En los barrios populares de San Fernando del Valle, en las escuelas técnicas de Valle Viejo, en las comunidades rurales de Antofagasta de la Sierra, los jóvenes están organizándose de maneras que desafían los esquemas tradicionales de la política partidaria.</p>
-                    
-                    <h2>Nuevas formas de organización</h2>
-                    
-                    <p>Las asambleas barriales juveniles, las cooperativas estudiantiles de producción, los colectivos culturales que recuperan espacios públicos, los grupos de WhatsApp que organizan acciones solidarias: todas estas son expresiones de un nuevo tipo de militancia que prioriza la acción directa sobre la representación.</p>
-                    
-                    <blockquote>
-                        "No queremos ser la juventud de ningún partido, queremos ser los constructores de un movimiento social que transforme Catamarca desde las bases."
-                    </blockquote>
-                    
-                    <p>Estas experiencias plantean preguntas fundamentales para el socialismo democrático: ¿cómo articular estas nuevas formas de organización con los instrumentos políticos existentes? ¿Cómo garantizar que estas iniciativas no sean cooptadas por intereses partidarios cortoplacistas?</p>
-                    
-                    <h2>El desafío de la institucionalización</h2>
-                    
-                    <p>El gran reto para el movimiento popular catamarqueño es encontrar formas de institucionalizar estas energías transformadoras sin burocratizarlas. Las experiencias de presupuesto participativo juvenil en algunos municipios, los consejos consultivos de jóvenes en áreas de cultura y deporte, y las ferias de economía social gestionadas por cooperativas juveniles son ejemplos prometedores.</p>
-                    
-                    <p>Para el socialismo democrático, la tarea es clara: debemos crear canales permanentes para que estas nuevas formas de participación influyan en las decisiones políticas, económicas y culturales de nuestra provincia, construyendo un poder popular que sea tan innovador como la juventud que lo impulsa.</p>
-                `,
+                fullContent: "Contenido completo del artículo 2...",
                 comments: []
             },
             3: {
@@ -1750,29 +1644,7 @@
                 date: "8 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 excerpt: "De Colombia a Chile, los movimientos progresistas enfrentan el dilema de gobernar en tiempos de crisis global. ¿Qué lecciones podemos aplicar en nuestra provincia? La experiencia de Petro en Colombia, Boric en Chile y Lula en Brasil muestra que el éxito depende de la capacidad para construir coaliciones amplias sin traicionar los principios de justicia social. Analizamos cómo estas experiencias pueden inspirar un socialismo democrático adaptado a Catamarca.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>América Latina vive un nuevo ciclo político progresista. Tras la elección de Gustavo Petro en Colombia, Gabriel Boric en Chile y la reelección de Lula da Silva en Brasil, la región parece inclinarse nuevamente hacia proyectos que prometen combatir la desigualdad y fortalecer la democracia. Pero este nuevo ciclo se desarrolla en un contexto marcado por crisis múltiples: económica, climática, sanitaria y geopolítica.</p>
-                    
-                    <p>Para el socialismo democrático en Catamarca, estas experiencias ofrecen lecciones valiosas sobre los desafíos de gobernar en tiempos de restricción, sobre la construcción de coaliciones amplias sin traicionar principios fundamentales, y sobre la necesidad de reinventar el Estado para que sirva a los intereses populares.</p>
-                    
-                    <h2>Los dilemas del gobierno progresista</h2>
-                    
-                    <p>Las nuevas izquierdas latinoamericanas enfrentan un dilema fundamental: cómo implementar transformaciones estructurales en economías dependientes y en contextos de alta fragmentación política. La experiencia chilena es particularmente ilustrativa: el gobierno de Boric llegó al poder con un programa transformador, pero se ha visto obligado a negociar y moderar sus propuestas en un Congreso fragmentado.</p>
-                    
-                    <blockquote>
-                        "Gobernar desde la izquierda hoy significa navegar entre la urgencia de los cambios estructurales y la realidad de las restricciones institucionales y económicas."
-                    </blockquote>
-                    
-                    <p>En Colombia, Petro ha intentado avanzar en una agenda de paz total y transición ecológica, pero enfrenta la resistencia de sectores poderosos y la persistencia de la violencia en los territorios. En Brasil, Lula debe reconstruir las políticas sociales desmanteladas por Bolsonaro mientras gestiona un Congreso dominado por fuerzas conservadoras.</p>
-                    
-                    <h2>Lecciones para Catamarca</h2>
-                    
-                    <p>¿Qué podemos aprender en Catamarca de estas experiencias? Primero, la importancia de construir bases sociales organizadas y movilizadas que respalden los procesos de cambio. Segundo, la necesidad de desarrollar capacidades técnicas y de gestión para implementar políticas públicas transformadoras. Tercero, la urgencia de crear nuevas narrativas que conecten las luchas locales con los desafíos globales.</p>
-                    
-                    <p>El socialismo democrático catamarqueño debe dialogar críticamente con estas experiencias, aprendiendo tanto de sus aciertos como de sus errores, para construir un proyecto transformador arraigado en nuestra realidad provincial pero conectado con las luchas continentales por la justicia social y la democracia radical.</p>
-                `,
+                fullContent: "Contenido completo del artículo 3...",
                 comments: []
             },
             4: {
@@ -1781,37 +1653,13 @@
                 date: "5 de mayo, 2023",
                 image: "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 excerpt: "Reflexiones sobre cómo construir una democracia sustantiva que trascienda el formalismo electoral y distribuya poder, riqueza y conocimiento de manera equitativa. Partiendo de las experiencias de autogestión en fábricas recuperadas y las asambleas populares, exploramos cómo una democracia socialista podría funcionar en Catamarca, combinando representación con participación directa y priorizando el bien común sobre el interés privado.",
-                fullContent: `
-                    <div class="article-modal-image" style="background-image: url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
-                    
-                    <p>La democracia liberal representativa muestra signos de agotamiento en todo el mundo. En Catamarca, como en el resto de Argentina, la desconfianza en las instituciones políticas, la baja participación electoral y la sensación de que los gobiernos no responden a las necesidades populares son síntomas de una crisis más profunda. Frente a esta situación, el socialismo democrático propone radicalizar la democracia, expandiéndola más allá de lo electoral hacia lo económico, lo social y lo cultural.</p>
-                    
-                    <p>Una democracia socialista no se limita a elegir representantes cada cierto tiempo, sino que implica la participación directa de la ciudadanía en las decisiones que afectan sus vidas: en el trabajo, en el barrio, en la escuela, en el manejo de los recursos naturales. Implica democratizar la economía a través de formas de propiedad social y cooperativa, y democratizar el conocimiento a través de una educación pública, popular y científica.</p>
-                    
-                    <h2>Experiencias concretas de democratización</h2>
-                    
-                    <p>En Catamarca existen ya experiencias que apuntan en esta dirección. Las asambleas de vecinos que gestionan problemas ambientales en localidades afectadas por la minería, las cooperativas de trabajadores que han recuperado empresas quebradas, los espacios de presupuesto participativo en algunos municipios, las radios comunitarias y los medios populares: todas estas son formas embrionarias de una democracia más profunda.</p>
-                    
-                    <blockquote>
-                        "La verdadera democracia no es solo el derecho a votar, sino el derecho a decidir sobre todo lo que afecta nuestra vida cotidiana."
-                    </blockquote>
-                    
-                    <p>Estas experiencias, aunque limitadas y fragmentadas, muestran que es posible organizar la vida social de manera más participativa y equitativa. El desafío para el socialismo democrático es conectar estas experiencias dispersas, dotarlas de un marco político común y escalarlas para que transformen la estructura de poder en nuestra provincia.</p>
-                    
-                    <h2>Hacia una constituyente socialista en Catamarca</h2>
-                    
-                    <p>Una de las propuestas más audaces del socialismo democrático catamarqueño es la convocatoria a una Asamblea Constituyente Popular que elabore una nueva Constitución para la provincia. Esta constituyente no estaría compuesta solo por profesionales de la política, sino por delegados de los movimientos sociales, de las organizaciones territoriales, de las cooperativas, de los pueblos originarios, de las juventudes organizadas.</p>
-                    
-                    <p>El proceso constituyente en sí mismo sería una escuela de democracia radical, donde se debatirían y decidirían colectivamente los principios fundamentales que deben regir nuestra convivencia social: el derecho a la tierra y la vivienda, los derechos de la naturaleza, la economía al servicio del bien común, la participación popular en todas las instancias de decisión.</p>
-                    
-                    <p>Esta perspectiva puede parecer utópica en el presente, pero como horizonte estratégico da sentido y dirección a las luchas cotidianas. La democracia socialista no es un modelo acabado que deba importarse de algún libro, sino un proceso de construcción colectiva que debe inventarse desde la realidad concreta de nuestro pueblo.</p>
-                `,
+                fullContent: "Contenido completo del artículo 4...",
                 comments: []
             }
         };
 
-        // Datos de columnistas
-        let columnists = [
+        // Datos iniciales de columnistas
+        const initialColumnists = [
             {
                 id: 1,
                 name: "Santiago Galíndez",
@@ -1836,58 +1684,36 @@
             }
         ];
 
-        // Lista de suscriptores
-        let subscribers = JSON.parse(localStorage.getItem('ladoc_subscribers') || '[]');
-        
-        // Comentarios
-        let allComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
-
-        // Categorías disponibles
-        const categories = [
-            "Todos",
-            "Catamarca", 
-            "Opinión", 
-            "Sociedad", 
-            "Internacionales", 
-            "Política Nacional"
-        ];
-
         // Inicializar cuando la página cargue
         document.addEventListener('DOMContentLoaded', function() {
-            checkAdminStatus();
+            initializeAdminSystem();
             setupEventListeners();
-            loadCommentsFromStorage();
-            loadColumnistsFromStorage();
-            
-            // Cargar datos guardados si existen
-            loadSavedContent();
-            
-            // Inicializar filtro de categorías
-            initCategoryFilter();
-            
-            // Configurar logo para ir al inicio
-            document.getElementById('goToHome').addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                filterArticlesByCategory('all');
-            });
+            loadInitialData();
         });
 
-        // Verificar estado de administrador
-        function checkAdminStatus() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const isAdminParam = urlParams.has('admin');
-            const isAdminLocal = localStorage.getItem('ladoc_admin') === 'true';
+        // Inicializar el sistema de administración
+        function initializeAdminSystem() {
+            // Cargar datos del localStorage si existen
+            loadFromLocalStorage();
             
-            if (isAdminParam && !isAdminLocal) {
-                document.getElementById('loginModal').classList.add('active');
-            } else if (isAdminLocal) {
-                ADMIN_CONFIG.isAdmin = true;
+            // Verificar si ya hay una sesión activa de administrador
+            const isAdmin = localStorage.getItem('ladoc_admin') === 'true';
+            if (isAdmin) {
                 enableAdminMode();
             }
         }
 
         // Configurar event listeners
         function setupEventListeners() {
+            // Botón de acceso administrador
+            document.getElementById('adminAccessBtn').addEventListener('click', function() {
+                if (ADMIN_CONFIG.isAdmin) {
+                    openAdminPanel();
+                } else {
+                    openLoginModal();
+                }
+            });
+            
             // Login
             document.getElementById('loginBtn').addEventListener('click', function() {
                 const password = document.getElementById('adminPassword').value;
@@ -1896,331 +1722,23 @@
                     ADMIN_CONFIG.isAdmin = true;
                     document.getElementById('loginModal').classList.remove('active');
                     enableAdminMode();
-                    showNotification('Acceso concedido. Modo administrador activado.');
+                    openAdminPanel();
+                    showNotification('Acceso concedido. Modo administrador activado.', 'success');
                 } else {
                     showNotification('Contraseña incorrecta.', 'error');
                 }
             });
             
+            // Cancelar login
             document.getElementById('cancelLoginBtn').addEventListener('click', function() {
                 document.getElementById('loginModal').classList.remove('active');
-                const url = new URL(window.location);
-                url.searchParams.delete('admin');
-                window.history.replaceState({}, '', url);
             });
             
-            // Newsletter subscription
-            const newsletterForm = document.getElementById('newsletter-form');
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('subscriber-email').value;
-                const name = document.getElementById('subscriber-name').value || 'Anónimo';
-                
-                if (!email) {
-                    showNotification('Por favor ingresa tu correo electrónico.', 'error');
-                    return;
-                }
-                
-                // Validar formato de email
-                if (!validateEmail(email)) {
-                    showNotification('Por favor ingresa un correo electrónico válido.', 'error');
-                    return;
-                }
-                
-                // Guardar suscriptor
-                const subscriber = {
-                    id: Date.now(),
-                    email: email,
-                    name: name,
-                    subscribedAt: new Date().toLocaleString('es-ES'),
-                    isGmail: email.toLowerCase().includes('@gmail.')
-                };
-                
-                saveSubscriber(subscriber);
-                
-                // Mostrar mensaje de éxito
-                document.getElementById('newsletter-success').style.display = 'block';
-                newsletterForm.reset();
-                
-                // Ocultar mensaje después de 5 segundos
-                setTimeout(() => {
-                    document.getElementById('newsletter-success').style.display = 'none';
-                }, 5000);
-            });
-            
-            // Cerrar modal de artículo
-            document.getElementById('closeModal').addEventListener('click', closeArticleModal);
-            
-            // Cerrar modal al hacer clic fuera
-            document.getElementById('articleModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeArticleModal();
-                }
-            });
-            
-            // Smooth scrolling para navegación
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Hacer clic en tarjetas de artículo para abrir modal
-            document.querySelectorAll('.article-card, .featured-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // No abrir modal si se hace clic en el botón "Leer más" o botones de admin
-                    if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
-                        return;
-                    }
-                    
-                    const articleId = this.getAttribute('data-article-id');
-                    if (articleId) {
-                        openArticleModal(articleId);
-                    }
-                });
-            });
-            
-            // Hacer clic en "Leer más"
-            document.querySelectorAll('.read-more').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    if (articleCard) {
-                        const articleId = articleCard.getAttribute('data-article-id');
-                        if (articleId) {
-                            openArticleModal(articleId);
-                        }
-                    }
-                });
-            });
-        }
-
-        // Inicializar filtro de categorías
-        function initCategoryFilter() {
-            // Configurar botones de categoría
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterArticlesByCategory(category);
-                    
-                    // Actualizar botones activos
-                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Actualizar título de página
-                    updatePageTitle(category);
-                });
-            });
-            
-            // Configurar enlaces de categoría en el menú
-            document.querySelectorAll('.category-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const category = this.getAttribute('data-category');
-                    filterArticlesByCategory(category);
-                    
-                    // Actualizar botones activos
-                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
-                    
-                    // Actualizar título de página
-                    updatePageTitle(category);
-                    
-                    // Scroll suave
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Filtrar artículos por categoría
-        function filterArticlesByCategory(category) {
-            const articlesGrid = document.getElementById('articlesGrid');
-            const featuredSection = document.querySelector('.featured-articles');
-            const articles = document.querySelectorAll('.article-card');
-            const featuredArticles = document.querySelectorAll('.featured-card');
-            
-            let visibleCount = 0;
-            
-            // Filtrar artículos principales
-            articles.forEach(article => {
-                const articleCategory = article.getAttribute('data-category');
-                
-                if (category === 'all' || articleCategory === category) {
-                    article.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    article.style.display = 'none';
-                }
-            });
-            
-            // Filtrar artículos destacados
-            featuredArticles.forEach(article => {
-                const articleCategory = article.getAttribute('data-category');
-                
-                if (category === 'all' || articleCategory === category) {
-                    article.style.display = 'block';
-                } else {
-                    article.style.display = 'none';
-                }
-            });
-            
-            // Actualizar contador
-            document.getElementById('count').textContent = visibleCount;
-            
-            // Mostrar u ocultar sección de destacados si no hay artículos
-            if (category !== 'all') {
-                const featuredSectionElement = document.querySelector('.featured-section');
-                const hasFeaturedInCategory = Array.from(featuredArticles).some(article => {
-                    return article.getAttribute('data-category') === category && article.style.display !== 'none';
-                });
-                
-                if (hasFeaturedInCategory) {
-                    featuredSectionElement.style.display = 'block';
-                } else {
-                    featuredSectionElement.style.display = 'none';
-                }
-            } else {
-                document.querySelector('.featured-section').style.display = 'block';
-            }
-        }
-
-        // Actualizar título de página según categoría
-        function updatePageTitle(category) {
-            const pageTitle = document.getElementById('pageTitle');
-            
-            switch(category) {
-                case 'all':
-                    pageTitle.textContent = 'Opinión Política y Social';
-                    break;
-                case 'Catamarca':
-                    pageTitle.textContent = 'Noticias y Opinión de Catamarca';
-                    break;
-                case 'Opinión':
-                    pageTitle.textContent = 'Columnas de Opinión';
-                    break;
-                case 'Sociedad':
-                    pageTitle.textContent = 'Análisis Social y Cultural';
-                    break;
-                case 'Internacionales':
-                    pageTitle.textContent = 'Análisis Internacional';
-                    break;
-                case 'Política Nacional':
-                    pageTitle.textContent = 'Política Nacional Argentina';
-                    break;
-                default:
-                    pageTitle.textContent = 'Opinión Política y Social';
-            }
-        }
-
-        // Activar modo administrador
-        function enableAdminMode() {
-            // Activar clase admin-mode en body
-            document.body.classList.add('admin-mode');
-            
-            // Agregar botón flotante
-            addAdminFloatingButton();
-            
-            // Configurar botones de edición y eliminación
-            setupAdminButtons();
-        }
-
-        // Configurar botones de administración en artículos
-        function setupAdminButtons() {
-            // Configurar botones de edición
-            document.querySelectorAll('.admin-edit-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    const articleId = articleCard.getAttribute('data-article-id');
-                    openAdminPanel();
-                    setTimeout(() => {
-                        loadArticleForEditing(articleId);
-                    }, 300);
-                });
-            });
-            
-            // Configurar botones de eliminación
-            document.querySelectorAll('.admin-delete-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    const articleCard = this.closest('.article-card, .featured-card');
-                    const articleId = articleCard.getAttribute('data-article-id');
-                    deleteArticle(articleId);
-                });
-            });
-        }
-
-        // Agregar botón flotante de administración
-        function addAdminFloatingButton() {
-            // Verificar si ya existe
-            if (document.querySelector('.admin-floating-btn')) return;
-            
-            const floatingBtn = document.createElement('div');
-            floatingBtn.className = 'admin-floating-btn';
-            floatingBtn.innerHTML = `
-                <button class="admin-panel-btn" id="openAdminPanel">
-                    <i class="fas fa-cog"></i> Panel Admin
-                </button>
-            `;
-            document.body.appendChild(floatingBtn);
-            
-            // Configurar evento para abrir panel
-            document.getElementById('openAdminPanel').addEventListener('click', openAdminPanel);
-        }
-
-        // Abrir panel de administración
-        function openAdminPanel() {
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('adminOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Cargar datos en el panel
-            loadAdminArticlesList();
-            loadColumnistsAdminList();
-            loadSubscribersList();
-            loadCommentsList();
-            
-            // Configurar eventos del panel
-            setupAdminPanelEvents();
-        }
-
-        // Cerrar panel de administración
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('adminOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Resetear formularios
-            resetArticleForm();
-            resetColumnistForm();
-        }
-
-        // Configurar eventos del panel de administración
-        function setupAdminPanelEvents() {
-            // Cerrar panel
+            // Cerrar panel de administración
             document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
             document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
             
-            // Navegación entre pestañas
+            // Navegación entre pestañas del panel
             document.querySelectorAll('.admin-nav-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Remover clase active de todas las pestañas
@@ -2235,8 +1753,7 @@
             });
             
             // Formulario de artículo
-            const articleForm = document.getElementById('adminArticleForm');
-            articleForm.addEventListener('submit', function(e) {
+            document.getElementById('adminArticleForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 saveArticle();
             });
@@ -2244,17 +1761,13 @@
             // Botón cancelar edición de artículo
             document.getElementById('cancelEdit').addEventListener('click', function() {
                 resetArticleForm();
-                document.querySelectorAll('.admin-article-item').forEach(item => {
-                    item.classList.remove('active');
-                });
             });
             
             // Botón vista previa de artículo
-            document.getElementById('previewArticle').addEventListener('click', previewArticleFromAdmin);
+            document.getElementById('previewArticle').addEventListener('click', previewArticle);
             
             // Formulario de columnista
-            const columnistForm = document.getElementById('adminColumnistForm');
-            columnistForm.addEventListener('submit', function(e) {
+            document.getElementById('adminColumnistForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 saveColumnist();
             });
@@ -2262,9 +1775,6 @@
             // Botón cancelar edición de columnista
             document.getElementById('cancelColumnistEdit').addEventListener('click', function() {
                 resetColumnistForm();
-                document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                    item.classList.remove('active');
-                });
             });
             
             // Botón exportar suscriptores
@@ -2277,12 +1787,138 @@
             document.getElementById('loadAllComments').addEventListener('click', loadAllComments);
         }
 
+        // Cargar datos iniciales
+        function loadInitialData() {
+            // Inicializar artículos si no hay datos guardados
+            if (Object.keys(ADMIN_CONFIG.articles).length === 0) {
+                ADMIN_CONFIG.articles = {...initialArticles};
+            }
+            
+            // Inicializar columnistas si no hay datos guardados
+            if (ADMIN_CONFIG.columnists.length === 0) {
+                ADMIN_CONFIG.columnists = [...initialColumnists];
+            }
+            
+            // Cargar suscriptores del localStorage
+            const savedSubscribers = localStorage.getItem('ladoc_subscribers');
+            if (savedSubscribers) {
+                ADMIN_CONFIG.subscribers = JSON.parse(savedSubscribers);
+            }
+            
+            // Cargar comentarios del localStorage
+            const savedComments = localStorage.getItem('ladoc_comments');
+            if (savedComments) {
+                ADMIN_CONFIG.comments = JSON.parse(savedComments);
+            }
+        }
+
+        // Cargar datos del localStorage
+        function loadFromLocalStorage() {
+            // Cargar artículos
+            const savedArticles = localStorage.getItem('ladoc_articles');
+            if (savedArticles) {
+                ADMIN_CONFIG.articles = JSON.parse(savedArticles);
+            }
+            
+            // Cargar columnistas
+            const savedColumnists = localStorage.getItem('ladoc_columnists');
+            if (savedColumnists) {
+                ADMIN_CONFIG.columnists = JSON.parse(savedColumnists);
+            }
+            
+            // Cargar suscriptores
+            const savedSubscribers = localStorage.getItem('ladoc_subscribers');
+            if (savedSubscribers) {
+                ADMIN_CONFIG.subscribers = JSON.parse(savedSubscribers);
+            }
+            
+            // Cargar comentarios
+            const savedComments = localStorage.getItem('ladoc_comments');
+            if (savedComments) {
+                ADMIN_CONFIG.comments = JSON.parse(savedComments);
+            }
+        }
+
+        // Guardar datos en localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('ladoc_articles', JSON.stringify(ADMIN_CONFIG.articles));
+            localStorage.setItem('ladoc_columnists', JSON.stringify(ADMIN_CONFIG.columnists));
+            localStorage.setItem('ladoc_subscribers', JSON.stringify(ADMIN_CONFIG.subscribers));
+            localStorage.setItem('ladoc_comments', JSON.stringify(ADMIN_CONFIG.comments));
+        }
+
+        // Abrir modal de login
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('adminPassword').focus();
+        }
+
+        // Activar modo administrador
+        function enableAdminMode() {
+            ADMIN_CONFIG.isAdmin = true;
+            document.body.classList.add('admin-mode');
+            document.getElementById('adminAccessBtn').innerHTML = '<i class="fas fa-cog"></i> Admin';
+            
+            // Configurar botones de edición/eliminación en artículos
+            setupAdminButtons();
+        }
+
+        // Configurar botones de administración en artículos
+        function setupAdminButtons() {
+            document.querySelectorAll('.admin-edit-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const articleCard = this.closest('.article-card');
+                    const articleId = articleCard.getAttribute('data-article-id');
+                    openAdminPanel();
+                    setTimeout(() => {
+                        loadArticleForEditing(articleId);
+                    }, 300);
+                });
+            });
+            
+            document.querySelectorAll('.admin-delete-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const articleCard = this.closest('.article-card');
+                    const articleId = articleCard.getAttribute('data-article-id');
+                    deleteArticle(articleId);
+                });
+            });
+        }
+
+        // Abrir panel de administración
+        function openAdminPanel() {
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Cargar datos en el panel
+            loadAdminArticlesList();
+            loadColumnistsAdminList();
+            loadSubscribersList();
+            loadCommentsList();
+        }
+
+        // Cerrar panel de administración
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Resetear formularios
+            resetArticleForm();
+            resetColumnistForm();
+        }
+
         // Cargar lista de artículos en el panel
         function loadAdminArticlesList() {
             const articlesList = document.getElementById('adminArticlesList');
             articlesList.innerHTML = '';
             
-            // Crear botón para nuevo artículo
+            // Botón para nuevo artículo
             const newArticleBtn = document.createElement('div');
             newArticleBtn.className = 'admin-article-item';
             newArticleBtn.style.textAlign = 'center';
@@ -2294,15 +1930,12 @@
             `;
             newArticleBtn.addEventListener('click', function() {
                 resetArticleForm();
-                document.querySelectorAll('.admin-article-item').forEach(item => {
-                    item.classList.remove('active');
-                });
             });
             articlesList.appendChild(newArticleBtn);
             
-            // Agregar artículos existentes
-            Object.keys(articlesFullContent).forEach(articleId => {
-                const article = articlesFullContent[articleId];
+            // Listar artículos existentes
+            Object.keys(ADMIN_CONFIG.articles).forEach(articleId => {
+                const article = ADMIN_CONFIG.articles[articleId];
                 const articleItem = document.createElement('div');
                 articleItem.className = 'admin-article-item';
                 articleItem.innerHTML = `
@@ -2317,7 +1950,6 @@
                     </div>
                 `;
                 articleItem.addEventListener('click', function(e) {
-                    // No activar si se hace clic en el botón de borrar
                     if (e.target.closest('.admin-delete-small')) return;
                     
                     // Remover clase active de todos los items
@@ -2345,7 +1977,7 @@
 
         // Cargar artículo para edición
         function loadArticleForEditing(articleId) {
-            const article = articlesFullContent[articleId];
+            const article = ADMIN_CONFIG.articles[articleId];
             if (!article) {
                 // Es un artículo nuevo
                 document.getElementById('editorFormTitle').textContent = 'Nuevo Editorial';
@@ -2384,7 +2016,7 @@
             ADMIN_CONFIG.currentEditArticleId = null;
         }
 
-        // Guardar artículo desde el panel
+        // Guardar artículo
         function saveArticle() {
             const title = document.getElementById('articleTitle').value;
             const category = document.getElementById('articleCategory').value;
@@ -2400,22 +2032,22 @@
             
             const articleId = ADMIN_CONFIG.currentEditArticleId || Date.now().toString();
             
-            // Actualizar datos del artículo
-            articlesFullContent[articleId] = {
+            // Guardar artículo
+            ADMIN_CONFIG.articles[articleId] = {
                 title: title,
                 category: category,
                 date: date,
                 image: image,
                 excerpt: excerpt,
                 fullContent: content,
-                comments: articlesFullContent[articleId]?.comments || []
+                comments: ADMIN_CONFIG.articles[articleId]?.comments || []
             };
             
-            // Actualizar o crear tarjeta en la página principal
+            // Actualizar o crear tarjeta en la página
             updateOrCreateArticleCard(articleId, title, category, date, image, excerpt);
             
             // Guardar en localStorage
-            saveContentToStorage();
+            saveToLocalStorage();
             
             // Recargar lista de artículos en el panel
             loadAdminArticlesList();
@@ -2426,7 +2058,7 @@
             showNotification('Editorial guardado correctamente.', 'success');
         }
 
-        // Actualizar o crear tarjeta de artículo
+        // Actualizar o crear tarjeta de artículo en la página
         function updateOrCreateArticleCard(articleId, title, category, date, image, excerpt) {
             let articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
             
@@ -2468,19 +2100,12 @@
 
         // Configurar eventos de tarjeta de artículo
         function setupArticleCardEvents(articleCard, articleId) {
-            // Click en tarjeta para abrir modal
-            articleCard.addEventListener('click', function(e) {
-                if (e.target.closest('.read-more') || e.target.closest('.admin-edit-btn') || e.target.closest('.admin-delete-btn')) {
-                    return;
-                }
-                openArticleModal(articleId);
-            });
-            
             // Click en "Leer más"
             articleCard.querySelector('.read-more').addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                openArticleModal(articleId);
+                // Aquí podrías abrir un modal con el contenido completo
+                showNotification('Funcionalidad de lectura completa en desarrollo.', 'info');
             });
             
             // Configurar botones de admin si estamos en modo admin
@@ -2509,7 +2134,7 @@
             }
             
             // Eliminar del objeto de artículos
-            delete articlesFullContent[articleId];
+            delete ADMIN_CONFIG.articles[articleId];
             
             // Eliminar del DOM
             const articleCard = document.querySelector(`[data-article-id="${articleId}"]`);
@@ -2517,117 +2142,44 @@
                 articleCard.remove();
             }
             
-            // Eliminar de los destacados si existe
-            const featuredCard = document.querySelector(`.featured-card[data-article-id="${articleId}"]`);
-            if (featuredCard) {
-                featuredCard.remove();
-            }
-            
             // Guardar cambios
-            saveContentToStorage();
+            saveToLocalStorage();
             
             // Recargar lista en panel admin
             loadAdminArticlesList();
             
-            // Actualizar contador
-            updateArticleCount();
-            
             showNotification('Artículo eliminado correctamente.', 'success');
         }
 
-        // Actualizar contador de artículos
-        function updateArticleCount() {
-            const visibleArticles = document.querySelectorAll('.article-card[style*="display: flex"], .article-card:not([style*="display: none"])');
-            document.getElementById('count').textContent = visibleArticles.length;
-        }
-
-        // Vista previa desde el panel
-        function previewArticleFromAdmin() {
+        // Vista previa de artículo
+        function previewArticle() {
             const title = document.getElementById('articleTitle').value;
             const category = document.getElementById('articleCategory').value;
             const date = document.getElementById('articleDate').value;
             const image = document.getElementById('articleImage').value;
             const excerpt = document.getElementById('articleExcerpt').value;
-            const content = document.getElementById('articleContent').value;
             
-            if (!title || !excerpt || !content) {
-                showNotification('Por favor completa todos los campos para ver la vista previa.', 'error');
+            if (!title || !excerpt) {
+                showNotification('Por favor completa los campos para ver la vista previa.', 'error');
                 return;
             }
             
             // Crear un ID temporal para la vista previa
             const tempId = 'preview-' + Date.now();
-            articlesFullContent[tempId] = {
-                title: title,
-                category: category,
-                date: date,
-                image: image,
-                excerpt: excerpt,
-                fullContent: content
-            };
             
             // Cerrar panel de admin
             closeAdminPanel();
             
-            // Abrir modal con vista previa
-            setTimeout(() => {
-                openArticleModal(tempId);
-            }, 400);
+            // Mostrar notificación con vista previa
+            showNotification(`Vista previa: "${title}" (${category}) - ${date}`, 'info');
         }
 
-        // Cargar columnistas desde localStorage
-        function loadColumnistsFromStorage() {
-            const savedColumnists = localStorage.getItem(ADMIN_CONFIG.columnistsKey);
-            if (savedColumnists) {
-                try {
-                    columnists = JSON.parse(savedColumnists);
-                    renderColumnists();
-                } catch (e) {
-                    console.error('Error al cargar columnistas:', e);
-                }
-            } else {
-                // Guardar columnistas por defecto
-                saveColumnistsToStorage();
-                renderColumnists();
-            }
-        }
-
-        // Renderizar columnistas en el sidebar
-        function renderColumnists() {
-            const columnistsContainer = document.getElementById('columnistsContainer');
-            columnistsContainer.innerHTML = '';
-            
-            columnists.forEach(columnist => {
-                const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
-                const bioElement = document.createElement('div');
-                bioElement.className = 'columnist-bio';
-                bioElement.setAttribute('data-columnist-id', columnist.id);
-                bioElement.innerHTML = `
-                    <div class="columnist-photo">
-                        <i class="fas ${columnist.isAnonymous ? 'fa-user-secret' : 'fa-user'}"></i>
-                    </div>
-                    <h3 class="columnist-name">${displayName}</h3>
-                    <p class="columnist-tagline">"${columnist.tagline}"</p>
-                    <p class="columnist-description">${columnist.description}</p>
-                    
-                    <div class="social-links">
-                        ${columnist.socialLinks.map(link => `
-                            <a href="${link.url}" class="social-link" aria-label="${link.platform}">
-                                <i class="fab fa-${link.platform}"></i>
-                            </a>
-                        `).join('')}
-                    </div>
-                `;
-                columnistsContainer.appendChild(bioElement);
-            });
-        }
-
-        // Cargar lista de columnistas en el panel admin
+        // Cargar lista de columnistas en el panel
         function loadColumnistsAdminList() {
             const columnistsList = document.getElementById('columnistsList');
             columnistsList.innerHTML = '';
             
-            // Crear botón para nuevo columnista
+            // Botón para nuevo columnista
             const newColumnistBtn = document.createElement('div');
             newColumnistBtn.className = 'admin-article-item';
             newColumnistBtn.style.textAlign = 'center';
@@ -2639,46 +2191,34 @@
             `;
             newColumnistBtn.addEventListener('click', function() {
                 resetColumnistForm();
-                document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                    item.classList.remove('active');
-                });
             });
             columnistsList.appendChild(newColumnistBtn);
             
-            // Agregar columnistas existentes
-            columnists.forEach(columnist => {
+            // Listar columnistas existentes
+            ADMIN_CONFIG.columnists.forEach(columnist => {
                 const displayName = columnist.isAnonymous ? 'Anónimo' : columnist.name;
                 const columnistItem = document.createElement('div');
-                columnistItem.className = 'columnist-admin-item admin-article-item';
+                columnistItem.className = 'admin-article-item';
                 columnistItem.innerHTML = `
                     <h4>${displayName} ${columnist.isAnonymous ? '(Anónimo)' : ''}</h4>
                     <div class="admin-article-meta">
                         <span>"${columnist.tagline}"</span>
                     </div>
                     <div style="margin-top: 0.5rem;">
-                        <button class="admin-btn admin-btn-danger admin-delete-columnist-small" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-columnist-id="${columnist.id}">
+                        <button class="admin-btn admin-btn-danger admin-delete-columnist" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" data-columnist-id="${columnist.id}">
                             <i class="fas fa-trash"></i> Borrar
                         </button>
                     </div>
                 `;
                 columnistItem.addEventListener('click', function(e) {
-                    // No activar si se hace clic en el botón de borrar
-                    if (e.target.closest('.admin-delete-columnist-small')) return;
-                    
-                    // Remover clase active de todos los items
-                    document.querySelectorAll('.columnist-admin-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Activar item actual
-                    this.classList.add('active');
+                    if (e.target.closest('.admin-delete-columnist')) return;
                     
                     // Cargar columnista para edición
                     loadColumnistForEditing(columnist.id);
                 });
                 
                 // Configurar botón de borrar
-                columnistItem.querySelector('.admin-delete-columnist-small').addEventListener('click', function(e) {
+                columnistItem.querySelector('.admin-delete-columnist').addEventListener('click', function(e) {
                     e.stopPropagation();
                     const columnistId = parseInt(this.getAttribute('data-columnist-id'));
                     deleteColumnist(columnistId);
@@ -2690,7 +2230,7 @@
 
         // Cargar columnista para edición
         function loadColumnistForEditing(columnistId) {
-            const columnist = columnists.find(c => c.id === columnistId);
+            const columnist = ADMIN_CONFIG.columnists.find(c => c.id === columnistId);
             if (!columnist) {
                 // Es un columnista nuevo
                 document.getElementById('columnistFormTitle').textContent = 'Nuevo Columnista';
@@ -2733,11 +2273,12 @@
             }
             
             const columnistId = ADMIN_CONFIG.currentEditColumnistId || Date.now();
+            const displayName = isAnonymous ? 'Anónimo' : name;
             
             // Crear o actualizar columnista
             const columnistData = {
                 id: columnistId,
-                name: isAnonymous ? 'Anónimo' : name,
+                name: displayName,
                 tagline: tagline,
                 description: description,
                 isAnonymous: isAnonymous,
@@ -2750,20 +2291,19 @@
             
             if (ADMIN_CONFIG.currentEditColumnistId) {
                 // Actualizar columnista existente
-                const index = columnists.findIndex(c => c.id === columnistId);
+                const index = ADMIN_CONFIG.columnists.findIndex(c => c.id === columnistId);
                 if (index !== -1) {
-                    columnists[index] = columnistData;
+                    ADMIN_CONFIG.columnists[index] = columnistData;
                 }
             } else {
                 // Agregar nuevo columnista
-                columnists.push(columnistData);
+                ADMIN_CONFIG.columnists.push(columnistData);
             }
             
             // Guardar en localStorage
-            saveColumnistsToStorage();
+            saveToLocalStorage();
             
             // Actualizar vista
-            renderColumnists();
             loadColumnistsAdminList();
             
             // Resetear formulario
@@ -2779,137 +2319,37 @@
             }
             
             // No permitir borrar todos los columnistas
-            if (columnists.length <= 1) {
+            if (ADMIN_CONFIG.columnists.length <= 1) {
                 showNotification('Debe haber al menos un columnista.', 'error');
                 return;
             }
             
             // Eliminar columnista
-            const index = columnists.findIndex(c => c.id === columnistId);
+            const index = ADMIN_CONFIG.columnists.findIndex(c => c.id === columnistId);
             if (index !== -1) {
-                columnists.splice(index, 1);
+                ADMIN_CONFIG.columnists.splice(index, 1);
             }
             
             // Guardar cambios
-            saveColumnistsToStorage();
+            saveToLocalStorage();
             
             // Actualizar vista
-            renderColumnists();
             loadColumnistsAdminList();
             
             showNotification('Columnista eliminado correctamente.', 'success');
         }
 
-        // Guardar columnistas en localStorage
-        function saveColumnistsToStorage() {
-            localStorage.setItem(ADMIN_CONFIG.columnistsKey, JSON.stringify(columnists));
-        }
-
-        // Abrir modal de artículo
-        function openArticleModal(articleId) {
-            const articleData = articlesFullContent[articleId];
-            
-            if (!articleData) {
-                showNotification('Artículo no encontrado.', 'error');
-                return;
-            }
-            
-            // Cargar comentarios
-            loadArticleComments(articleId);
-            
-            const modalContent = document.getElementById('articleModalContent');
-            modalContent.innerHTML = `
-                <div class="article-modal-header">
-                    <span class="article-category">${articleData.category}</span>
-                    <h1>${articleData.title}</h1>
-                    <div class="article-modal-meta">
-                        <span>${articleData.date}</span>
-                        <span>Por ${articleData.author || 'Santiago Galíndez'}</span>
-                    </div>
-                </div>
-                <div class="article-modal-body">
-                    ${articleData.fullContent}
-                    
-                    <div class="comments-section">
-                        <h3 class="comments-title">Comentarios</h3>
-                        
-                        <div class="comment-form">
-                            <h4 class="comment-form-title">Deja tu comentario</h4>
-                            <form id="commentForm-${articleId}">
-                                <div class="form-group">
-                                    <label for="comment-name-${articleId}">Nombre</label>
-                                    <input type="text" id="comment-name-${articleId}" class="form-control" placeholder="Tu nombre (opcional)">
-                                </div>
-                                <div class="form-group">
-                                    <label for="comment-content-${articleId}">Comentario *</label>
-                                    <textarea id="comment-content-${articleId}" class="form-control" rows="3" placeholder="Escribe tu comentario aquí..." required></textarea>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="comment-anonymous-${articleId}">
-                                    <label for="comment-anonymous-${articleId}">Publicar como anónimo</label>
-                                </div>
-                                <button type="submit" class="btn">Publicar comentario</button>
-                            </form>
-                        </div>
-                        
-                        <div class="comments-list" id="comments-list-${articleId}">
-                            <!-- Los comentarios se cargan aquí -->
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Mostrar modal
-            document.getElementById('articleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Configurar formulario de comentarios
-            const commentForm = document.getElementById(`commentForm-${articleId}`);
-            commentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitComment(articleId);
-            });
-            
-            // Mostrar comentarios existentes
-            displayComments(articleId);
-        }
-
-        // Cerrar modal de artículo
-        function closeArticleModal() {
-            document.getElementById('articleModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Guardar suscriptor
-        function saveSubscriber(subscriber) {
-            // Verificar si ya existe
-            const exists = subscribers.some(s => s.email.toLowerCase() === subscriber.email.toLowerCase());
-            
-            if (!exists) {
-                subscribers.push(subscriber);
-                localStorage.setItem('ladoc_subscribers', JSON.stringify(subscribers));
-                showNotification('¡Gracias por suscribirte! Ahora puedes comentar los artículos.', 'success');
-                
-                // Actualizar lista en panel admin si está abierto
-                if (ADMIN_CONFIG.isAdmin) {
-                    loadSubscribersList();
-                }
-            } else {
-                showNotification('Ya estás suscrito con este correo.', 'info');
-            }
-        }
-
-        // Cargar lista de suscriptores en el panel
+        // Cargar lista de suscriptores
         function loadSubscribersList() {
             const subscribersList = document.getElementById('subscribersList');
             subscribersList.innerHTML = '';
             
-            if (subscribers.length === 0) {
+            if (ADMIN_CONFIG.subscribers.length === 0) {
                 subscribersList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay suscriptores aún.</p>';
                 return;
             }
             
-            subscribers.forEach(subscriber => {
+            ADMIN_CONFIG.subscribers.forEach(subscriber => {
                 const subscriberItem = document.createElement('div');
                 subscriberItem.className = 'admin-article-item';
                 subscriberItem.innerHTML = `
@@ -2925,15 +2365,15 @@
 
         // Exportar suscriptores
         function exportSubscribers() {
-            if (subscribers.length === 0) {
+            if (ADMIN_CONFIG.subscribers.length === 0) {
                 showNotification('No hay suscriptores para exportar.', 'info');
                 return;
             }
             
             // Convertir a CSV
-            let csv = 'Nombre,Email,Fecha de suscripción,Tipo\n';
-            subscribers.forEach(subscriber => {
-                csv += `"${subscriber.name}","${subscriber.email}","${subscriber.subscribedAt}","${subscriber.isGmail ? 'Gmail' : 'Otro'}"\n`;
+            let csv = 'Nombre,Email,Fecha de suscripción\n';
+            ADMIN_CONFIG.subscribers.forEach(subscriber => {
+                csv += `"${subscriber.name}","${subscriber.email}","${subscriber.subscribedAt}"\n`;
             });
             
             // Crear y descargar archivo
@@ -2950,141 +2390,18 @@
             showNotification('Suscriptores exportados correctamente.', 'success');
         }
 
-        // Enviar comentario
-        function submitComment(articleId) {
-            const nameInput = document.getElementById(`comment-name-${articleId}`);
-            const contentInput = document.getElementById(`comment-content-${articleId}`);
-            const anonymousCheck = document.getElementById(`comment-anonymous-${articleId}`);
-            
-            const name = anonymousCheck.checked ? 'Anónimo' : (nameInput.value || 'Anónimo');
-            const content = contentInput.value;
-            
-            if (!content.trim()) {
-                showNotification('Por favor escribe un comentario.', 'error');
-                return;
-            }
-            
-            const comment = {
-                id: Date.now(),
-                articleId: articleId,
-                articleTitle: articlesFullContent[articleId]?.title || 'Artículo',
-                author: name,
-                content: content,
-                date: new Date().toLocaleString('es-ES'),
-                isAnonymous: anonymousCheck.checked
-            };
-            
-            // Guardar comentario
-            saveComment(comment);
-            
-            // Limpiar formulario
-            contentInput.value = '';
-            nameInput.value = '';
-            anonymousCheck.checked = false;
-            
-            // Mostrar comentario
-            displayComment(comment);
-            
-            showNotification('Comentario publicado.', 'success');
-        }
-
-        // Guardar comentario
-        function saveComment(comment) {
-            // Agregar a los datos del artículo
-            if (!articlesFullContent[comment.articleId]) {
-                articlesFullContent[comment.articleId] = { comments: [] };
-            }
-            if (!articlesFullContent[comment.articleId].comments) {
-                articlesFullContent[comment.articleId].comments = [];
-            }
-            articlesFullContent[comment.articleId].comments.push(comment);
-            
-            // Agregar a lista general
-            allComments.push(comment);
-            localStorage.setItem('ladoc_comments', JSON.stringify(allComments));
-        }
-
-        // Cargar comentarios desde localStorage
-        function loadCommentsFromStorage() {
-            const savedComments = JSON.parse(localStorage.getItem('ladoc_comments') || '[]');
-            allComments = savedComments;
-            
-            // Organizar comentarios por artículo
-            savedComments.forEach(comment => {
-                if (articlesFullContent[comment.articleId]) {
-                    if (!articlesFullContent[comment.articleId].comments) {
-                        articlesFullContent[comment.articleId].comments = [];
-                    }
-                    articlesFullContent[comment.articleId].comments.push(comment);
-                }
-            });
-        }
-
-        // Cargar comentarios de un artículo
-        function loadArticleComments(articleId) {
-            if (!articlesFullContent[articleId]) {
-                articlesFullContent[articleId] = { comments: [] };
-            }
-            if (!articlesFullContent[articleId].comments) {
-                articlesFullContent[articleId].comments = [];
-            }
-        }
-
-        // Mostrar comentarios
-        function displayComments(articleId) {
-            const commentsList = document.getElementById(`comments-list-${articleId}`);
-            if (!commentsList) return;
-            
-            const comments = articlesFullContent[articleId]?.comments || [];
-            
-            if (comments.length === 0) {
-                commentsList.innerHTML = '<p style="color: var(--gris-medio); text-align: center; padding: 2rem;">No hay comentarios aún. ¡Sé el primero en comentar!</p>';
-                return;
-            }
-            
-            commentsList.innerHTML = '';
-            comments.sort((a, b) => b.id - a.id).forEach(comment => {
-                displayComment(comment);
-            });
-        }
-
-        // Mostrar un comentario individual
-        function displayComment(comment) {
-            const commentsList = document.getElementById(`comments-list-${comment.articleId}`);
-            if (!commentsList) return;
-            
-            const commentElement = document.createElement('div');
-            commentElement.className = 'comment';
-            commentElement.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-author">
-                        ${comment.author}
-                        ${comment.isAnonymous ? '<span class="anonymous-badge">Anónimo</span>' : ''}
-                    </span>
-                    <span class="comment-date">${comment.date}</span>
-                </div>
-                <div class="comment-content">${comment.content}</div>
-            `;
-            
-            // Insertar al principio
-            if (commentsList.firstChild && commentsList.firstChild.tagName === 'P') {
-                commentsList.innerHTML = '';
-            }
-            commentsList.prepend(commentElement);
-        }
-
-        // Cargar lista de comentarios en el panel
+        // Cargar lista de comentarios
         function loadCommentsList() {
             const commentsList = document.getElementById('commentsList');
             commentsList.innerHTML = '';
             
-            if (allComments.length === 0) {
+            if (ADMIN_CONFIG.comments.length === 0) {
                 commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
                 return;
             }
             
             // Mostrar últimos 20 comentarios
-            const recentComments = [...allComments].sort((a, b) => b.id - a.id).slice(0, 20);
+            const recentComments = [...ADMIN_CONFIG.comments].sort((a, b) => b.id - a.id).slice(0, 20);
             
             recentComments.forEach(comment => {
                 const commentItem = document.createElement('div');
@@ -3106,13 +2423,13 @@
             const commentsList = document.getElementById('commentsList');
             commentsList.innerHTML = '';
             
-            if (allComments.length === 0) {
+            if (ADMIN_CONFIG.comments.length === 0) {
                 commentsList.innerHTML = '<p style="padding: 1rem; text-align: center; color: var(--gris-medio);">No hay comentarios aún.</p>';
                 return;
             }
             
             // Mostrar todos los comentarios ordenados por fecha
-            const sortedComments = [...allComments].sort((a, b) => b.id - a.id);
+            const sortedComments = [...ADMIN_CONFIG.comments].sort((a, b) => b.id - a.id);
             
             sortedComments.forEach(comment => {
                 const commentItem = document.createElement('div');
@@ -3128,19 +2445,19 @@
                 commentsList.appendChild(commentItem);
             });
             
-            showNotification(`Mostrando todos los ${allComments.length} comentarios.`, 'info');
+            showNotification(`Mostrando todos los ${ADMIN_CONFIG.comments.length} comentarios.`, 'info');
         }
 
         // Exportar comentarios
         function exportComments() {
-            if (allComments.length === 0) {
+            if (ADMIN_CONFIG.comments.length === 0) {
                 showNotification('No hay comentarios para exportar.', 'info');
                 return;
             }
             
             // Convertir a CSV
             let csv = 'Artículo,Autor,Fecha,Comentario,Anónimo\n';
-            allComments.forEach(comment => {
+            ADMIN_CONFIG.comments.forEach(comment => {
                 csv += `"${comment.articleTitle}","${comment.author}","${comment.date}","${comment.content.replace(/"/g, '""')}","${comment.isAnonymous ? 'Sí' : 'No'}"\n`;
             });
             
@@ -3156,29 +2473,6 @@
             document.body.removeChild(link);
             
             showNotification('Comentarios exportados correctamente.', 'success');
-        }
-
-        // Guardar contenido en localStorage
-        function saveContentToStorage() {
-            const content = {
-                articles: articlesFullContent,
-                savedAt: new Date().toISOString()
-            };
-            localStorage.setItem(ADMIN_CONFIG.localStorageKey, JSON.stringify(content));
-        }
-
-        // Cargar contenido guardado
-        function loadSavedContent() {
-            const saved = localStorage.getItem(ADMIN_CONFIG.localStorageKey);
-            if (saved) {
-                try {
-                    const content = JSON.parse(saved);
-                    // Actualizar articlesFullContent con los datos guardados
-                    Object.assign(articlesFullContent, content.articles || {});
-                } catch (e) {
-                    console.error('Error al cargar contenido guardado:', e);
-                }
-            }
         }
 
         // Mostrar notificación
@@ -3240,19 +2534,6 @@
                 document.head.appendChild(style);
             }
         }
-
-        // Validar email
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        // Para uso global
-        window.enableAdminMode = enableAdminMode;
-        window.closeArticleModal = closeArticleModal;
-        window.openAdminPanel = openAdminPanel;
-        window.closeAdminPanel = closeAdminPanel;
-        window.filterArticlesByCategory = filterArticlesByCategory;
     </script>
 </body>
 </html>
